@@ -11,21 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ai_summaries', function (Blueprint $table) {
-            $table->id('summaries_id');
+        Schema::create('chat_messages', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('materi_id')->constrained('materis', 'materi_id')->onDelete('cascade');
-            $table->text('summary_text');
-            $table->dateTime('last_generated');
+            $table->text('question');
+            $table->text('answer');
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('ai_summaries');
+        Schema::dropIfExists('chat_messages');
     }
 };
