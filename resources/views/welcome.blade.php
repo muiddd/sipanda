@@ -32,8 +32,8 @@
                                 white: '#ffffff'
                             },
                             bamboo: {
-                                fresh: '#22c55e',       /* Main brand green */
-                                emerald: '#10b981',     /* Secondary green */
+                                fresh: '#75cb50',       /* Main brand green */
+                                emerald: '#10b970',     /* Secondary green */
                                 light: '#dcfce7',       /* Light glowing green */
                             },
                             cream: '#f2f1e8',
@@ -83,7 +83,7 @@
                 background: rgba(34, 197, 94, 0.05);
                 backdrop-filter: blur(12px);
                 box-shadow: 0 0 30px rgba(34, 197, 94, 0.5), inset 0 0 20px rgba(34, 197, 94, 0.3);
-                border: 1px solid rgba(34, 197, 94, 0.8);
+                border: 1px solid rgba(0, 123, 45, 0.8);
             }
         </style>
     </head>
