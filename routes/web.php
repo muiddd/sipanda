@@ -16,6 +16,9 @@ Route::middleware([
     \Filament\Http\Middleware\Authenticate::class,
 ])->group(function () {
     Route::get('/dashboard', [ChatController::class, 'index'])->name('student.dashboard');
+    Route::get('/settings', function () {
+        return view('student.settings');
+    })->name('student.settings');
     Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
     Route::post('/ai/process', [ChatController::class, 'processAi'])->name('ai.process');
 });

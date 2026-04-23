@@ -237,13 +237,13 @@
                     <!-- File Upload Area -->
                     <div class="flex-1 w-full relative">
                         <label class="block text-left text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 ml-1">Upload Materi <span class="text-xs font-normal text-slate-500">(PDF, DOCX, PPT)</span></label>
-                        <label class="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-[#75cb50]/40 rounded-2xl cursor-pointer bg-[#75cb50]/5 hover:bg-[#75cb50]/10 hover:border-[#75cb50]/60 transition-all duration-300 group">
+                        <label id="dropzone-container" class="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-[#75cb50]/40 rounded-2xl cursor-pointer bg-[#75cb50]/5 hover:bg-[#75cb50]/10 hover:border-[#75cb50]/60 transition-all duration-300 group">
                             <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                <span class="text-4xl mb-3 filter drop-shadow-[0_0_10px_rgba(34,197,94,0.3)] group-hover:scale-110 transition-transform">📄</span>
-                                <p class="text-sm font-semibold text-slate-700 dark:text-slate-300">Pilih file materi</p>
-                                <p class="text-xs text-slate-500 mt-1 font-medium">atau drag & drop ke sini</p>
+                                <span id="upload-icon" class="text-4xl mb-3 filter drop-shadow-[0_0_10px_rgba(34,197,94,0.3)] group-hover:scale-110 transition-transform">📄</span>
+                                <p id="file-name" class="text-sm font-semibold text-slate-700 dark:text-slate-300">Pilih file materi</p>
+                                <p id="upload-subtext" class="text-xs text-slate-500 mt-1 font-medium">atau drag & drop ke sini</p>
                             </div>
-                            <input type="file" name="file" class="hidden" accept=".pdf,.doc,.docx,.ppt,.pptx" />
+                            <input type="file" id="file-upload" name="file" class="hidden" accept=".pdf,.doc,.docx,.ppt,.pptx" />
                         </label>
                     </div>
                     
@@ -358,6 +358,37 @@
             } else {
                 htmlElement.classList.add('dark');
                 localStorage.setItem('color-theme', 'dark');
+            }
+        });
+
+        // 3. File Upload Preview Logic
+        const fileUpload = document.getElementById('file-upload');
+        const uploadIcon = document.getElementById('upload-icon');
+        const fileNameDisp = document.getElementById('file-name');
+        const uploadSubtext = document.getElementById('upload-subtext');
+        const dropzoneContainer = document.getElementById('dropzone-container');
+
+        fileUpload.addEventListener('change', function() {
+            if (this.files && this.files.length > 0) {
+                const file = this.files[0];
+                const fileName = file.name;
+                
+                // Update UI for selected file
+                uploadIcon.innerText = '✅';
+                fileNameDisp.innerText = fileName;
+                uploadSubtext.innerText = 'File terpilih (Klik untuk mengganti)';
+                
+                // Add success styling
+                dropzoneContainer.classList.remove('border-dashed');
+                dropzoneContainer.classList.add('border-solid', 'bg-[#75cb50]/10', 'border-[#75cb50]');
+            } else {
+                // Reset to original state
+                uploadIcon.innerText = '📄';
+                fileNameDisp.innerText = 'Pilih file materi';
+                uploadSubtext.innerText = 'atau drag & drop ke sini';
+                
+                dropzoneContainer.classList.add('border-dashed');
+                dropzoneContainer.classList.remove('border-solid', 'bg-[#75cb50]/10', 'border-[#75cb50]');
             }
         });
     </script>

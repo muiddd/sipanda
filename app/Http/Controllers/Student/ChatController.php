@@ -53,7 +53,7 @@ class ChatController extends Controller
                 'HTTP-Referer' => config('app.url'),
                 'X-Title' => 'siPanda Learning App',
             ])->post('https://openrouter.ai/api/v1/chat/completions', [
-                'model' => 'meta-llama/llama-3-8b-instruct',
+                'model' => 'openai/gpt-oss-120b:free',
                 'messages' => [
                     ['role' => 'system', 'content' => $instruction],
                     ['role' => 'user', 'content' => $text],
