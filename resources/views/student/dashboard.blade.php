@@ -141,60 +141,8 @@
 
     <div class="flex min-h-screen">
         
-        <aside class="fixed top-0 left-0 h-screen w-72 p-6 flex flex-col z-50">
-            <div class="glass glass-sidebar h-full flex flex-col p-6 border-l-0">
-                
-                <div class="font-heading text-3xl font-black mb-10 flex items-center gap-3">
-                    <span class="text-3xl filter drop-shadow-[0_0_8px_rgba(34,197,94,0.3)]">🐼</span>
-                    <span class="tracking-tight text-slate-900 dark:text-white transition-colors">si<span class="text-[#75cb50]">Panda</span></span>
-                </div>
-                
-                <nav class="flex-1 space-y-2">
-                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#75cb50]/10 text-[#75cb50] font-semibold text-sm transition relative overflow-hidden group">
-                        <div class="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-transparent via-[#75cb50]/50 to-transparent"></div>
-                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                        Dashboard
-                    </a>
-                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium text-sm transition">
-                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                        Subjects
-                    </a>
-                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium text-sm transition">
-                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                        Latihan Soal
-                    </a>
-                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium text-sm transition">
-                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                        Leaderboard
-                    </a>
-                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium text-sm transition">
-                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"></path></svg>
-                        Streaks
-                    </a>
-                </nav>
-
-                <button id="theme-toggle" class="mb-6 w-full flex items-center justify-between px-4 py-3 rounded-xl border border-black/5 dark:border-white/5 bg-slate-100/50 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:text-[#75cb50] dark:hover:text-[#75cb50] transition-all group">
-                    <span class="text-xs font-bold uppercase tracking-widest">Tema</span>
-                    <div class="relative w-5 h-5 flex items-center justify-center">
-                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 transition-transform group-hover:scale-110" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-yellow-500 transition-transform group-hover:scale-110" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path></svg>
-                    </div>
-                </button>
-
-                <div class="flex items-center gap-3 border-t border-black/5 dark:border-white/10 pt-6">
-                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-[#75cb50] to-[#10b981] flex items-center justify-center font-bold text-white font-heading text-lg shadow-[0_0_15px_rgba(34,197,94,0.4)]">
-                        A
-                    </div>
-                    <div class="overflow-hidden flex-1">
-                        <div class="font-bold text-sm text-slate-900 dark:text-white truncate">ArdhanFah</div>
-                        <div class="text-xs text-slate-500 truncate">ardhan@sipanda.ai</div>
-                    </div>
-                    <button class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 p-2 rounded-lg transition">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                    </button>
-                </div>
-            </div>
-        </aside>
+        <!-- sideabar -->
+        @include('student.partials.sidebar')
 
         <main class="ml-72 flex-1 p-8 px-10 xl:px-14 min-h-screen">
             
@@ -268,27 +216,6 @@
                 </div>
             </div>
 
-            <div class="flex flex-wrap items-center gap-4 mb-8">
-                <span class="text-slate-500 dark:text-slate-400 font-semibold text-sm">Buat baru:</span>
-                <div class="flex flex-wrap gap-3 text-slate-900 dark:text-white transition-colors">
-                    <button class="glass-pill px-5 py-2.5 !rounded-full !border-black/5 dark:!border-white/5 hover:!border-[#75cb50]/50 text-sm font-semibold flex items-center gap-2.5 transition hover:-translate-y-1 hover:bg-[#75cb50]/5">
-                        <span class="text-[#75cb50] text-lg drop-shadow-[0_0_5px_rgba(34,197,94,0.5)]">📄</span> Upload File
-                    </button>
-                    <button class="glass-pill px-5 py-2.5 !rounded-full !border-black/5 dark:!border-white/5 hover:!border-red-500/50 text-sm font-semibold flex items-center gap-2.5 transition hover:-translate-y-1 hover:bg-red-500/5">
-                        <span class="text-red-500 text-lg drop-shadow-[0_0_5px_rgba(239,68,68,0.5)]">📺</span> YouTube
-                    </button>
-                    <button class="glass-pill px-5 py-2.5 !rounded-full !border-black/5 dark:!border-white/5 hover:!border-[#10b981]/50 text-sm font-semibold flex items-center gap-2.5 transition hover:-translate-y-1 hover:bg-[#10b981]/5">
-                        <span class="text-[#10b981] text-lg drop-shadow-[0_0_5px_rgba(16,185,129,0.5)]">🎧</span> Audio
-                    </button>
-                    <button class="glass-pill px-5 py-2.5 !rounded-full !border-black/5 dark:!border-white/5 hover:!border-blue-400/50 text-sm font-semibold flex items-center gap-2.5 transition hover:-translate-y-1 hover:bg-blue-400/5">
-                        <span class="text-blue-400 text-lg drop-shadow-[0_0_5px_rgba(96,165,250,0.5)]">🎬</span> Video
-                    </button>
-                    <button class="glass-pill px-5 py-2.5 !rounded-full !border-black/5 dark:!border-white/5 hover:!border-yellow-400/50 text-sm font-semibold flex items-center gap-2.5 transition hover:-translate-y-1 hover:bg-yellow-400/5">
-                        <span class="text-yellow-400 text-lg drop-shadow-[0_0_5px_rgba(250,204,21,0.5)]">✍️</span> Tulis Catatan
-                    </button>
-                </div>
-            </div>
-
             <div class="glass p-10 lg:p-16 flex flex-col items-center justify-center text-center relative overflow-hidden group border-t border-t-[#75cb50]/20 mt-10">
                 <div class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#75cb50]/10 to-transparent opacity-60 pointer-events-none"></div>
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxjaXJjbGUgY3g9IjMiIGN5PSIzIiByPSIxIiBmaWxsPSJyZ2JhKDAsMCwwLDAuMDUpIi8+PC9zdmc+')] dark:bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxjaXJjbGUgY3g9IjMiIGN5PSIzIiByPSIxIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDMpIi8+PC9zdmc+')] opacity-50 z-0"></div>
@@ -301,57 +228,108 @@
                     Mulai Belajar dengan <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#75cb50] to-[#10b981]">AI</span>
                 </h2>
                 <p class="relative z-10 text-slate-500 dark:text-slate-400 text-lg mb-12 max-w-2xl leading-relaxed">
-                    Upload materi belajarmu dan biarkan AI membuat catatan, flashcard, dan kuis otomatis dalam hitungan detik. Cerdas, cepat, dan efisien.
+                    Upload materi belajarmu dan biarkan AI membuat ringkasan materi serta latihan soal secara otomatis dalam hitungan detik. Cerdas, cepat, dan efisien.
                 </p>
                 
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 w-full relative z-10 max-w-5xl mx-auto">
+                <form action="{{ route('ai.process') }}" method="POST" enctype="multipart/form-data" class="w-full relative z-10 max-w-3xl mx-auto glass p-8 rounded-3xl flex flex-col md:flex-row items-center gap-8 border border-[#75cb50]/20 bg-white/50 dark:bg-[#121212]/50 shadow-[0_10px_40px_rgba(34,197,94,0.1)]">
+                    @csrf
                     
-                    <div class="glass glass-card-hover p-6 rounded-2xl flex flex-col items-center text-center cursor-pointer border-black/5 dark:border-white/5 bg-white/50 dark:bg-[#121212]/50 group/card">
-                        <div class="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-[#2a2a2a] mb-5 flex items-center justify-center border border-black/5 dark:border-white/5 shadow-inner group-hover/card:border-[#75cb50]/50 group-hover/card:bg-[#75cb50]/10 transition duration-300">
-                             <span class="text-3xl filter drop-shadow-[0_0_10px_rgba(34,197,94,0.3)]">📄</span>
-                        </div>
-                        <h3 class="font-heading font-black text-base text-slate-900 dark:text-white mb-1 transition-colors">Upload File</h3>
-                        <p class="text-xs text-slate-500 font-medium">PDF, DOCX, PPT</p>
+                    <!-- File Upload Area -->
+                    <div class="flex-1 w-full relative">
+                        <label class="block text-left text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 ml-1">Upload Materi <span class="text-xs font-normal text-slate-500">(PDF, DOCX, PPT)</span></label>
+                        <label id="dropzone-container" class="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-[#75cb50]/40 rounded-2xl cursor-pointer bg-[#75cb50]/5 hover:bg-[#75cb50]/10 hover:border-[#75cb50]/60 transition-all duration-300 group">
+                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                <span id="upload-icon" class="text-4xl mb-3 filter drop-shadow-[0_0_10px_rgba(34,197,94,0.3)] group-hover:scale-110 transition-transform">📄</span>
+                                <p id="file-name" class="text-sm font-semibold text-slate-700 dark:text-slate-300">Pilih file materi</p>
+                                <p id="upload-subtext" class="text-xs text-slate-500 mt-1 font-medium">atau drag & drop ke sini</p>
+                            </div>
+                            <input type="file" id="file-upload" name="file" class="hidden" accept=".pdf,.doc,.docx,.ppt,.pptx" />
+                        </label>
                     </div>
-
-                    <div class="glass glass-card-hover p-6 rounded-2xl flex flex-col items-center text-center cursor-pointer border-black/5 dark:border-white/5 bg-white/50 dark:bg-[#121212]/50 group/card">
-                        <div class="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-[#2a2a2a] mb-5 flex items-center justify-center border border-black/5 dark:border-white/5 shadow-inner group-hover/card:border-red-500/50 group-hover/card:bg-red-500/10 transition duration-300">
-                             <span class="text-3xl filter drop-shadow-[0_0_10px_rgba(239,68,68,0.3)]">📺</span>
+                    
+                    <!-- Action Selection -->
+                    <div class="flex-1 w-full flex flex-col gap-5 justify-center mt-2 md:mt-0 text-left">
+                        <div class="relative">
+                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 ml-1">Pilih Mode AI</label>
+                            <div class="relative">
+                                <select name="action" class="w-full bg-slate-50 hover:bg-slate-100 dark:bg-[#2a2a2a] dark:hover:bg-[#333] border border-black/10 dark:border-white/10 text-slate-900 dark:text-white rounded-xl pl-5 pr-10 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#75cb50]/50 transition-all font-semibold appearance-none cursor-pointer">
+                                    <option value="summary">📝 Rangkum Materi</option>
+                                    <option value="quiz">🎯 Buatkan Latihan Soal</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 top-0 flex items-center pr-4 pointer-events-none text-slate-500">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="font-heading font-black text-base text-slate-900 dark:text-white mb-1 transition-colors">YouTube</h3>
-                        <p class="text-xs text-slate-500 font-medium">Link Video</p>
+                        <button type="submit" class="w-full bg-gradient-to-r from-[#75cb50] to-[#10b981] hover:from-[#10b981] hover:to-[#059669] text-white font-bold py-3.5 px-6 rounded-xl shadow-[0_0_20px_rgba(34,197,94,0.3)] transition-all hover:scale-[1.02] hover:shadow-[0_0_25px_rgba(34,197,94,0.4)] flex items-center justify-center gap-2 mt-1 -ml-0.5">
+                            <span>Mulai Proses AI</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </button>
                     </div>
-
-                    <div class="glass glass-card-hover p-6 rounded-2xl flex flex-col items-center text-center cursor-pointer border-black/5 dark:border-white/5 bg-white/50 dark:bg-[#121212]/50 group/card">
-                        <div class="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-[#2a2a2a] mb-5 flex items-center justify-center border border-black/5 dark:border-white/5 shadow-inner group-hover/card:border-[#10b981]/50 group-hover/card:bg-[#10b981]/10 transition duration-300">
-                             <span class="text-3xl filter drop-shadow-[0_0_10px_rgba(16,185,129,0.3)]">🎧</span>
-                        </div>
-                        <h3 class="font-heading font-black text-base text-slate-900 dark:text-white mb-1 transition-colors">Audio</h3>
-                        <p class="text-xs text-slate-500 font-medium">MP3, WAV</p>
-                    </div>
-
-                    <div class="glass glass-card-hover p-6 rounded-2xl flex flex-col items-center text-center cursor-pointer border-black/5 dark:border-white/5 bg-white/50 dark:bg-[#121212]/50 group/card">
-                        <div class="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-[#2a2a2a] mb-5 flex items-center justify-center border border-black/5 dark:border-white/5 shadow-inner group-hover/card:border-blue-400/50 group-hover/card:bg-blue-400/10 transition duration-300">
-                             <span class="text-3xl filter drop-shadow-[0_0_10px_rgba(96,165,250,0.3)]">🎬</span>
-                        </div>
-                        <h3 class="font-heading font-black text-base text-slate-900 dark:text-white mb-1 transition-colors">Video</h3>
-                        <p class="text-xs text-slate-500 font-medium">MP4, MKV</p>
-                    </div>
-
-                    <div class="glass glass-card-hover p-6 rounded-2xl flex flex-col items-center text-center cursor-pointer border-black/5 dark:border-white/5 bg-white/50 dark:bg-[#121212]/50 group/card">
-                        <div class="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-[#2a2a2a] mb-5 flex items-center justify-center border border-black/5 dark:border-white/5 shadow-inner group-hover/card:border-yellow-400/50 group-hover/card:bg-yellow-400/10 transition duration-300">
-                             <span class="text-3xl filter drop-shadow-[0_0_10px_rgba(250,204,21,0.3)]">✍️</span>
-                        </div>
-                        <h3 class="font-heading font-black text-base text-slate-900 dark:text-white mb-1 transition-colors">Tulis Catatan</h3>
-                        <p class="text-xs text-slate-500 font-medium">Teks Bebas</p>
-                    </div>
-
-                </div>
+                </form>
             </div>
 
+    
+            <div id="ai-output-container" class="mt-8 space-y-6">
+                
+                @if(isset($summary))
+                <div class="glass p-10 lg:p-16 flex flex-col relative overflow-hidden group border-t border-t-[#75cb50]/30 mt-10 animate-in fade-in slide-in-from-bottom-4 duration-500 text-left">
+                    <div class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#75cb50]/10 to-transparent opacity-60 pointer-events-none"></div>
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxjaXJjbGUgY3g9IjMiIGN5PSIzIiByPSIxIiBmaWxsPSJyZ2JhKDAsMCwwLDAuMDUpIi8+PC9zdmc+')] dark:bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxjaXJjbGUgY3g9IjMiIGN5PSIzIiByPSIxIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDMpIi8+PC9zdmc+')] opacity-50 z-0"></div>
+
+                    <div class="relative z-10 flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-xl bg-[#75cb50]/20 flex items-center justify-center text-2xl">📝</div>
+                        <div>
+                            <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Rangkuman Materi</h3>
+                            <p class="text-xs text-slate-500 font-medium uppercase tracking-wider">Processed by siPanda AI</p>
+                        </div>
+                    </div>
+                    
+                    <div class="relative z-10 prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 leading-relaxed italic">
+                        {!! nl2br(e($summary->summary_text)) !!}
+                    </div>
+
+                    <div class="relative z-10 mt-6 pt-6 border-t border-black/5 dark:border-white/5 flex justify-end">
+                        <button class="text-sm font-bold text-[#75cb50] hover:underline flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+                            Download PDF
+                        </button>
+                    </div>
+                </div>
+            @endif
+
+            @if(session('quiz_result'))
+                <div class="glass p-10 lg:p-16 flex flex-col relative overflow-hidden group border-t border-t-blue-500/30 mt-10 animate-in fade-in slide-in-from-bottom-4 duration-700 text-left">
+                    <div class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-blue-500/10 to-transparent opacity-60 pointer-events-none"></div>
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxjaXJjbGUgY3g9IjMiIGN5PSIzIiByPSIxIiBmaWxsPSJyZ2JhKDAsMCwwLDAuMDUpIi8+PC9zdmc+')] dark:bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxjaXJjbGUgY3g9IjMiIGN5PSIzIiByPSIxIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDMpIi8+PC9zdmc+')] opacity-50 z-0"></div>
+
+                    <div class="relative z-10 flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center text-2xl">🎯</div>
+                        <div>
+                            <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Latihan Soal</h3>
+                            <p class="text-xs text-slate-500 font-medium uppercase tracking-wider">Uji Pemahamanmu</p>
+                        </div>
+                    </div>
+                    
+                    <div class="relative z-10 space-y-4 text-slate-700 dark:text-slate-300">
+                        <div class="whitespace-pre-line bg-black/5 dark:bg-white/5 p-6 rounded-2xl border border-black/5 dark:border-white/5 font-medium leading-relaxed">
+                            {!! session('quiz_result') !!}
+                        </div>
+                    </div>
+
+                    <div class="relative z-10 mt-6 flex gap-3">
+                        <button class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-blue-500/20">
+                            Kerjakan Sekarang
+                        </button>
+                        <button class="px-6 py-3 glass border-blue-500/20 text-blue-500 font-bold rounded-xl hover:bg-blue-500/10 transition">
+                            Share
+                        </button>
+                    </div>
+                </div>
+            @endif
+            </div>
         </main>
     </div>
-
     <script>
         const themeToggleBtn = document.getElementById('theme-toggle');
         const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
@@ -380,6 +358,37 @@
             } else {
                 htmlElement.classList.add('dark');
                 localStorage.setItem('color-theme', 'dark');
+            }
+        });
+
+        // 3. File Upload Preview Logic
+        const fileUpload = document.getElementById('file-upload');
+        const uploadIcon = document.getElementById('upload-icon');
+        const fileNameDisp = document.getElementById('file-name');
+        const uploadSubtext = document.getElementById('upload-subtext');
+        const dropzoneContainer = document.getElementById('dropzone-container');
+
+        fileUpload.addEventListener('change', function() {
+            if (this.files && this.files.length > 0) {
+                const file = this.files[0];
+                const fileName = file.name;
+                
+                // Update UI for selected file
+                uploadIcon.innerText = '✅';
+                fileNameDisp.innerText = fileName;
+                uploadSubtext.innerText = 'File terpilih (Klik untuk mengganti)';
+                
+                // Add success styling
+                dropzoneContainer.classList.remove('border-dashed');
+                dropzoneContainer.classList.add('border-solid', 'bg-[#75cb50]/10', 'border-[#75cb50]');
+            } else {
+                // Reset to original state
+                uploadIcon.innerText = '📄';
+                fileNameDisp.innerText = 'Pilih file materi';
+                uploadSubtext.innerText = 'atau drag & drop ke sini';
+                
+                dropzoneContainer.classList.add('border-dashed');
+                dropzoneContainer.classList.remove('border-solid', 'bg-[#75cb50]/10', 'border-[#75cb50]');
             }
         });
     </script>

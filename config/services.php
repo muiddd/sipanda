@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    # read env file dan mau di redirect ke ChatController
+    'openrouter' => [
+        'api_key' => env('OPENROUTER_API_KEY'),
+    ],
+
 ];

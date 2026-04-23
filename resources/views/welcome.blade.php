@@ -128,23 +128,23 @@
                         Dashboard
                     </a>
                     
-                    <a href="" 
+                    <a href="{{ route('filament.admin.auth.logout') }}" 
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                     class="text-red-500 hover:text-red-700 text-sm font-bold cursor-pointer transition">
                         Logout
                     </a>
 
-                    <form id="logout-form" action="" method="POST" class="hidden">
+                    <form id="logout-form" action="{{ route('filament.admin.auth.logout') }}" method="POST" class="hidden">
                         @csrf
                     </form>
                 </div>
             @else
                 <div class="flex items-center gap-4 relative z-[100]">
-                    <a href="" class="font-bold text-slate-600 dark:text-cream hover:text-panda-black dark:hover:text-white transition text-sm">
+                    <a href="{{ route('filament.admin.auth.login') }}" class="font-bold text-slate-600 dark:text-cream hover:text-panda-black dark:hover:text-white transition text-sm">
                         Log in
                     </a>
                     
-                    <a href="" class="bg-bamboo-fresh text-white px-7 py-2.5 rounded-full font-bold hover:bg-bamboo-emerald hover:scale-105 transition-all shadow-[0_8px_20px_rgba(34,197,94,0.3)] text-sm">
+                    <a href="{{ route('filament.admin.auth.register') }}" class="bg-bamboo-fresh text-white px-7 py-2.5 rounded-full font-bold hover:bg-bamboo-emerald hover:scale-105 transition-all shadow-[0_8px_20px_rgba(34,197,94,0.3)] text-sm">
                         Start Free
                     </a>
                 </div>
@@ -178,12 +178,12 @@
                         </a>
                     @else
                         @if (Route::has('register'))
-                            <a href="" class="bg-bamboo-fresh text-white px-10 py-5 rounded-[2rem] font-bold text-lg hover:bg-bamboo-emerald hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_30px_-5px_rgba(34,197,94,0.5)] flex items-center gap-3">
+                            <a href="{{ route('filament.admin.auth.register') }}" class="bg-bamboo-fresh text-white px-10 py-5 rounded-[2rem] font-bold text-lg hover:bg-bamboo-emerald hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_30px_-5px_rgba(34,197,94,0.5)] flex items-center gap-3">
                                 Start Free
                                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </a>
                         @else
-                            <a href="" class="bg-bamboo-fresh text-white px-10 py-5 rounded-[2rem] font-bold text-lg hover:bg-bamboo-emerald hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_30px_-5px_rgba(34,197,94,0.5)] flex items-center gap-3">
+                            <a href="{{ route('filament.admin.auth.register') }}" class="bg-bamboo-fresh text-white px-10 py-5 rounded-[2rem] font-bold text-lg hover:bg-bamboo-emerald hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_30px_-5px_rgba(34,197,94,0.5)] flex items-center gap-3">
                                 Start Free
                                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </a>
