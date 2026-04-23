@@ -19,6 +19,8 @@ Route::middleware([
     Route::get('/settings', function () {
         return view('student.settings');
     })->name('student.settings');
+    Route::put('/settings/profile', [App\Http\Controllers\Student\SettingsController::class, 'updateProfile'])->name('student.settings.profile');
+    Route::put('/settings/password', [App\Http\Controllers\Student\SettingsController::class, 'updatePassword'])->name('student.settings.password');
     Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
     Route::post('/ai/process', [ChatController::class, 'processAi'])->name('ai.process');
 });
