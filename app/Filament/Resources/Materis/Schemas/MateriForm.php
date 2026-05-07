@@ -18,7 +18,7 @@ class MateriForm
                 Section::make('Informasi Materi')
                     ->description('Masukkan detail materi pembelajaran Bahasa Indonesia di sini.')
                     ->schema([
-                        TextInput::make('judul')
+                        TextInput::make('judul_materi')
                             ->label('Judul Materi')
                             ->required()
                             ->placeholder('Contoh: Teks Eksposisi Bab 1')
@@ -31,7 +31,7 @@ class MateriForm
                             ->preload()
                             ->required(),
 
-                        RichEditor::make('konten')
+                        RichEditor::make('konten_teks')
                             ->label('Isi Materi')
                             ->required()
                             ->columnSpanFull() 
@@ -39,6 +39,11 @@ class MateriForm
                                 'blockquote', 'bold', 'bulletList', 'codeBlock', 'h2', 'h3',
                                 'italic', 'link', 'orderedList', 'redo', 'strike', 'undo',
                             ]),
+
+                        TextInput::make('tanggal_publikasi')
+                            ->label('Tanggal Publikasi')
+                            ->type('datetime-local')
+                            ->required(),
                         
                         Hidden::make('admin_id')
                             ->default(auth()->id()),
