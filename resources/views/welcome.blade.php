@@ -111,7 +111,7 @@
             
             <nav class="hidden lg:flex gap-1 glass-panel dark:border-panda-gray p-1.5 rounded-full font-semibold text-slate-700 dark:text-cream shadow-sm border border-white">
                 <a href="/" class="hover:bg-white/80 dark:hover:bg-panda-gray px-6 py-2 rounded-full transition-all text-sm">Beranda</a>
-                <a href="#" class="hover:bg-white/80 dark:hover:bg-panda-gray px-6 py-2 rounded-full transition-all text-sm">Tentang</a>
+                <a href="#tentang" class="hover:bg-white/80 dark:hover:bg-panda-gray px-6 py-2 rounded-full transition-all text-sm">Tentang</a>
                 <a href="#fitur" class="hover:bg-white/80 dark:hover:bg-panda-gray px-6 py-2 rounded-full transition-all text-sm">Fitur Unggulan</a>
 
                 <!-- Dark Mode Toggle -->
@@ -482,6 +482,96 @@
             </div>
         </section>
 
+        <section id="tentang" class="w-full max-w-[1000px] mx-auto px-6 py-20 relative z-10">
+            <div class="glass-panel dark:bg-[#121212]/90 p-8 md:p-14 rounded-[2.5rem] relative overflow-hidden shadow-2xl border border-white/50 dark:border-white/5">
+                <div class="absolute -top-24 -right-24 w-72 h-72 bg-bamboo-fresh/15 rounded-full blur-[80px] pointer-events-none"></div>
+                <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-bamboo-emerald/15 rounded-full blur-[80px] pointer-events-none"></div>
+
+                <div class="text-center mb-12 relative z-10">
+                    <h2 class="font-heading text-3xl md:text-4xl font-black text-panda-black dark:text-white mb-3">
+                        Pertanyaan Umum
+                    </h2>
+                    <p class="text-slate-500 dark:text-slate-400 font-medium">Hal-hal yang sering ditanyakan mengenai kebutuhan pengguna siPanda</p>
+                </div>
+
+                <div class="space-y-4 relative z-10">
+                    
+                    <div class="faq-item group bg-white/40 dark:bg-[#1a1a1a]/80 border border-white/50 dark:border-white/5 rounded-2xl overflow-hidden transition-all duration-300 hover:border-bamboo-fresh/50 dark:hover:border-bamboo-fresh/50 hover:shadow-[0_0_20px_rgba(117,203,80,0.1)]">
+                        <button class="faq-button w-full px-6 py-5 flex justify-between items-center text-left transition-colors focus:outline-none">
+                            <span class="font-bold text-panda-black dark:text-cream text-lg transition-colors group-hover:text-bamboo-emerald dark:group-hover:text-bamboo-fresh">Apa itu siPanda dan mengapa sistem ini dibuat?</span>
+                            <svg class="faq-icon w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform duration-300 group-hover:text-bamboo-fresh" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white/60 dark:bg-[#151515]">
+                            <p class="px-6 py-5 text-slate-600 dark:text-slate-400 leading-relaxed text-sm border-t border-bamboo-fresh/10 dark:border-white/5">
+                                Banyak pelajar merasa terbebani dan kehilangan fokus akibat metode belajar dengan materi teks yang sangat panjang. <strong>siPanda (Si Paham Inti & Atur Jeda)</strong> hadir untuk mengatasi masalah tersebut dengan menyediakan sistem pembelajaran digital yang merangkum materi secara cepat menggunakan AI dan mengatur waktu belajar secara terstruktur agar motivasi tetap terjaga.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item group bg-white/40 dark:bg-[#1a1a1a]/80 border border-white/50 dark:border-white/5 rounded-2xl overflow-hidden transition-all duration-300 hover:border-bamboo-fresh/50 dark:hover:border-bamboo-fresh/50 hover:shadow-[0_0_20px_rgba(117,203,80,0.1)]">
+                        <button class="faq-button w-full px-6 py-5 flex justify-between items-center text-left transition-colors focus:outline-none">
+                            <span class="font-bold text-panda-black dark:text-cream text-lg transition-colors group-hover:text-bamboo-emerald dark:group-hover:text-bamboo-fresh">Fitur utama apa saja yang tersedia untuk Pelajar?</span>
+                            <svg class="faq-icon w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform duration-300 group-hover:text-bamboo-fresh" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white/60 dark:bg-[#151515]">
+                            <p class="px-6 py-5 text-slate-600 dark:text-slate-400 leading-relaxed text-sm border-t border-bamboo-fresh/10 dark:border-white/5">
+                                Pelajar dapat menggunakan <strong>Ruang Baca Materi</strong> yang responsif, <strong>Timer Pomodoro</strong> (25 menit fokus, 5 menit istirahat), <strong>Ringkasan AI & Buku Catatan Digital</strong> yang dapat diedit, <strong>Latihan Soal</strong>, <strong>To-Do List</strong>, pemantauan <strong>Log Aktivitas</strong>, hingga fitur <strong>Gamifikasi (Streak Belajar)</strong> untuk menjaga konsistensi.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item group bg-white/40 dark:bg-[#1a1a1a]/80 border border-white/50 dark:border-white/5 rounded-2xl overflow-hidden transition-all duration-300 hover:border-bamboo-fresh/50 dark:hover:border-bamboo-fresh/50 hover:shadow-[0_0_20px_rgba(117,203,80,0.1)]">
+                        <button class="faq-button w-full px-6 py-5 flex justify-between items-center text-left transition-colors focus:outline-none">
+                            <span class="font-bold text-panda-black dark:text-cream text-lg transition-colors group-hover:text-bamboo-emerald dark:group-hover:text-bamboo-fresh">Bagaimana cara kerja fitur AI di sistem ini?</span>
+                            <svg class="faq-icon w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform duration-300 group-hover:text-bamboo-fresh" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white/60 dark:bg-[#151515]">
+                            <p class="px-6 py-5 text-slate-600 dark:text-slate-400 leading-relaxed text-sm border-t border-bamboo-fresh/10 dark:border-white/5">
+                                Fitur AI di siPanda <strong>hanya difokuskan untuk meringkas dan menyederhanakan materi</strong> teks yang panjang menjadi poin-poin penting. Hasil ringkasan tersebut secara otomatis dapat disimpan ke dalam Buku Catatan Digital, yang kemudian bebas diedit oleh pengguna untuk keperluan pendalaman materi secara mandiri.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item group bg-white/40 dark:bg-[#1a1a1a]/80 border border-white/50 dark:border-white/5 rounded-2xl overflow-hidden transition-all duration-300 hover:border-bamboo-fresh/50 dark:hover:border-bamboo-fresh/50 hover:shadow-[0_0_20px_rgba(117,203,80,0.1)]">
+                        <button class="faq-button w-full px-6 py-5 flex justify-between items-center text-left transition-colors focus:outline-none">
+                            <span class="font-bold text-panda-black dark:text-cream text-lg transition-colors group-hover:text-bamboo-emerald dark:group-hover:text-bamboo-fresh">Siapa saja yang memiliki akses ke platform siPanda?</span>
+                            <svg class="faq-icon w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform duration-300 group-hover:text-bamboo-fresh" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white/60 dark:bg-[#151515]">
+                            <p class="px-6 py-5 text-slate-600 dark:text-slate-400 leading-relaxed text-sm border-t border-bamboo-fresh/10 dark:border-white/5">
+                                Akses pengguna sistem ini dibatasi hanya untuk dua tipe akun, yaitu <strong>Administrator</strong> dan <strong>Pelajar</strong>. Administrator memiliki hak untuk melakukan tambah, ubah, dan hapus (CRUD) materi pembelajaran serta latihan soal. Sementara Pelajar hanya memiliki akses untuk menggunakan fasilitas belajar yang tersedia.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item group bg-white/40 dark:bg-[#1a1a1a]/80 border border-white/50 dark:border-white/5 rounded-2xl overflow-hidden transition-all duration-300 hover:border-bamboo-fresh/50 dark:hover:border-bamboo-fresh/50 hover:shadow-[0_0_20px_rgba(117,203,80,0.1)]">
+                        <button class="faq-button w-full px-6 py-5 flex justify-between items-center text-left transition-colors focus:outline-none">
+                            <span class="font-bold text-panda-black dark:text-cream text-lg transition-colors group-hover:text-bamboo-emerald dark:group-hover:text-bamboo-fresh">Apakah siPanda bisa diakses menggunakan Handphone?</span>
+                            <svg class="faq-icon w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform duration-300 group-hover:text-bamboo-fresh" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white/60 dark:bg-[#151515]">
+                            <p class="px-6 py-5 text-slate-600 dark:text-slate-400 leading-relaxed text-sm border-t border-bamboo-fresh/10 dark:border-white/5">
+                                Tentu. Sistem siPanda dikembangkan berbasis *Web Application* yang <strong>sepenuhnya responsif (Multi-platform)</strong>. Aplikasi ini dapat diakses dengan nyaman melalui Laptop, PC, Tablet, maupun Handphone, asalkan pengguna terhubung dengan jaringan internet.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <style>
+                .faq-item.is-open {
+                    border-color: #75cb50 !important; /* Warna bamboo-fresh siPanda */
+                    box-shadow: 0 4px 20px -2px rgba(117, 203, 80, 0.2) !important;
+                }
+                .faq-item.is-open .faq-button span {
+                    color: #75cb50 !important;
+                }
+                .faq-item.is-open .faq-icon {
+                    color: #75cb50 !important;
+                }
+            </style>
+        </section>
         <!-- Minimalis Footer -->
         <footer class="bg-panda-black w-full py-10 text-center mt-20 relative z-20 border-t border-white/5">
             <div class="max-w-[1400px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
@@ -546,5 +636,43 @@
                 });
             }
         </script>
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const faqButtons = document.querySelectorAll('.faq-button');
+
+            // Opsional: Buka otomatis item pertama saat halaman dimuat
+            const firstFaq = document.querySelector('.faq-item');
+            if(firstFaq) {
+                const firstContent = firstFaq.querySelector('.faq-content');
+                const firstIcon = firstFaq.querySelector('.faq-icon');
+                firstFaq.classList.add('is-open');
+                firstContent.style.maxHeight = firstContent.scrollHeight + "px";
+                firstIcon.style.transform = 'rotate(180deg)';
+            }
+
+            faqButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const faqItem = button.parentElement;
+                    const faqContent = faqItem.querySelector('.faq-content');
+                    const icon = button.querySelector('.faq-icon');
+                    const isOpen = faqItem.classList.contains('is-open');
+
+                    // Tutup semua FAQ yang sedang terbuka
+                    document.querySelectorAll('.faq-item').forEach(item => {
+                        item.classList.remove('is-open');
+                        item.querySelector('.faq-content').style.maxHeight = null;
+                        item.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
+                    });
+
+                    // Jika yang di-klik sebelumnya tertutup, maka buka
+                    if (!isOpen) {
+                        faqItem.classList.add('is-open');
+                        faqContent.style.maxHeight = faqContent.scrollHeight + "px";
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+        });
+    </script>
     </body>
 </html>
