@@ -24,7 +24,7 @@ class RedirectLogin
                     return $next($request);
             }
             if ($user->role === 'user' && !$request->is('sipanda/logout*')) { 
-                return redirect('/');
+                return redirect()->route('student.dashboard');
             }
         }
 

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('learning_sessions', function (Blueprint $table) {
             $table->id(); 
-            $table->foreignId('materi_id')->constrained('materis', 'materi_id')->onDelete('cascade');
+            $table->foreignId('materi_id')->nullable()->constrained('materis', 'materi_id')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->dateTime('start_time');
             $table->dateTime('end_time')->nullable();

@@ -22,6 +22,34 @@ class ChatController extends Controller
         return view('student.dashboard', compact('chats', 'summary'));
     }
 
+    public function gamifikasi()
+    {
+        // Data for Learning Session Chart
+        $learningSessions = \App\Models\LearningSession::where('user_id', auth()->id())
+            ->where('start_time', '>=', now()->subDays(6)->startOfDay())
+            ->get()
+            ->groupBy(function($session) {
+                return \Carbon\Carbon::parse($session->start_time)->format('Y-m-d');
+            });
+
+        $chartLabels = [];
+        $chartData = [];
+        for ($i = 6; $i >= 0; $i--) {
+            $date = now()->subDays($i)->format('Y-m-d');
+            $label = now()->subDays($i)->translatedFormat('D'); // Mon, Tue, etc.
+            $chartLabels[] = $label;
+            
+            $duration = isset($learningSessions[$date]) ? $learningSessions[$date]->sum('duration') : 0;
+            $chartData[] = $duration;
+        }
+
+        $totalMinutes = \App\Models\LearningSession::where('user_id', auth()->id())->where('status', 'completed')->sum('duration');
+        $hours = floor($totalMinutes / 60);
+        $mins = $totalMinutes % 60;
+
+        return view('student.gamifikasi', compact('chartLabels', 'chartData', 'hours', 'mins'));
+    }
+
     public function processAi(Request $request)
     {
         $request->validate([
@@ -67,22 +95,41 @@ class ChatController extends Controller
 
             if ($request->action === 'summary') {
                 \App\Models\AiSummary::updateOrCreate(
-                    ['user_id' => auth()->id()], // Cari data milik user ini
+                    ['user_id' => auth()->id()], 
                     [
                         'summary_text' => $aiResult,
                         'last_generated' => now(),
                     ]
                 );
-                $message = 'Rangkuman berhasil diperbarui!';
+                return back()->with('success', 'Rangkuman berhasil diperbarui!');
             } else {
                 return back()->with('quiz_result', $aiResult)
                              ->with('success', 'Soal latihan berhasil dibuat!');
             }
-
-            // return back()->with('success', 'Berhasil diproses oleh siPanda AI!');
-            
         } catch (\Exception $e) {
             return back()->with('error', 'Gagal memproses file: ' . $e->getMessage());
         }
+    }
+
+    public function storeLearningSession(Request $request)
+    {
+        $request->validate([
+            'duration' => 'required|integer|min:1',
+            // materi_id can be optional or handled if present
+            'materi_id' => 'nullable|exists:materis,materi_id'
+        ]);
+
+        $duration = $request->input('duration');
+        
+        \App\Models\LearningSession::create([
+            'user_id' => auth()->id(),
+            'materi_id' => $request->input('materi_id') ?: 1, // Defaulting to 1 for dummy/general session
+            'start_time' => now()->subMinutes($duration),
+            'end_time' => now(),
+            'duration' => $duration,
+            'status' => 'completed',
+        ]);
+
+        return response()->json(['success' => true, 'message' => 'Sesi belajar berhasil disimpan!']);
     }
 }

@@ -2,14 +2,30 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Student\ChatController;
+use App\Http\Controllers\Auth\OtpController;
 
 Route::get('/', function () {
+    if (auth()->check()) {
+        return redirect()->route('student.dashboard');
+    }
     return view('welcome');
 });
 
-// Route::get('/login', function () {
-//     return redirect()->route('filament.admin.auth.login');
-// })->name('login');
+// Auth Routes
+Route::get('/register', function() {
+    return redirect('/sipanda/register');
+})->name('register');
+
+Route::get('/register/otp', [OtpController::class, 'showOtpForm'])->name('register.otp');
+Route::post('/register/otp', [OtpController::class, 'verifyOtp'])->name('register.otp.verify');
+Route::post('/register/otp/resend', [OtpController::class, 'resendOtp'])->name('register.otp.resend');
+
+Route::post('/logout', function () {
+    auth()->logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+    return redirect('/');
+})->name('logout');
 
 // Middleware filament
 Route::middleware([
@@ -23,4 +39,6 @@ Route::middleware([
     Route::put('/settings/password', [App\Http\Controllers\Student\SettingsController::class, 'updatePassword'])->name('student.settings.password');
     Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
     Route::post('/ai/process', [ChatController::class, 'processAi'])->name('ai.process');
+    Route::post('/learning-session', [ChatController::class, 'storeLearningSession'])->name('student.learning-session.store');
+    Route::get('/gamifikasi', [ChatController::class, 'gamifikasi'])->name('student.gamifikasi');
 });

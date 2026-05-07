@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('ai_summaries', function (Blueprint $table) {
             $table->id('summaries_id');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('materi_id')->constrained('materis', 'materi_id')->onDelete('cascade');
+            $table->foreignId('materi_id')->nullable()->constrained('materis', 'materi_id')->onDelete('cascade');
             $table->text('summary_text');
             $table->dateTime('last_generated');
             $table->timestamps();
