@@ -41,4 +41,6 @@ Route::middleware([
     Route::post('/ai/process', [ChatController::class, 'processAi'])->name('ai.process');
     Route::post('/learning-session', [ChatController::class, 'storeLearningSession'])->name('student.learning-session.store');
     Route::get('/gamifikasi', [ChatController::class, 'gamifikasi'])->name('student.gamifikasi');
+    Route::get('/latihansoal', [ChatController::class, 'latihanSoal'])->name('latihansoal');
+    Route::get('/materi', [ChatController::class, 'materi'])->name('materi');
 });
