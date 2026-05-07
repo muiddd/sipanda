@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Materi extends Model
 {
-    protected $fillable = ['judul', 'kategori_id', 'konten', 'admin_id'];
+    protected $primaryKey = 'materi_id';
+    
+    protected $fillable = ['judul_materi', 'kategori_id', 'konten_teks', 'tanggal_publikasi', 'admin_id'];
     
     public function kategori()
     {
