@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        User::factory(10)->create();
 
         User::create([
             'name' => 'Admin Sipanda',
@@ -29,6 +29,10 @@ class DatabaseSeeder extends Seeder
             'email' => 'siswa1@sipanda.com',
             'password' => Hash::make('password'),
             'role' => 'user', 
+        ]);
+
+        $this->call([
+            LearningSessionSeeder::class,
         ]);
     }
 }

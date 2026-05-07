@@ -264,7 +264,7 @@
                     <p class="text-red-500/80 text-sm font-medium mb-8 leading-relaxed">Tindakan berikut bersifat permanen dan tidak dapat dibatalkan. Mohon berhati-hati sebelum melanjutkan.</p>
 
                     <div class="space-y-4">
-                        <form action="{{ route('filament.admin.auth.logout') }}" method="POST">
+                        <form action="{{ route('logout') }}" method="POST">
                             @csrf
                             <button type="submit" class="w-full bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-900 dark:text-white font-bold py-4 rounded-2xl transition-all flex items-center justify-center gap-2">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>

@@ -29,13 +29,10 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('sipanda')
             ->login()
-            ->registration()
+            ->registration(\App\Filament\Pages\Auth\CustomRegister::class)
             ->brandLogo(asset('images/logo.svg')) 
             ->darkModeBrandLogo(asset('images/logo-white.svg'))
             ->brandLogoHeight('3rem')
-            ->authMiddleware([
-                RedirectLogin::class,
-            ])
             ->colors([
                 'primary' => Color::Lime,
             ])
@@ -62,6 +59,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+                RedirectLogin::class,
             ]);
     }
 }

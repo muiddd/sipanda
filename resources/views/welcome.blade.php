@@ -110,9 +110,9 @@
             </div>
             
             <nav class="hidden lg:flex gap-1 glass-panel dark:border-panda-gray p-1.5 rounded-full font-semibold text-slate-700 dark:text-cream shadow-sm border border-white">
-                <a href="#" class="hover:bg-white/80 dark:hover:bg-panda-gray px-6 py-2 rounded-full transition-all text-sm">Beranda</a>
+                <a href="/" class="hover:bg-white/80 dark:hover:bg-panda-gray px-6 py-2 rounded-full transition-all text-sm">Beranda</a>
                 <a href="#" class="hover:bg-white/80 dark:hover:bg-panda-gray px-6 py-2 rounded-full transition-all text-sm">Tentang</a>
-                <a href="#" class="hover:bg-white/80 dark:hover:bg-panda-gray px-6 py-2 rounded-full transition-all text-sm">Fitur Unggulan</a>
+                <a href="#fitur" class="hover:bg-white/80 dark:hover:bg-panda-gray px-6 py-2 rounded-full transition-all text-sm">Fitur Unggulan</a>
 
                 <!-- Dark Mode Toggle -->
                 <button id="theme-toggle" class="px-4 py-2 hover:bg-white/80 dark:hover:bg-panda-gray rounded-full transition-all flex items-center">
@@ -128,13 +128,13 @@
                         Dashboard
                     </a>
                     
-                    <a href="{{ route('filament.admin.auth.logout') }}" 
+                    <a href="{{ route('logout') }}" 
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                     class="text-red-500 hover:text-red-700 text-sm font-bold cursor-pointer transition">
                         Logout
                     </a>
 
-                    <form id="logout-form" action="{{ route('filament.admin.auth.logout') }}" method="POST" class="hidden">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                         @csrf
                     </form>
                 </div>
@@ -144,7 +144,7 @@
                         Log in
                     </a>
                     
-                    <a href="{{ route('filament.admin.auth.register') }}" class="bg-bamboo-fresh text-white px-7 py-2.5 rounded-full font-bold hover:bg-bamboo-emerald hover:scale-105 transition-all shadow-[0_8px_20px_rgba(34,197,94,0.3)] text-sm">
+                    <a href="{{ url('/sipanda/register') }}" class="bg-bamboo-fresh text-white px-7 py-2.5 rounded-full font-bold hover:bg-bamboo-emerald hover:scale-105 transition-all shadow-[0_8px_20px_rgba(34,197,94,0.3)] text-sm">
                         Start Free
                     </a>
                 </div>
@@ -178,12 +178,12 @@
                         </a>
                     @else
                         @if (Route::has('register'))
-                            <a href="{{ route('filament.admin.auth.register') }}" class="bg-bamboo-fresh text-white px-10 py-5 rounded-[2rem] font-bold text-lg hover:bg-bamboo-emerald hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_30px_-5px_rgba(34,197,94,0.5)] flex items-center gap-3">
+                            <a href="{{ url('/sipanda/register') }}" class="bg-bamboo-fresh text-white px-10 py-5 rounded-[2rem] font-bold text-lg hover:bg-bamboo-emerald hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_30px_-5px_rgba(34,197,94,0.5)] flex items-center gap-3">
                                 Start Free
                                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </a>
                         @else
-                            <a href="{{ route('filament.admin.auth.register') }}" class="bg-bamboo-fresh text-white px-10 py-5 rounded-[2rem] font-bold text-lg hover:bg-bamboo-emerald hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_30px_-5px_rgba(34,197,94,0.5)] flex items-center gap-3">
+                            <a href="{{ url('/sipanda/register') }}" class="bg-bamboo-fresh text-white px-10 py-5 rounded-[2rem] font-bold text-lg hover:bg-bamboo-emerald hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_30px_-5px_rgba(34,197,94,0.5)] flex items-center gap-3">
                                 Start Free
                                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </a>
@@ -323,7 +323,7 @@
         </main>
         
         <!-- Section 1: Fitur Cerdas untuk Calon Analis -->
-        <section class="w-full max-w-[1400px] mx-auto px-6 py-20 relative z-10">
+        <section id="fitur" class="w-full max-w-[1400px] mx-auto px-6 py-20 relative z-10">
             <div class="text-center mb-16">
                 <h2 class="font-heading text-4xl md:text-5xl font-black text-panda-black dark:text-cream">Fitur Cerdas untuk Calon Analis</h2>
                 <div class="h-1 w-20 bg-bamboo-fresh mx-auto mt-6 rounded-full"></div>
