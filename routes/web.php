@@ -1,8 +1,20 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Student\ChatController;
+
 use App\Http\Controllers\Auth\OtpController;
+use App\Http\Controllers\Student\ChatController;
+use App\Http\Controllers\Student\DashboardController;
+use App\Http\Controllers\Student\MateriController;
+use App\Http\Controllers\Student\GamifikasiController;
+use App\Http\Controllers\Student\LatihanSoalController;
+use App\Http\Controllers\Student\SettingsController;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+*/
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -11,7 +23,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Auth Routes
+// ==========================================
+// AUTHENTICATION ROUTES
+// ==========================================
 Route::get('/register', function() {
     return redirect('/sipanda/register');
 })->name('register');
@@ -27,20 +41,34 @@ Route::post('/logout', function () {
     return redirect('/');
 })->name('logout');
 
-// Middleware filament
+// ==========================================
+// STUDENT AREA ROUTES 
+// ==========================================
 Route::middleware([
     \Filament\Http\Middleware\Authenticate::class,
 ])->group(function () {
-    Route::get('/dashboard', [ChatController::class, 'index'])->name('student.dashboard');
+    
+    // 1. Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('student.dashboard');
+    
+    // 2. Materi
+    Route::get('/materi', [MateriController::class, 'index'])->name('student.materi');
+    
+    // 3. Gamifikasi & Sesi Belajar
+    Route::get('/gamifikasi', [GamifikasiController::class, 'index'])->name('student.gamifikasi');
+    Route::post('/learning-session', [GamifikasiController::class, 'storeLearningSession'])->name('student.learning-session.store');
+    
+    // 4. Latihan Soal
+    Route::get('/latihansoal', [LatihanSoalController::class, 'index'])->name('student.latihansoal');
+    
+    // 5. Proses AI & Chatbot
+    Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
+    Route::post('/ai/process', [ChatController::class, 'processAi'])->name('ai.process');
+    
+    // 6. Settings & Profile
     Route::get('/settings', function () {
         return view('student.settings');
     })->name('student.settings');
-    Route::put('/settings/profile', [App\Http\Controllers\Student\SettingsController::class, 'updateProfile'])->name('student.settings.profile');
-    Route::put('/settings/password', [App\Http\Controllers\Student\SettingsController::class, 'updatePassword'])->name('student.settings.password');
-    Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
-    Route::post('/ai/process', [ChatController::class, 'processAi'])->name('ai.process');
-    Route::post('/learning-session', [ChatController::class, 'storeLearningSession'])->name('student.learning-session.store');
-    Route::get('/gamifikasi', [ChatController::class, 'gamifikasi'])->name('student.gamifikasi');
-    Route::get('/latihansoal', [ChatController::class, 'latihanSoal'])->name('latihansoal');
-    Route::get('/materi', [ChatController::class, 'materi'])->name('materi');
+    Route::put('/settings/profile', [SettingsController::class, 'updateProfile'])->name('student.settings.profile');
+    Route::put('/settings/password', [SettingsController::class, 'updatePassword'])->name('student.settings.password');
 });
