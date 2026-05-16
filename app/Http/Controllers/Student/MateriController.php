@@ -17,4 +17,11 @@ class MateriController extends Controller
 
         return view('student.materi', compact('materiGrouped'));
     }
+
+    public function show($id)
+    {
+        $materi = Materi::where('materi_id', $id)->firstOrFail();
+        
+        return view('student.ruangbaca', compact('materi'));
+    }
 }
