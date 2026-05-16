@@ -26,7 +26,7 @@ Route::get('/', function () {
 // ==========================================
 // AUTHENTICATION ROUTES
 // ==========================================
-Route::get('/register', function() {
+Route::get('/register', function () {
     return redirect('/sipanda/register');
 })->name('register');
 
@@ -47,24 +47,29 @@ Route::post('/logout', function () {
 Route::middleware([
     \Filament\Http\Middleware\Authenticate::class,
 ])->group(function () {
-    
+
     // 1. Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('student.dashboard');
-    
+
     // 2. Materi
     Route::get('/materi', [MateriController::class, 'index'])->name('student.materi');
-    
+    Route::get('/materi/{id}', [MateriController::class, 'show'])->name('student.materi.show'); 
+
     // 3. Gamifikasi & Sesi Belajar
     Route::get('/gamifikasi', [GamifikasiController::class, 'index'])->name('student.gamifikasi');
     Route::post('/learning-session', [GamifikasiController::class, 'storeLearningSession'])->name('student.learning-session.store');
-    
+
     // 4. Latihan Soal
     Route::get('/latihansoal', [LatihanSoalController::class, 'index'])->name('student.latihansoal');
-    
+    Route::get('/latihansoal/{id}', [LatihanSoalController::class, 'show'])->name('student.latihansoal.show');
+    Route::post('/latihansoal/{id}/generate', [LatihanSoalController::class, 'generateAi'])->name('student.latihansoal.generate');
+    Route::post('/latihansoal/{id}/submit', [LatihanSoalController::class, 'submitAnswers'])->name('student.latihansoal.submit');
+
+
     // 5. Proses AI & Chatbot
     Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
     Route::post('/ai/process', [ChatController::class, 'processAi'])->name('ai.process');
-    
+
     // 6. Settings & Profile
     Route::get('/settings', function () {
         return view('student.settings');
