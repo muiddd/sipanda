@@ -32,6 +32,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
+            MateriSeeder::class,
+        ]);
+        
+        $this->call([
             LearningSessionSeeder::class,
         ]);
     }
