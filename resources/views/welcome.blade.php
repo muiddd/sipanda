@@ -551,7 +551,7 @@
                         </button>
                         <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white/60 dark:bg-[#151515]">
                             <p class="px-6 py-5 text-slate-600 dark:text-slate-400 leading-relaxed text-sm border-t border-bamboo-fresh/10 dark:border-white/5">
-                                Tentu. Sistem siPanda dikembangkan berbasis *Web Application* yang <strong>sepenuhnya responsif (Multi-platform)</strong>. Aplikasi ini dapat diakses dengan nyaman melalui Laptop, PC, Tablet, maupun Handphone, asalkan pengguna terhubung dengan jaringan internet.
+                                Tentu. Sistem siPanda dikembangkan berbasis Web Application yang <strong>sepenuhnya responsif (Multi-platform)</strong>. Aplikasi ini dapat diakses dengan nyaman melalui Laptop, PC, Tablet, maupun Handphone, asalkan pengguna terhubung dengan jaringan internet.
                             </p>
                         </div>
                     </div>
