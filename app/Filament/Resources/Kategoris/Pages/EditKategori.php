@@ -4,7 +4,9 @@ namespace App\Filament\Resources\Kategoris\Pages;
 
 use App\Filament\Resources\Kategoris\KategoriResource;
 use Filament\Actions\DeleteAction;
+use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\View\View;
 
 class EditKategori extends EditRecord
 {
@@ -13,6 +15,7 @@ class EditKategori extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            ViewAction::make(),
             DeleteAction::make(),
         ];
     }

@@ -30,30 +30,7 @@ class KategoriResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                TextColumn::make('nama_kategori')
-                    ->label('Nama Kategori')
-                    ->searchable()
-                    ->sortable(),
-
-                TextColumn::make('slug')
-                    ->label('Slug')
-                    ->searchable()
-                    ->sortable(),
-
-                TextColumn::make('deskripsi')
-                    ->label('Deskripsi')
-                    ->searchable()
-                    ->sortable(),
-                    
-                TextColumn::make('tanggal_publikasi')
-                    ->label('Tanggal Publikasi')
-                    ->dateTime()
-                    ->searchable()
-                    ->sortable(),
-            ])
-            ->defaultSort('kategori_id', 'desc');
+        return KategorisTable::configure($table);
     }
 
     public static function getRelations(): array

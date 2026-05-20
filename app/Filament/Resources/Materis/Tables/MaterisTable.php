@@ -39,8 +39,12 @@ class MaterisTable
                 //
             ])
             ->recordActions([
-                ViewAction::make(),
-                EditAction::make(),
+                ViewAction::make()
+                ->icon('heroicon-o-eye')
+                ->label('Lihat'),
+                EditAction::make()
+                ->icon('heroicon-o-pencil')
+                ->label('Ubah'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

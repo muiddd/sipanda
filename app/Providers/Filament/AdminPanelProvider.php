@@ -36,6 +36,30 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Lime,
             ])
+            ->renderHook(
+                'panels::head.end',
+                fn (): string => \Illuminate\Support\Facades\Blade::render('
+                    <style>
+                        aside.fi-sidebar {
+                            background: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, #f2f1e8 40%, #e8f5e5 100%) !important;
+                            backdrop-filter: blur(20px);
+                            border-right: 1px solid rgba(255, 255, 255, 0.5);
+                        }
+
+                        .fi-sidebar-item-active a {
+                            background-color: #75cb50 !important;
+                            color: white !important;
+                            border-radius: 0.5rem;
+                            margin-inline: 0.5rem;
+                            box-shadow: 0 4px 12px rgba(117, 203, 80, 0.35);
+                        }
+                        
+                        .fi-sidebar-item-active a svg {
+                            color: white !important;
+                        }
+                    </style>
+                '),
+            )
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
