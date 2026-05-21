@@ -141,11 +141,11 @@
             @else
                 <div class="flex items-center gap-4 relative z-[100]">
                     <a href="{{ route('filament.admin.auth.login') }}" class="font-bold text-slate-600 dark:text-cream hover:text-panda-black dark:hover:text-white transition text-sm">
-                        Log in
+                        Masuk
                     </a>
                     
                     <a href="{{ url('/sipanda/register') }}" class="bg-bamboo-fresh text-white px-7 py-2.5 rounded-full font-bold hover:bg-bamboo-emerald hover:scale-105 transition-all shadow-[0_8px_20px_rgba(34,197,94,0.3)] text-sm">
-                        Start Free
+                        Mulai Gratis
                     </a>
                 </div>
             @endauth
@@ -158,7 +158,7 @@
             <div class="w-full lg:w-[45%] z-20 relative text-center lg:text-left mb-16 lg:mb-0">
                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full mix-blend-multiply bg-bamboo-fresh/10 border border-bamboo-fresh/30 text-xs font-extrabold uppercase tracking-widest text-bamboo-emerald mb-6">
                     <span class="w-2 h-2 rounded-full bg-bamboo-fresh animate-pulse"></span>
-                    Paham inti & atur jeda
+                    Pahami inti & atur jeda
                 </div>
                 
                 <h1 class="font-heading text-6xl md:text-[80px] lg:text-[90px] font-black tracking-tighter leading-[0.95] mb-8 text-panda-black dark:text-white">
@@ -167,7 +167,7 @@
                 </h1>
                 
                 <p class="text-xl md:text-2xl text-slate-500 dark:text-slate-300 font-medium max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed font-sans">
-                   Belajar gak perlu begadang, biar nggak punya mata panda.
+                   Belajar tidak perlu begadang agar terhindar dari 'mata panda'.
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start items-center">
@@ -179,12 +179,12 @@
                     @else
                         @if (Route::has('register'))
                             <a href="{{ url('/sipanda/register') }}" class="bg-bamboo-fresh text-white px-10 py-5 rounded-[2rem] font-bold text-lg hover:bg-bamboo-emerald hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_30px_-5px_rgba(34,197,94,0.5)] flex items-center gap-3">
-                                Start Free
+                                Mulai Gratis
                                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </a>
                         @else
                             <a href="{{ url('/sipanda/register') }}" class="bg-bamboo-fresh text-white px-10 py-5 rounded-[2rem] font-bold text-lg hover:bg-bamboo-emerald hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_30px_-5px_rgba(34,197,94,0.5)] flex items-center gap-3">
-                                Start Free
+                                Mulai Gratis
                                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </a>
                         @endif
@@ -194,7 +194,7 @@
                         <div class="w-8 h-8 rounded-full bg-panda-black flex items-center justify-center shadow-lg border border-white/20">
                             <svg class="w-4 h-4 ml-0.5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
                         </div>
-                        See Bamboo AI Mode
+                        Lihat Mode AI Bambu
                     </a>
                 </div>
             </div>
@@ -226,7 +226,7 @@
                         <div class="absolute top-[15%] left-1/2 transform -translate-x-1/2 w-[260px] holo-glow bg-bamboo-fresh/10 rounded-2xl p-5 animate-pulse-glow z-20 flex flex-col gap-3">
                             <div class="flex items-center gap-2 mb-1">
                                 <svg class="w-4 h-4 text-bamboo-fresh animate-spin" style="animation-duration: 3s;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-                                <span class="text-xs font-bold text-bamboo-fresh uppercase tracking-widest">Processing Data...</span>
+                                <span class="text-xs font-bold text-bamboo-fresh uppercase tracking-widest">Memproses Data...</span>
                             </div>
                             <!-- Hologram text lines -->
                             <div class="h-2.5 w-1/3 bg-bamboo-fresh opacity-80 rounded-full mb-1 drop-shadow-[0_0_5px_rgba(34,197,94,1)]"></div>
@@ -290,7 +290,7 @@
                         <h4 class="text-white font-extrabold text-base mb-1">Pomodoro</h4>
                         <p class="text-bamboo-fresh text-[10px] tracking-[0.2em] uppercase font-bold flex items-center gap-1">
                             <span class="w-1.5 h-1.5 bg-bamboo-fresh rounded-full animate-pulse"></span>
-                            Focus Active
+                            Fokus Aktif
                         </p>
                     </div>
                 </div>
@@ -302,7 +302,7 @@
                             <div class="w-8 h-8 rounded-xl bg-bamboo-emerald text-white flex items-center justify-center shadow-lg shadow-bamboo-emerald/40">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                             </div>
-                            <h4 class="font-heading font-extrabold text-slate-800 text-sm">Summary Log</h4>
+                            <h4 class="font-heading font-extrabold text-slate-800 text-sm">Log Ringkasan</h4>
                         </div>
                     </div>
                     <div class="space-y-3 bg-white/50 p-4 rounded-xl border border-white shadow-inner">
@@ -313,7 +313,7 @@
                             <div class="w-5 h-5 rounded-full bg-bamboo-light flex items-center justify-center text-bamboo-emerald">
                                 <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path></svg>
                             </div>
-                            <span class="text-[10px] font-extrabold text-slate-600 uppercase tracking-widest">Condensed</span>
+                            <span class="text-[10px] font-extrabold text-slate-600 uppercase tracking-widest">Ringkas</span>
                         </div>
                     </div>
                 </div>
@@ -344,7 +344,7 @@
                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
                     <h3 class="font-heading font-extrabold text-xl text-panda-black dark:text-cream mb-3">Timer Fokus 25/5</h3>
-                    <p class="text-slate-500 dark:text-slate-400 text-sm">Gunakan interval produktif untuk menyelesaikan task identifikasi tanpa burnout.</p>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm">Gunakan interval produktif untuk menyelesaikan task identifikasi tanpa kelelahan kerja.</p>
                 </div>
                 <!-- Card 3 -->
                 <div class="glass-panel dark:dark-glass p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 border border-white/50 dark:border-white/10">
@@ -352,7 +352,7 @@
                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
                     </div>
                     <h3 class="font-heading font-extrabold text-xl text-panda-black dark:text-cream mb-3">Uji Pemahaman Analis</h3>
-                    <p class="text-slate-500 dark:text-slate-400 text-sm">Interactive quiz skenario validasi kebutuhan sistem buat mempertajam skill analis.</p>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm">Kuis Interaktif skenario validasi kebutuhan sistem buat mempertajam skill analis.</p>
                 </div>
                 <!-- Card 4 -->
                 <div class="glass-panel dark:dark-glass p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 border border-white/50 dark:border-white/10">
@@ -360,7 +360,7 @@
                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
                     </div>
                     <h3 class="font-heading font-extrabold text-xl text-panda-black dark:text-cream mb-3">Target Belajar Harian</h3>
-                    <p class="text-slate-500 dark:text-slate-400 text-sm">Timeline mini To-Do untuk checklist apa saja kebutuhan fungsional hari ini.</p>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm">Daftar tugas mini berbentuk lini masa untuk memeriksa kebutuhan fungsional hari ini.</p>
                 </div>
             </div>
         </section>
@@ -370,7 +370,7 @@
             <!-- Streak Gamification -->
             <div class="glass-panel dark:dark-glass rounded-[3rem] p-10 flex-1 relative overflow-hidden border border-white/50 dark:border-white/10">
                 <div class="absolute top-0 right-0 w-40 h-40 bg-orange-400/10 rounded-full blur-3xl"></div>
-                <h3 class="font-heading font-black text-3xl text-panda-black dark:text-cream mb-8">Streak Belajar Aktif</h3>
+                <h3 class="font-heading font-black text-3xl text-panda-black dark:text-cream mb-8">Runtunan Belajar Aktif</h3>
                 
                 <div class="flex items-center gap-4 bg-white/50 dark:bg-panda-black/50 p-6 rounded-2xl border border-white/20">
                     <!-- Iteration for Flames -->
@@ -436,7 +436,7 @@
                 
                 <div class="flex justify-between mt-5 px-2">
                     <p class="font-extrabold text-sm text-panda-black dark:text-cream">Durasi Belajar: <span class="text-bamboo-emerald">14 Jam</span></p>
-                    <p class="font-extrabold text-sm text-panda-black dark:text-cream">Penggunaan AI: <span class="text-bamboo-fresh">32 Prompt</span></p>
+                    <p class="font-extrabold text-sm text-panda-black dark:text-cream">Penggunaan AI: <span class="text-bamboo-fresh">32 Perintah</span></p>
                 </div>
             </div>
         </section>
@@ -461,7 +461,7 @@
                 <div class="flex flex-col items-center mb-10 md:mb-0 bg-transparent relative group">
                     <div class="w-20 h-20 bg-white dark:bg-panda-gray rounded-full shadow-lg border-4 border-bamboo-fresh flex items-center justify-center text-3xl mb-4 z-10 transition-transform duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_10px_20px_rgba(34,197,94,0.3)] holo-glow">🤖</div>
                     <h4 class="font-extrabold text-lg text-panda-black dark:text-cream text-center">Ringkas dengan AI</h4>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 text-center max-w-[150px] mt-2">Generate poin penting konsep analisis.</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 text-center max-w-[150px] mt-2">Menghasilkan poin penting konsep analisis.</p>
                 </div>
                 <!-- Dashed Line Connector (Mobile) -->
                 <div class="md:hidden h-12 border-l-[3px] border-dashed border-bamboo-fresh/50 my-[-15px] z-[-1]"></div>
@@ -469,7 +469,7 @@
                 <div class="flex flex-col items-center mb-10 md:mb-0 bg-transparent relative group">
                     <div class="w-20 h-20 bg-white dark:bg-panda-gray rounded-full shadow-lg border-4 border-bamboo-fresh flex items-center justify-center text-3xl mb-4 z-10 transition-transform duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_10px_20px_rgba(34,197,94,0.3)]">💡</div>
                     <h4 class="font-extrabold text-lg text-panda-black dark:text-cream text-center">Simpan Catatan</h4>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 text-center max-w-[150px] mt-2">Review ulang di dashboard Anda.</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 text-center max-w-[150px] mt-2">Tinjau ulang di dashboard Anda.</p>
                 </div>
                 <!-- Dashed Line Connector (Mobile) -->
                 <div class="md:hidden h-12 border-l-[3px] border-dashed border-bamboo-fresh/50 my-[-15px] z-[-1]"></div>
@@ -515,7 +515,7 @@
                         </button>
                         <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white/60 dark:bg-[#151515]">
                             <p class="px-6 py-5 text-slate-600 dark:text-slate-400 leading-relaxed text-sm border-t border-bamboo-fresh/10 dark:border-white/5">
-                                Pelajar dapat menggunakan <strong>Ruang Baca Materi</strong> yang responsif, <strong>Timer Pomodoro</strong> (25 menit fokus, 5 menit istirahat), <strong>Ringkasan AI & Buku Catatan Digital</strong> yang dapat diedit, <strong>Latihan Soal</strong>, <strong>To-Do List</strong>, pemantauan <strong>Log Aktivitas</strong>, hingga fitur <strong>Gamifikasi (Streak Belajar)</strong> untuk menjaga konsistensi.
+                                Pelajar dapat menggunakan <strong>Ruang Baca Materi</strong> yang responsif, <strong>Timer Pomodoro</strong> (25 menit fokus, 5 menit istirahat), <strong>Ringkasan AI & Buku Catatan Digital</strong> yang dapat disunting, <strong>Latihan Soal</strong>, <strong>Daftar Tugas</strong>, pemantauan <strong>Log Aktivitas</strong>, hingga fitur <strong>Gamifikasi (Runtunan Belajar)</strong> untuk menjaga konsistensi.
                             </p>
                         </div>
                     </div>
@@ -527,7 +527,7 @@
                         </button>
                         <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white/60 dark:bg-[#151515]">
                             <p class="px-6 py-5 text-slate-600 dark:text-slate-400 leading-relaxed text-sm border-t border-bamboo-fresh/10 dark:border-white/5">
-                                Fitur AI di siPanda <strong>hanya difokuskan untuk meringkas dan menyederhanakan materi</strong> teks yang panjang menjadi poin-poin penting. Hasil ringkasan tersebut secara otomatis dapat disimpan ke dalam Buku Catatan Digital, yang kemudian bebas diedit oleh pengguna untuk keperluan pendalaman materi secara mandiri.
+                                Fitur AI di siPanda <strong>hanya difokuskan untuk meringkas dan menyederhanakan materi</strong> teks yang panjang menjadi poin-poin penting. Hasil ringkasan tersebut secara otomatis dapat disimpan ke dalam Buku Catatan Digital, yang kemudian bebas disunting oleh pengguna untuk keperluan pendalaman materi secara mandiri.
                             </p>
                         </div>
                     </div>
@@ -539,7 +539,7 @@
                         </button>
                         <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white/60 dark:bg-[#151515]">
                             <p class="px-6 py-5 text-slate-600 dark:text-slate-400 leading-relaxed text-sm border-t border-bamboo-fresh/10 dark:border-white/5">
-                                Akses pengguna sistem ini dibatasi hanya untuk dua tipe akun, yaitu <strong>Administrator</strong> dan <strong>Pelajar</strong>. Administrator memiliki hak untuk melakukan tambah, ubah, dan hapus (CRUD) materi pembelajaran serta latihan soal. Sementara Pelajar hanya memiliki akses untuk menggunakan fasilitas belajar yang tersedia.
+                                Akses pengguna sistem ini dibatasi hanya untuk dua tipe akun, yaitu <strong>Admin</strong> dan <strong>Pelajar</strong>. Admin memiliki hak untuk melakukan tambah, ubah, dan hapus (CRUD) materi pembelajaran serta latihan soal. Sementara Pelajar hanya memiliki akses untuk menggunakan fasilitas belajar yang tersedia.
                             </p>
                         </div>
                     </div>
@@ -551,7 +551,7 @@
                         </button>
                         <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white/60 dark:bg-[#151515]">
                             <p class="px-6 py-5 text-slate-600 dark:text-slate-400 leading-relaxed text-sm border-t border-bamboo-fresh/10 dark:border-white/5">
-                                Tentu. Sistem siPanda dikembangkan berbasis *Web Application* yang <strong>sepenuhnya responsif (Multi-platform)</strong>. Aplikasi ini dapat diakses dengan nyaman melalui Laptop, PC, Tablet, maupun Handphone, asalkan pengguna terhubung dengan jaringan internet.
+                                Tentu. Sistem siPanda dikembangkan berbasis Aplikasi Web yang <strong>sepenuhnya responsif (lintas platform)</strong>. Aplikasi ini dapat diakses dengan nyaman melalui laptop, komputer pribadi, tablet, maupun ponsel, asalkan pengguna terhubung dengan jaringan internet.
                             </p>
                         </div>
                     </div>

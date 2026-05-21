@@ -1,8 +1,20 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Student\ChatController;
+
 use App\Http\Controllers\Auth\OtpController;
+use App\Http\Controllers\Student\ChatController;
+use App\Http\Controllers\Student\DashboardController;
+use App\Http\Controllers\Student\MateriController;
+use App\Http\Controllers\Student\GamifikasiController;
+use App\Http\Controllers\Student\LatihanSoalController;
+use App\Http\Controllers\Student\SettingsController;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+*/
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -11,8 +23,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Auth Routes
-Route::get('/register', function() {
+// ==========================================
+// AUTHENTICATION ROUTES
+// ==========================================
+Route::get('/register', function () {
     return redirect('/sipanda/register');
 })->name('register');
 
@@ -27,11 +41,36 @@ Route::post('/logout', function () {
     return redirect('/');
 })->name('logout');
 
-// Middleware filament
+// ==========================================
+// STUDENT AREA ROUTES 
+// ==========================================
 Route::middleware([
     \Filament\Http\Middleware\Authenticate::class,
 ])->group(function () {
-    Route::get('/dashboard', [ChatController::class, 'index'])->name('student.dashboard');
+
+    // 1. Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('student.dashboard');
+
+    // 2. Materi
+    Route::get('/materi', [MateriController::class, 'index'])->name('student.materi');
+    Route::get('/materi/{id}', [MateriController::class, 'show'])->name('student.materi.show'); 
+
+    // 3. Gamifikasi & Sesi Belajar
+    Route::get('/gamifikasi', [GamifikasiController::class, 'index'])->name('student.gamifikasi');
+    Route::post('/learning-session', [GamifikasiController::class, 'storeLearningSession'])->name('student.learning-session.store');
+
+    // 4. Latihan Soal
+    Route::get('/latihansoal', [LatihanSoalController::class, 'index'])->name('student.latihansoal');
+    Route::get('/latihansoal/{id}', [LatihanSoalController::class, 'show'])->name('student.latihansoal.show');
+    Route::post('/latihansoal/{id}/generate', [LatihanSoalController::class, 'generateAi'])->name('student.latihansoal.generate');
+    Route::post('/latihansoal/{id}/submit', [LatihanSoalController::class, 'submitAnswers'])->name('student.latihansoal.submit');
+
+
+    // 5. Proses AI & Chatbot
+    Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
+    Route::post('/ai/process', [ChatController::class, 'processAi'])->name('ai.process');
+
+    // 6. Settings & Profile
     Route::get('/settings', function () {
         return view('student.settings');
     })->name('student.settings');
@@ -44,4 +83,7 @@ Route::middleware([
     Route::get('/latihansoal', [ChatController::class, 'latihanSoal'])->name('latihansoal');
     Route::get('/materi', [ChatController::class, 'materi'])->name('materi');
     Route::get('/todo', [ChatController::class, 'todo'])->name('todo');
+});
+    Route::put('/settings/profile', [SettingsController::class, 'updateProfile'])->name('student.settings.profile');
+    Route::put('/settings/password', [SettingsController::class, 'updatePassword'])->name('student.settings.password');
 });

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
-use App\Models\ChatMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\AiSummary;
@@ -286,7 +285,7 @@ class ChatController extends Controller
     public function processAi(Request $request)
     {
         $request->validate([
-            'file' => 'required|file|mimes:pdf,doc,docx,ppt,pptx|max:10240',
+            'file' => 'required|file|mimes:pdf|max:10240',
             'action' => 'required|in:summary,quiz',
         ]);
 
@@ -299,7 +298,9 @@ class ChatController extends Controller
             }
 
             $pdf = $parser->parseFile($request->file('file')->getPathname());
-            $text = $pdf->getText();
+            
+            // Batasi teks agar tidak melebihi limit token API OpenRouter
+            $text = substr($pdf->getText(), 0, 15000);
 
             if (empty(trim($text))) {
                 throw new \Exception('Teks tidak ditemukan dalam file PDF tersebut.');
@@ -307,7 +308,7 @@ class ChatController extends Controller
 
             $instruction = ($request->action === 'summary') 
                 ? "Rangkum teks berikut dengan poin-poin yang mudah dipahami mahasiswa:" 
-                : "Buatkan 5 soal pilihan ganda berdasarkan teks berikut lengkap dengan kunci jawabannya:";
+                : "Buatkan 5 soal pilihan ganda berdasarkan teks berikut. WAJIB format JSON murni [{\"soal\":\"...\",\"opsi\":[\"A...\",\"B...\"],\"jawaban_benar\":\"A...\"}]:";
 
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . config('services.openrouter.api_key'),
@@ -324,11 +325,9 @@ class ChatController extends Controller
             $result = $response->json();
             $aiResult = $result['choices'][0]['message']['content'] ?? 'Gagal memproses.';
 
-            echo $aiResult;
-
             if ($request->action === 'summary') {
                 \App\Models\AiSummary::updateOrCreate(
-                    ['user_id' => auth()->id()], 
+                    ['user_id' => auth()->user()->id], 
                     [
                         'summary_text' => $aiResult,
                         'last_generated' => now(),
@@ -342,27 +341,5 @@ class ChatController extends Controller
         } catch (\Exception $e) {
             return back()->with('error', 'Gagal memproses file: ' . $e->getMessage());
         }
-    }
-
-    public function storeLearningSession(Request $request)
-    {
-        $request->validate([
-            'duration' => 'required|integer|min:1',
-            // materi_id can be optional or handled if present
-            'materi_id' => 'nullable|exists:materis,materi_id'
-        ]);
-
-        $duration = $request->input('duration');
-        
-        \App\Models\LearningSession::create([
-            'user_id' => auth()->id(),
-            'materi_id' => $request->input('materi_id') ?: 1, // Defaulting to 1 for dummy/general session
-            'start_time' => now()->subMinutes($duration),
-            'end_time' => now(),
-            'duration' => $duration,
-            'status' => 'completed',
-        ]);
-
-        return response()->json(['success' => true, 'message' => 'Sesi belajar berhasil disimpan!']);
     }
 }
