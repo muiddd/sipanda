@@ -278,6 +278,11 @@ class ChatController extends Controller
     return view('student.materi', compact('materiData'));
 }
 
+    public function todo()
+{
+    return view('student.todolist');
+}
+
     public function processAi(Request $request)
     {
         $request->validate([

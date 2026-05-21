@@ -43,4 +43,5 @@ Route::middleware([
     Route::get('/gamifikasi', [ChatController::class, 'gamifikasi'])->name('student.gamifikasi');
     Route::get('/latihansoal', [ChatController::class, 'latihanSoal'])->name('latihansoal');
     Route::get('/materi', [ChatController::class, 'materi'])->name('materi');
+    Route::get('/todo', [ChatController::class, 'todo'])->name('todo');
 });
