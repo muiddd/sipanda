@@ -9,6 +9,7 @@ use App\Http\Controllers\Student\MateriController;
 use App\Http\Controllers\Student\GamifikasiController;
 use App\Http\Controllers\Student\LatihanSoalController;
 use App\Http\Controllers\Student\SettingsController;
+use App\Http\Controllers\Student\PomodoroController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,4 +78,7 @@ Route::middleware([
     Route::put('/settings/profile', [SettingsController::class, 'updateProfile'])->name('student.settings.profile');
     Route::put('/settings/password', [SettingsController::class, 'updatePassword'])->name('student.settings.password');
     Route::get('/todo', [ChatController::class, 'todo'])->name('todo');
+
+    //7. Pomodoro Timer
+    Route::post('/pomodoro/store', [PomodoroController::class, 'store'])->name('pomodoro.store');
 });
