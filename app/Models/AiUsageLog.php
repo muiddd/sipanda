@@ -14,4 +14,14 @@ class AiUsageLog extends Model
         'completion_tokens',
         'total_tokens',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function materi()
+    {
+        return $this->belongsTo(Materi::class, 'materi_id');
+    }
 }
