@@ -9,6 +9,7 @@ use App\Http\Controllers\Student\MateriController;
 use App\Http\Controllers\Student\GamifikasiController;
 use App\Http\Controllers\Student\LatihanSoalController;
 use App\Http\Controllers\Student\SettingsController;
+use App\Http\Controllers\Student\PomodoroController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,7 +54,7 @@ Route::middleware([
 
     // 2. Materi
     Route::get('/materi', [MateriController::class, 'index'])->name('student.materi');
-    Route::get('/materi/{id}', [MateriController::class, 'show'])->name('student.materi.show'); 
+    Route::get('/materi/{id}', [MateriController::class, 'show'])->name('student.materi.show');
 
     // 3. Gamifikasi & Sesi Belajar
     Route::get('/gamifikasi', [GamifikasiController::class, 'index'])->name('student.gamifikasi');
@@ -76,4 +77,8 @@ Route::middleware([
     })->name('student.settings');
     Route::put('/settings/profile', [SettingsController::class, 'updateProfile'])->name('student.settings.profile');
     Route::put('/settings/password', [SettingsController::class, 'updatePassword'])->name('student.settings.password');
+    Route::get('/todo', [ChatController::class, 'todo'])->name('todo');
+
+    //7. Pomodoro Timer
+    Route::post('/pomodoro/store', [PomodoroController::class, 'store'])->name('pomodoro.store');
 });

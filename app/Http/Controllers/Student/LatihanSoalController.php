@@ -14,13 +14,13 @@ class LatihanSoalController extends Controller
     public function index()
     {
         $materis = Materi::with('kategori')->latest()->get();
-        return view('student.latihansoal', compact('materis'));
+        return view('student.latihanSoal', compact('materis'));
     }
 
     public function show($id)
     {
         $materi = Materi::where('materi_id', $id)->firstOrFail();
-        
+
         // Ambil soal dari database jika sudah pernah digenerate AI
         $savedSoal = Latihan::where('materi_id', $id)->get();
 
@@ -30,7 +30,7 @@ class LatihanSoalController extends Controller
     public function generateAi($id)
     {
         $materi = Materi::where('materi_id', $id)->firstOrFail();
-        $text = strip_tags($materi->konten_teks); 
+        $text = strip_tags($materi->konten_teks);
 
         $instruction = "Kamu adalah guru pembuat soal. Buatkan 5 soal pilihan ganda berdasarkan teks berikut. WAJIB HANYA OUTPUT ARRAY JSON MURNI TANPA TEKS PENGANTAR. Format persis seperti ini: [{\"soal\":\"...\",\"opsi\":[\"A. ...\",\"B. ...\",\"C. ...\",\"D. ...\"],\"jawaban_benar\":\"A. ...\"}]";
 
@@ -55,7 +55,7 @@ class LatihanSoalController extends Controller
             if (!$soalJson) {
                 throw new \Exception('AI gagal memformat soal. Silakan coba lagi.');
             }
-            
+
             // Hapus soal lama untuk materi ini agar tidak dobel
             Latihan::where('materi_id', $id)->delete();
 
@@ -72,8 +72,7 @@ class LatihanSoalController extends Controller
 
             // INI YANG BIKIN ERROR TADI! Harus di-redirect ke halaman GET, bukan return view!
             return redirect()->route('student.latihansoal.show', $id)
-                             ->with('success', 'Soal berhasil digenerate dan disimpan ke Database!');
-
+                ->with('success', 'Soal berhasil digenerate dan disimpan ke Database!');
         } catch (\Exception $e) {
             return back()->with('error', 'Gagal memproses AI: ' . $e->getMessage());
         }
@@ -82,13 +81,13 @@ class LatihanSoalController extends Controller
     public function submitAnswers(Request $request, $id)
     {
         $answers = $request->answers;
-        
-        foreach($answers as $ans) {
+
+        foreach ($answers as $ans) {
             DB::table('user_answers')->insert([
                 'user_id' => auth()->id(),
                 'latihan_id' => $ans['latihan_id'],
                 // Karena tabelmu formatnya char(1), kita cuma ambil huruf depannya saja (misal "A")
-                'answer' => substr($ans['answer'], 0, 1), 
+                'answer' => substr($ans['answer'], 0, 1),
                 'is_correct' => $ans['is_correct'],
                 'created_at' => now(),
                 'updated_at' => now(),

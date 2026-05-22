@@ -18,8 +18,9 @@ return new class extends Migration
             $table->dateTime('start_time');
             $table->dateTime('end_time')->nullable();
             $table->integer('duration')->comment('dalam menit');
-            $table->string('status'); // misal: 'completed', 'interrupted'
+            $table->string('status'); 
             $table->timestamps();
+
         });
     }
 

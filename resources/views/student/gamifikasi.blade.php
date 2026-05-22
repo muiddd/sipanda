@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>siPanda - Gamifikasi</title>
+    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -93,19 +96,17 @@
             </header>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                <!-- Summary Widget -->
                 <div class="glass p-8 flex flex-col justify-center relative overflow-hidden group cursor-default h-full">
                     <div class="absolute -right-4 -bottom-4 text-7xl opacity-10 group-hover:scale-110 group-hover:opacity-20 transition-all duration-500">⏳</div>
                     <p class="text-xs uppercase font-extrabold tracking-wider text-slate-500 dark:text-slate-400 mb-2">Total Waktu Belajar</p>
                     <div class="flex items-end gap-1">
-                        <span class="font-heading text-5xl font-black text-[#75cb50] drop-shadow-[0_0_15px_rgba(34,197,94,0.3)]">{{ $hours }}</span>
+                        <span class="font-heading text-5xl font-black text-[#75cb50] drop-shadow-[0_0_15px_rgba(34,197,94,0.3)]">{{ $hours ?? 0 }}</span>
                         <span class="text-sm font-bold text-slate-500 dark:text-slate-400 mb-2">jam</span>
-                        <span class="font-heading text-5xl font-black text-[#75cb50] drop-shadow-[0_0_15px_rgba(34,197,94,0.3)] ml-2">{{ $mins }}</span>
+                        <span class="font-heading text-5xl font-black text-[#75cb50] drop-shadow-[0_0_15px_rgba(34,197,94,0.3)] ml-2">{{ $mins ?? 0 }}</span>
                         <span class="text-sm font-bold text-slate-500 dark:text-slate-400 mb-2">mnt</span>
                     </div>
                 </div>
 
-                <!-- Pomodoro Timer -->
                 <div class="glass p-8 relative overflow-hidden md:col-span-2 group">
                     <div class="flex flex-col md:flex-row justify-between items-center gap-8">
                         <div class="flex-1 text-left">
@@ -115,11 +116,11 @@
                             <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">Fokus belajar 25 menit, lalu istirahat 5 menit. Waktu akan otomatis tercatat ke dalam statistik.</p>
                             
                             <div class="flex gap-3 w-full max-w-xs">
-                                <button id="btn-start" class="flex-1 bg-gradient-to-r from-[#75cb50] to-[#10b981] hover:from-[#10b981] hover:to-[#059669] text-white font-bold py-3 px-6 rounded-xl shadow-[0_0_20px_rgba(34,197,94,0.3)] transition-all hover:scale-[1.02] flex items-center justify-center gap-2">
+                                <button id="card-pomodoro-start-btn" onclick="startPomodoro()" class="flex-1 bg-gradient-to-r from-[#75cb50] to-[#10b981] hover:from-[#10b981] hover:to-[#059669] text-white font-bold py-3 px-6 rounded-xl shadow-[0_0_20px_rgba(34,197,94,0.3)] transition-all hover:scale-[1.02] flex items-center justify-center gap-2">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                     <span id="btn-start-text">Start</span>
                                 </button>
-                                <button id="btn-reset" class="px-4 py-3 bg-black/5 dark:bg-white/5 text-slate-600 dark:text-slate-300 font-bold rounded-xl hover:bg-black/10 dark:hover:bg-white/10 transition flex items-center justify-center">
+                                <button onclick="resetPomodoro()" class="px-4 py-3 bg-black/5 dark:bg-white/5 text-slate-600 dark:text-slate-300 font-bold rounded-xl hover:bg-black/10 dark:hover:bg-white/10 transition flex items-center justify-center">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                                 </button>
                             </div>
@@ -127,11 +128,11 @@
                         
                         <div class="flex flex-col items-center bg-white/50 dark:bg-[#121212]/50 p-6 rounded-3xl border border-[#75cb50]/20 shadow-[0_10px_30px_rgba(34,197,94,0.1)] min-w-[250px]">
                             <div class="flex gap-2 mb-4 w-full bg-black/5 dark:bg-white/5 p-1 rounded-full">
-                                <button id="mode-work" class="flex-1 py-1.5 rounded-full text-xs font-bold transition-all bg-[#75cb50] text-white shadow-[0_0_10px_rgba(34,197,94,0.4)]">Work</button>
-                                <button id="mode-break" class="flex-1 py-1.5 rounded-full text-xs font-bold transition-all bg-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">Break</button>
+                                <button class="flex-1 py-1.5 rounded-full text-xs font-bold transition-all bg-[#75cb50] text-white shadow-[0_0_10px_rgba(34,197,94,0.4)] cursor-default">Work</button>
+                                <button class="flex-1 py-1.5 rounded-full text-xs font-bold transition-all bg-transparent text-slate-500 cursor-default">Break</button>
                             </div>
                             
-                            <div class="font-heading text-6xl font-black text-slate-900 dark:text-white tracking-widest my-2" id="timer-display">
+                            <div class="font-heading text-6xl font-black text-slate-900 dark:text-white tracking-widest my-2" id="card-pomodoro-display">
                                 25:00
                             </div>
                         </div>
@@ -139,22 +140,68 @@
                 </div>
             </div>
 
-            <!-- Grafik Lama Belajar -->
-            <div class="glass p-8 relative overflow-hidden group cursor-default">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-                    <div>
-                        <h2 class="font-heading text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                            <span class="text-2xl">📊</span> Grafik Lama Belajar
-                        </h2>
-                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Lama waktu belajarmu dalam 7 hari terakhir (menit)</p>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+                <div class="glass p-8 relative overflow-hidden group cursor-default lg:col-span-2">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                        <div>
+                            <h2 class="font-heading text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                                <span class="text-2xl">📊</span> Grafik Lama Belajar
+                            </h2>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Lama waktu belajarmu dalam 7 hari terakhir (menit)</p>
+                        </div>
+                    </div>
+                    <div class="w-full h-[300px]">
+                        <canvas id="learningDurationChart"></canvas>
                     </div>
                 </div>
-                <div class="w-full h-[350px]">
-                    <canvas id="learningDurationChart"></canvas>
+
+                <div class="glass p-8 relative overflow-hidden group cursor-default flex flex-col justify-between">
+                    <div class="absolute -right-4 -bottom-4 text-7xl opacity-5 group-hover:scale-110 group-hover:opacity-10 transition-all duration-500">✨</div>
+                    <div>
+                        <h2 class="font-heading text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-2">
+                            <span>🤖</span> Statistik AI siPanda
+                        </h2>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Lacak penggunaan asisten AI dalam belajarmu.</p>
+                        
+                        <div class="space-y-5">
+                            <div class="bg-black/5 dark:bg-white/5 p-4 rounded-2xl border border-black/5 dark:border-white/5">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Total Token Terpakai</span>
+                                    <span class="text-xs font-bold text-[#75cb50]">{{ number_format($totalTokens ?? 0) }} / 50.000</span>
+                                </div>
+                                <div class="text-2xl font-black text-slate-900 dark:text-white">
+                                    {{ number_format($totalTokens ?? 0) }} <span class="text-xs font-semibold text-slate-500">tokens</span>
+                                </div>
+                                <div class="mt-2 w-full bg-slate-200 dark:bg-[#2a2a2a] rounded-full h-1.5 overflow-hidden border border-black/5 dark:border-white/5">
+                                    <div class="bg-gradient-to-r from-[#10b981] to-[#75cb50] h-1.5 rounded-full" style="width: {{ min(100, (($totalTokens ?? 0) / 50000) * 100) }}%"></div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-black/5 dark:bg-white/5 p-4 rounded-2xl border border-black/5 dark:border-white/5 text-center">
+                                    <span class="text-[10px] uppercase font-extrabold tracking-wider text-slate-500 dark:text-slate-400">Rangkuman AI</span>
+                                    <div class="text-2xl font-black text-slate-900 dark:text-white mt-1">{{ $summaryRequests ?? 0 }}</div>
+                                    <span class="text-[10px] text-slate-500">kali proses</span>
+                                </div>
+                                <div class="bg-black/5 dark:bg-white/5 p-4 rounded-2xl border border-black/5 dark:border-white/5 text-center">
+                                    <span class="text-[10px] uppercase font-extrabold tracking-wider text-slate-500 dark:text-slate-400">Latihan Soal</span>
+                                    <div class="text-2xl font-black text-slate-900 dark:text-white mt-1">{{ $quizRequests ?? 0 }}</div>
+                                    <span class="text-[10px] text-slate-500">kali dibuat</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 border-t border-black/5 dark:border-white/5 mt-6 flex justify-between items-center text-xs text-slate-500">
+                        <span>Total Request AI: <strong>{{ $totalAiRequests ?? 0 }} kali</strong></span>
+                        <span class="text-[#75cb50] font-bold">Aktif</span>
+                    </div>
                 </div>
             </div>
         </main>
     </div>
+    
+    <x-pomodoro-timer />
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
@@ -266,100 +313,7 @@
             observer.observe(htmlElement, { attributes: true });
         });
 
-        // Pomodoro Timer Logic
-        const timerDisplay = document.getElementById('timer-display');
-        const btnStart = document.getElementById('btn-start');
-        const btnStartText = document.getElementById('btn-start-text');
-        const btnReset = document.getElementById('btn-reset');
-        const modeWork = document.getElementById('mode-work');
-        const modeBreak = document.getElementById('mode-break');
-        
-        let timerInterval;
-        let isRunning = false;
-        let timeLeft = 1 * 60; // 25 minutes
-        let currentMode = 'work'; // 'work' or 'break'
-        let workDuration = 1; // minutes
-
-        function updateDisplay() {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
-
-        function setMode(mode) {
-            clearInterval(timerInterval);
-            isRunning = false;
-            currentMode = mode;
-            btnStartText.textContent = 'Start';
-            btnStart.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> <span id="btn-start-text">Start</span>`;
-            
-            if (mode === 'work') {
-                timeLeft = 25 * 60;
-                workDuration = 25;
-                modeWork.className = 'flex-1 py-1.5 rounded-full text-xs font-bold transition-all bg-[#75cb50] text-white shadow-[0_0_10px_rgba(34,197,94,0.4)]';
-                modeBreak.className = 'flex-1 py-1.5 rounded-full text-xs font-bold transition-all bg-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300';
-            } else {
-                timeLeft = 5 * 60;
-                modeBreak.className = 'flex-1 py-1.5 rounded-full text-xs font-bold transition-all bg-blue-500 text-white shadow-[0_0_10px_rgba(59,130,246,0.4)]';
-                modeWork.className = 'flex-1 py-1.5 rounded-full text-xs font-bold transition-all bg-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300';
-            }
-            updateDisplay();
-        }
-
-        function saveSession() {
-            fetch('{{ route('student.learning-session.store') }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({ duration: workDuration })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if(data.success) {
-                    window.location.reload();
-                }
-            })
-            .catch(error => console.error('Error saving session:', error));
-        }
-
-        btnStart.addEventListener('click', () => {
-            if (isRunning) {
-                clearInterval(timerInterval);
-                isRunning = false;
-                btnStartText.textContent = 'Resume';
-                btnStart.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> <span id="btn-start-text">Resume</span>`;
-            } else {
-                isRunning = true;
-                btnStartText.textContent = 'Pause';
-                btnStart.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> <span id="btn-start-text">Pause</span>`;
-                
-                timerInterval = setInterval(() => {
-                    timeLeft--;
-                    updateDisplay();
-                    
-                    if (timeLeft <= 0) {
-                        clearInterval(timerInterval);
-                        isRunning = false;
-                        
-                        if (currentMode === 'work') {
-                            alert('Sesi fokus selesai! Waktunya istirahat.');
-                            saveSession();
-                        } else {
-                            alert('Waktu istirahat selesai! Ayo fokus lagi.');
-                            setMode('work');
-                        }
-                    }
-                }, 1000);
-            }
-        });
-
-        btnReset.addEventListener('click', () => setMode(currentMode));
-        modeWork.addEventListener('click', () => { if(currentMode !== 'work') setMode('work'); });
-        modeBreak.addEventListener('click', () => { if(currentMode !== 'break') setMode('break'); });
-
-        updateDisplay();
+        // Script Pomodoro lokal sudah dihapus agar tidak bentrok dengan <x-pomodoro-timer />
     </script>
 </body>
 </html>

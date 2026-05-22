@@ -36,6 +36,42 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Lime,
             ])
+            ->renderHook(
+                'panels::head.end',
+                fn (): string => \Illuminate\Support\Facades\Blade::render('
+                    <style>
+                        aside.fi-sidebar,
+                        aside.fi-sidebar > div,
+                        aside.fi-sidebar .fi-sidebar-header,
+                        aside.fi-sidebar .fi-sidebar-nav {
+                            background: transparent !important;
+                        }
+                        
+                        aside.fi-sidebar {
+                            background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, #f7f6f0 50%, #effaf0 100%) !important;
+                            backdrop-filter: blur(20px);
+                            border-right: 1px solid rgba(0, 0, 0, 0.05) !important;
+                        }
+
+                        .dark aside.fi-sidebar {
+                            background: linear-gradient(180deg, rgba(18, 18, 18, 0.95) 0%, #151d14 50%, #101410 100%) !important;
+                            border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+                        }
+ 
+                        .fi-sidebar-item-active a {
+                            background-color: #75cb50 !important;
+                            color: white !important;
+                            border-radius: 0.5rem;
+                            margin-inline: 0.5rem;
+                            box-shadow: 0 4px 12px rgba(117, 203, 80, 0.35);
+                        }
+                        
+                        .fi-sidebar-item-active a svg {
+                            color: white !important;
+                        }
+                    </style>
+                '),
+            )
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([

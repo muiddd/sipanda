@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>siPanda - Learning Dashboard</title>
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         // Konfigurasi agar tailwind mendeteksi class 'dark'
@@ -330,6 +333,9 @@
             </div>
         </main>
     </div>
+    
+    <x-pomodoro-timer />
+
     <script>
         const themeToggleBtn = document.getElementById('theme-toggle');
         const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
@@ -391,6 +397,19 @@
                 dropzoneContainer.classList.remove('border-solid', 'bg-[#75cb50]/10', 'border-[#75cb50]');
             }
         });
+
+        // 4. AI Process Loading Overlay trigger
+        const aiForm = document.querySelector('form[action*="ai/process"]');
+        if (aiForm) {
+            aiForm.addEventListener('submit', function(e) {
+                const fileInput = document.getElementById('file-upload');
+                if (fileInput && fileInput.files.length > 0) {
+                    window.showSipandaLoader();
+                }
+            });
+        }
     </script>
+
+    @include('student.partials.loading')
 </body>
 </html>

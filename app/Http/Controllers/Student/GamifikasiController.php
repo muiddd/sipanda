@@ -29,7 +29,23 @@ class GamifikasiController extends Controller
         $hours = floor($totalMinutes / 60);
         $mins = $totalMinutes % 60;
 
-        return view('student.gamifikasi', compact('chartLabels', 'chartData', 'hours', 'mins'));
+        // AI Usage Statistics
+        $aiUsageLogs = \App\Models\AiUsageLog::where('user_id', auth()->user()->id)->get();
+        $totalAiRequests = $aiUsageLogs->count();
+        $totalTokens = $aiUsageLogs->sum('total_tokens');
+        $summaryRequests = $aiUsageLogs->where('activity_type', 'summary')->count();
+        $quizRequests = $aiUsageLogs->where('activity_type', 'quiz')->count();
+
+        return view('student.gamifikasi', compact(
+            'chartLabels', 
+            'chartData', 
+            'hours', 
+            'mins',
+            'totalAiRequests',
+            'totalTokens',
+            'summaryRequests',
+            'quizRequests'
+        ));
     }
 
     public function storeLearningSession(Request $request)

@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" id="main-html" class="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>siPanda - Latihan Soal</title>
+    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -27,7 +31,13 @@
             color: #f2f1e8;
         }
 
-        h1, h2, h3, h4, h5, h6, .font-heading {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .font-heading {
             font-family: 'Outfit', sans-serif;
             letter-spacing: -0.01em;
         }
@@ -37,7 +47,7 @@
             backdrop-filter: blur(40px);
             -webkit-backdrop-filter: blur(40px);
             border: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
             border-radius: 1.5rem;
             transition: all 0.3s ease;
         }
@@ -45,7 +55,7 @@
         .dark .glass {
             background: rgba(18, 18, 18, 0.7);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 2px 0 rgba(255,255,255,0.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.05);
         }
 
         .bg-orb {
@@ -57,20 +67,55 @@
             pointer-events: none;
             transition: opacity 0.3s ease;
         }
+
         .dark .bg-orb {
             opacity: 0.25;
         }
-        .orb-1 { width: 500px; height: 500px; background: #75cb50; top: -100px; right: -100px; }
-        .orb-2 { width: 400px; height: 400px; background: #00ac73; bottom: 10%; left: -50px; }
 
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f8fafc; }
-        .dark ::-webkit-scrollbar-track { background: #121212; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        .dark ::-webkit-scrollbar-thumb { background: #2a2a2a; }
-        ::-webkit-scrollbar-thumb:hover { background: #75cb50; }
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: #75cb50;
+            top: -100px;
+            right: -100px;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: #00ac73;
+            bottom: 10%;
+            left: -50px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f8fafc;
+        }
+
+        .dark ::-webkit-scrollbar-track {
+            background: #121212;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: #2a2a2a;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #75cb50;
+        }
     </style>
 </head>
+
 <body class="relative min-h-screen">
 
     <div class="bg-orb orb-1"></div>
@@ -95,46 +140,48 @@
 
             {{-- Grid Kartu Materi (Dinamis dari Database) --}}
             @if($materis->count() > 0)
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    @foreach($materis as $materi)
-                        <div class="glass p-6 group cursor-pointer hover:border-[#75cb50]/50 transition-all relative overflow-hidden flex flex-col justify-between min-h-[250px]">
-                            <div class="absolute -right-4 -top-4 text-6xl opacity-5 group-hover:opacity-10 transition-all">📝</div>
-                            <div>
-                                <div class="w-12 h-12 rounded-xl bg-[#75cb50]/10 flex items-center justify-center text-2xl mb-4 border border-[#75cb50]/20">
-                                    💡
-                                </div>
-                                {{-- Mengambil judul dari database --}}
-                                <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white mb-2">
-                                    {{ $materi->judul_materi ?? $materi->title ?? 'Tanpa Judul' }}
-                                </h3>
-                                {{-- Menampilkan kategori materi --}}
-                                <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
-                                    Kategori: <span class="font-semibold text-slate-700 dark:text-slate-300">{{ $materi->kategori ? $materi->kategori->nama_kategori : 'Umum' }}</span>
-                                </p>
-                            </div>
-                            <div class="mt-6 flex justify-between items-center">
-                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
-                                    Generate AI
-                                </span>
-                                <a href="{{ route('student.latihansoal.show', $materi->materi_id) }}" class="bg-[#75cb50] hover:bg-[#64b043] text-white px-4 py-2 rounded-xl font-bold text-sm transition-all active:scale-95 shadow-lg shadow-green-500/20 inline-block">
-                                    Mulai Kuis
-                                </a>
-                            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @foreach($materis as $materi)
+                <div class="glass p-6 group cursor-pointer hover:border-[#75cb50]/50 transition-all relative overflow-hidden flex flex-col justify-between min-h-[250px]">
+                    <div class="absolute -right-4 -top-4 text-6xl opacity-5 group-hover:opacity-10 transition-all">📝</div>
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-[#75cb50]/10 flex items-center justify-center text-2xl mb-4 border border-[#75cb50]/20">
+                            💡
                         </div>
-                    @endforeach
+                        {{-- Mengambil judul dari database --}}
+                        <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white mb-2">
+                            {{ $materi->judul_materi ?? $materi->title ?? 'Tanpa Judul' }}
+                        </h3>
+                        {{-- Menampilkan kategori materi --}}
+                        <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                            Kategori: <span class="font-semibold text-slate-700 dark:text-slate-300">{{ $materi->kategori ? $materi->kategori->nama_kategori : 'Umum' }}</span>
+                        </p>
+                    </div>
+                    <div class="mt-6 flex justify-between items-center">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
+                            Generate AI
+                        </span>
+                        <a href="{{ route('student.latihansoal.show', $materi->materi_id) }}" class="bg-[#75cb50] hover:bg-[#64b043] text-white px-4 py-2 rounded-xl font-bold text-sm transition-all active:scale-95 shadow-lg shadow-green-500/20 inline-block">
+                            Mulai Kuis
+                        </a>
+                    </div>
                 </div>
+                @endforeach
+            </div>
             @else
-                {{-- Tampilan Kosong Jika Belum Ada Materi --}}
-                <div class="text-center py-20 glass">
-                    <p class="text-6xl mb-4">📭</p>
-                    <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Belum Ada Materi</h3>
-                    <p class="text-slate-500 mt-2">Tunggu gurumu menambahkan materi pembelajaran terlebih dahulu ya!</p>
-                </div>
+            {{-- Tampilan Kosong Jika Belum Ada Materi --}}
+            <div class="text-center py-20 glass">
+                <p class="text-6xl mb-4">📭</p>
+                <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Belum Ada Materi</h3>
+                <p class="text-slate-500 mt-2">Tunggu gurumu menambahkan materi pembelajaran terlebih dahulu ya!</p>
+            </div>
             @endif
 
         </main>
     </div>
 
+    <x-pomodoro-timer />
+    
     <script>
         const htmlElement = document.getElementById('main-html');
 
@@ -147,7 +194,7 @@
 
         // Sinkronisasi ikon tema di sidebar (dark/light icon)
         document.addEventListener('DOMContentLoaded', () => {
-            const darkIcon  = document.getElementById('theme-toggle-dark-icon');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
             const lightIcon = document.getElementById('theme-toggle-light-icon');
 
             // Tampilkan ikon yang sesuai saat load
@@ -177,4 +224,5 @@
     </script>
 
 </body>
+
 </html>
