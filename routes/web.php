@@ -53,7 +53,7 @@ Route::middleware([
 
     // 2. Materi
     Route::get('/materi', [MateriController::class, 'index'])->name('student.materi');
-    Route::get('/materi/{id}', [MateriController::class, 'show'])->name('student.materi.show'); 
+    Route::get('/materi/{id}', [MateriController::class, 'show'])->name('student.materi.show');
 
     // 3. Gamifikasi & Sesi Belajar
     Route::get('/gamifikasi', [GamifikasiController::class, 'index'])->name('student.gamifikasi');
@@ -74,16 +74,7 @@ Route::middleware([
     Route::get('/settings', function () {
         return view('student.settings');
     })->name('student.settings');
-    Route::put('/settings/profile', [App\Http\Controllers\Student\SettingsController::class, 'updateProfile'])->name('student.settings.profile');
-    Route::put('/settings/password', [App\Http\Controllers\Student\SettingsController::class, 'updatePassword'])->name('student.settings.password');
-    Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
-    Route::post('/ai/process', [ChatController::class, 'processAi'])->name('ai.process');
-    Route::post('/learning-session', [ChatController::class, 'storeLearningSession'])->name('student.learning-session.store');
-    Route::get('/gamifikasi', [ChatController::class, 'gamifikasi'])->name('student.gamifikasi');
-    Route::get('/latihansoal', [ChatController::class, 'latihanSoal'])->name('latihansoal');
-    Route::get('/materi', [ChatController::class, 'materi'])->name('materi');
-    Route::get('/todo', [ChatController::class, 'todo'])->name('todo');
-});
     Route::put('/settings/profile', [SettingsController::class, 'updateProfile'])->name('student.settings.profile');
     Route::put('/settings/password', [SettingsController::class, 'updatePassword'])->name('student.settings.password');
+    Route::get('/todo', [ChatController::class, 'todo'])->name('todo');
 });
