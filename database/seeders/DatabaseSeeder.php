@@ -26,13 +26,13 @@ class DatabaseSeeder extends Seeder
             'name' => 'Siswa Sipanda',
             'email' => 'siswa1@sipanda.com',
             'password' => Hash::make('password'),
-            'role' => 'user', 
+            'role' => 'user',
         ]);
 
         $this->call([
             MateriSeeder::class,
         ]);
-        
+
         $this->call([
             LearningSessionSeeder::class,
         ]);

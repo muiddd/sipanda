@@ -69,6 +69,28 @@ class ChatController extends Controller
             $result = $response->json();
             $aiResult = $result['choices'][0]['message']['content'] ?? 'Gagal memproses.';
 
+            // Log AI Usage
+            try {
+                $materi = \App\Models\Materi::first();
+                $materiId = $materi ? $materi->materi_id : 1;
+                
+                $usage = $result['usage'] ?? [];
+                $promptTokens = $usage['prompt_tokens'] ?? str_word_count($text);
+                $completionTokens = $usage['completion_tokens'] ?? str_word_count($aiResult);
+                $totalTokens = $usage['total_tokens'] ?? ($promptTokens + $completionTokens);
+                
+                \App\Models\AiUsageLog::create([
+                    'user_id' => auth()->user()->id,
+                    'materi_id' => $materiId,
+                    'activity_type' => $request->action,
+                    'prompt_tokens' => $promptTokens,
+                    'completion_tokens' => $completionTokens,
+                    'total_tokens' => $totalTokens,
+                ]);
+            } catch (\Exception $ex) {
+                // Silently ignore
+            }
+
             if ($request->action === 'summary') {
                 \App\Models\AiSummary::updateOrCreate(
                     ['user_id' => auth()->user()->id],

@@ -139,18 +139,66 @@
                 </div>
             </div>
 
-            <!-- Grafik Lama Belajar -->
-            <div class="glass p-8 relative overflow-hidden group cursor-default">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-                    <div>
-                        <h2 class="font-heading text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                            <span class="text-2xl">📊</span> Grafik Lama Belajar
-                        </h2>
-                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Lama waktu belajarmu dalam 7 hari terakhir (menit)</p>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+                <!-- Grafik Lama Belajar -->
+                <div class="glass p-8 relative overflow-hidden group cursor-default lg:col-span-2">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                        <div>
+                            <h2 class="font-heading text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                                <span class="text-2xl">📊</span> Grafik Lama Belajar
+                            </h2>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Lama waktu belajarmu dalam 7 hari terakhir (menit)</p>
+                        </div>
+                    </div>
+                    <div class="w-full h-[300px]">
+                        <canvas id="learningDurationChart"></canvas>
                     </div>
                 </div>
-                <div class="w-full h-[350px]">
-                    <canvas id="learningDurationChart"></canvas>
+
+                <!-- AI Usage Statistics Card -->
+                <div class="glass p-8 relative overflow-hidden group cursor-default flex flex-col justify-between">
+                    <div class="absolute -right-4 -bottom-4 text-7xl opacity-5 group-hover:scale-110 group-hover:opacity-10 transition-all duration-500">✨</div>
+                    <div>
+                        <h2 class="font-heading text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-2">
+                            <span>🤖</span> Statistik AI siPanda
+                        </h2>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Lacak penggunaan asisten AI dalam belajarmu.</p>
+                        
+                        <div class="space-y-5">
+                            <!-- Token Usage -->
+                            <div class="bg-black/5 dark:bg-white/5 p-4 rounded-2xl border border-black/5 dark:border-white/5">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Total Token Terpakai</span>
+                                    <span class="text-xs font-bold text-[#75cb50]">{{ number_format($totalTokens) }} / 50.000</span>
+                                </div>
+                                <div class="text-2xl font-black text-slate-900 dark:text-white">
+                                    {{ number_format($totalTokens) }} <span class="text-xs font-semibold text-slate-500">tokens</span>
+                                </div>
+                                <div class="mt-2 w-full bg-slate-200 dark:bg-[#2a2a2a] rounded-full h-1.5 overflow-hidden border border-black/5 dark:border-white/5">
+                                    <div class="bg-gradient-to-r from-[#10b981] to-[#75cb50] h-1.5 rounded-full" style="width: {{ min(100, ($totalTokens / 50000) * 100) }}%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Requests Stats -->
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-black/5 dark:bg-white/5 p-4 rounded-2xl border border-black/5 dark:border-white/5 text-center">
+                                    <span class="text-[10px] uppercase font-extrabold tracking-wider text-slate-500 dark:text-slate-400">Rangkuman AI</span>
+                                    <div class="text-2xl font-black text-slate-900 dark:text-white mt-1">{{ $summaryRequests }}</div>
+                                    <span class="text-[10px] text-slate-500">kali proses</span>
+                                </div>
+                                <div class="bg-black/5 dark:bg-white/5 p-4 rounded-2xl border border-black/5 dark:border-white/5 text-center">
+                                    <span class="text-[10px] uppercase font-extrabold tracking-wider text-slate-500 dark:text-slate-400">Latihan Soal</span>
+                                    <div class="text-2xl font-black text-slate-900 dark:text-white mt-1">{{ $quizRequests }}</div>
+                                    <span class="text-[10px] text-slate-500">kali dibuat</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 border-t border-black/5 dark:border-white/5 mt-6 flex justify-between items-center text-xs text-slate-500">
+                        <span>Total Request AI: <strong>{{ $totalAiRequests }} kali</strong></span>
+                        <span class="text-[#75cb50] font-bold">Aktif</span>
+                    </div>
                 </div>
             </div>
         </main>
