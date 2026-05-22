@@ -1,4 +1,4 @@
-<div id="pomodoro-popup" class="fixed bottom-5 right-5 w-72 bg-gray-900 text-white p-4 rounded-xl shadow-lg border border-gray-700 z-50 transition-all duration-300">
+<div id="pomodoro-popup" class="fixed bottom-5 right-5 w-72 bg-gray-900 text-white p-4 rounded-xl shadow-lg border border-gray-700 z-50 transition-all duration-300 hidden">
     <div class="flex justify-between items-center mb-2">
         <h4 class="font-bold text-sm">🍅 Pomodoro siPanda</h4>
         <button onclick="togglePomodoro()" class="text-gray-400 hover:text-white text-lg leading-none">&times;</button>
@@ -24,17 +24,25 @@
         updateDisplay();
         // Jika halaman di-refresh dan timer sedang berjalan, lanjutkan
         if (localStorage.getItem('pomodoro_end_time')) {
+            // Tampilkan popup otomatis jika timer sedang jalan
+            const popup = document.getElementById('pomodoro-popup');
+            if (popup) popup.classList.remove('hidden');
+            
             startTimerLogic();
         }
     });
 
     function togglePomodoro() {
         const popup = document.getElementById('pomodoro-popup');
-        popup.classList.toggle('hidden');
+        if (popup) popup.classList.toggle('hidden');
     }
 
     function startPomodoro() {
         if (localStorage.getItem('pomodoro_end_time')) return; 
+        
+        // Memunculkan popup saat tombol start di-klik
+        const popup = document.getElementById('pomodoro-popup');
+        if (popup) popup.classList.remove('hidden');
         
         // Mulai dari mode 'work'
         setTimerPhase('work', WORK_MINUTES);
@@ -48,10 +56,21 @@
     }
 
     function startTimerLogic() {
-        const startBtn = document.getElementById('pomodoro-start-btn');
-        startBtn.disabled = true;
-        startBtn.classList.add('opacity-50', 'cursor-not-allowed');
-        startBtn.innerText = 'Berjalan...';
+        // Disable tombol start di popup
+        const startBtnPopup = document.getElementById('pomodoro-start-btn');
+        if (startBtnPopup) {
+            startBtnPopup.disabled = true;
+            startBtnPopup.classList.add('opacity-50', 'cursor-not-allowed');
+            startBtnPopup.innerText = 'Berjalan...';
+        }
+
+        // Disable tombol start di Card halaman Gamifikasi (jika sedang dibuka)
+        const startBtnCard = document.getElementById('card-pomodoro-start-btn');
+        if (startBtnCard) {
+            startBtnCard.disabled = true;
+            startBtnCard.classList.add('opacity-50', 'cursor-not-allowed');
+            startBtnCard.innerText = 'Berjalan...';
+        }
 
         timerInterval = setInterval(() => {
             const now = new Date().getTime();
@@ -72,12 +91,14 @@
         const mode = localStorage.getItem('pomodoro_mode') || 'work';
         
         const modeText = document.getElementById('pomodoro-mode');
-        if (mode === 'work') {
-            modeText.innerText = '🔥 Fokus Belajar';
-            modeText.className = 'text-xs text-green-400 font-bold uppercase tracking-wider block mb-1';
-        } else {
-            modeText.innerText = '☕ Waktu Istirahat';
-            modeText.className = 'text-xs text-blue-400 font-bold uppercase tracking-wider block mb-1';
+        if (modeText) {
+            if (mode === 'work') {
+                modeText.innerText = '🔥 Fokus Belajar';
+                modeText.className = 'text-xs text-green-400 font-bold uppercase tracking-wider block mb-1';
+            } else {
+                modeText.innerText = '☕ Waktu Istirahat';
+                modeText.className = 'text-xs text-blue-400 font-bold uppercase tracking-wider block mb-1';
+            }
         }
 
         if (distance !== null) {
@@ -88,8 +109,15 @@
             seconds = 0;
         }
 
-        document.getElementById('pomodoro-display').innerText = 
-            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        // 1. Update teks di Popup
+        const popupDisplay = document.getElementById('pomodoro-display');
+        if (popupDisplay) popupDisplay.innerText = timeString;
+
+        // 2. Update teks di Card Gamifikasi (jika halamannya sedang dibuka)
+        const cardDisplay = document.getElementById('card-pomodoro-display');
+        if (cardDisplay) cardDisplay.innerText = timeString;
     }
 
     function handlePhaseComplete() {
@@ -120,15 +148,37 @@
     }
 
     function resetUIAfterComplete() {
-        const startBtn = document.getElementById('pomodoro-start-btn');
-        startBtn.disabled = false;
-        startBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-        startBtn.innerText = 'Mulai';
+        // Sembunyikan popup kembali setelah selesai/reset
+        const popup = document.getElementById('pomodoro-popup');
+        if (popup) popup.classList.add('hidden');
+
+        // Reset tombol popup
+        const startBtnPopup = document.getElementById('pomodoro-start-btn');
+        if (startBtnPopup) {
+            startBtnPopup.disabled = false;
+            startBtnPopup.classList.remove('opacity-50', 'cursor-not-allowed');
+            startBtnPopup.innerText = 'Mulai';
+        }
+
+        // Reset tombol card
+        const startBtnCard = document.getElementById('card-pomodoro-start-btn');
+        if (startBtnCard) {
+            startBtnCard.disabled = false;
+            startBtnCard.classList.remove('opacity-50', 'cursor-not-allowed');
+            startBtnCard.innerText = 'Start';
+        }
+
         updateDisplay();
     }
 
     function saveSessionToDatabase(learningDurationMinutes) {
-        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        const metaTag = document.querySelector('meta[name="csrf-token"]');
+        if (!metaTag) {
+            console.error("Meta tag CSRF token tidak ditemukan. Pastikan sudah ditambahkan di <head>.");
+            return;
+        }
+
+        const csrfToken = metaTag.getAttribute('content');
 
         fetch("{{ route('pomodoro.store') }}", {
             method: "POST",
@@ -139,15 +189,13 @@
             },
             body: JSON.stringify({
                 duration: learningDurationMinutes,
-                // materi_id: null // Isi dengan variabel JS jika halaman ini sedang membuka materi tertentu
+                // materi_id: null 
             })
         })
         .then(response => response.json())
         .then(data => {
             if(data.success) {
                 console.log(data.message);
-                // Opsional: Reload window jika ingin dashboard/grafik langsung update
-                // window.location.reload(); 
             }
         })
         .catch(error => console.error("Error saving session:", error));
