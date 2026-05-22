@@ -391,6 +391,19 @@
                 dropzoneContainer.classList.remove('border-solid', 'bg-[#75cb50]/10', 'border-[#75cb50]');
             }
         });
+
+        // 4. AI Process Loading Overlay trigger
+        const aiForm = document.querySelector('form[action*="ai/process"]');
+        if (aiForm) {
+            aiForm.addEventListener('submit', function(e) {
+                const fileInput = document.getElementById('file-upload');
+                if (fileInput && fileInput.files.length > 0) {
+                    window.showSipandaLoader();
+                }
+            });
+        }
     </script>
+
+    @include('student.partials.loading')
 </body>
 </html>
