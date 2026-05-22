@@ -1,19 +1,44 @@
-<div id="pomodoro-popup" class="fixed bottom-5 right-5 w-72 bg-gray-900 text-white p-4 rounded-xl shadow-lg border border-gray-700 z-50 transition-all duration-300 hidden">
-    <div class="flex justify-between items-center mb-2">
-        <h4 class="font-bold text-sm">🍅 Pomodoro siPanda</h4>
-        <button onclick="togglePomodoro()" class="text-gray-400 hover:text-white text-lg leading-none">&times;</button>
+<div id="pomodoro-mini" onclick="maximizePomodoro()" class="fixed top-8 right-0 glass pl-3 pr-4 py-2.5 rounded-l-xl cursor-pointer hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-500 transform translate-x-full z-[60] shadow-lg flex items-center gap-2 border-r-0 hidden">
+    <span class="animate-pulse drop-shadow-md">🐼</span>
+    <span id="mini-timer-display" class="font-heading font-bold text-sm text-slate-900 dark:text-white tracking-wider">25:00</span>
+</div>
+
+<div id="pomodoro-popup" class="fixed top-8 right-8 w-[280px] glass p-6 z-[60] transition-all duration-500 transform translate-x-[200%] opacity-0 shadow-[0_15px_40px_rgba(0,0,0,0.15)] dark:shadow-[0_15px_40px_rgba(0,0,0,0.5)] hidden">
+    
+    <div class="flex justify-between items-center mb-4 border-b border-black/5 dark:border-white/5 pb-3">
+        <h4 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+            <span>🐼</span> <span class="font-heading tracking-wide">siPanda Timer</span>
+        </h4>
+        <div class="flex items-center gap-2">
+            <button onclick="minimizePomodoro()" class="text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors p-1 rounded hover:bg-black/5 dark:hover:bg-white/5" title="Sembunyikan ke samping">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+            <button onclick="closePomodoro()" class="text-slate-400 hover:text-red-500 transition-colors text-xl leading-none p-1 rounded hover:bg-red-500/10" title="Tutup Timer">
+                &times;
+            </button>
+        </div>
     </div>
     
-    <div class="text-center">
-        <span id="pomodoro-mode" class="text-xs text-green-400 font-bold uppercase tracking-wider block mb-1">Fokus Belajar</span>
-        <div id="pomodoro-display" class="text-5xl font-extrabold my-3 font-mono tracking-tight">25:00</div>
+    <div class="text-center mt-2">
+        <span id="pomodoro-mode" class="text-[10px] uppercase font-extrabold tracking-wider text-[#75cb50] block mb-1">
+            🔥 Fokus Belajar
+        </span>
         
-        <div class="flex justify-center gap-2 mt-4">
-            <button id="pomodoro-start-btn" onclick="startPomodoro()" class="bg-green-500 hover:bg-green-600 px-5 py-2 rounded-lg text-sm font-bold w-full transition-colors">Mulai</button>
-            <button onclick="resetPomodoro()" class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg text-sm transition-colors">🔄</button>
+        <div id="pomodoro-display" class="font-heading text-5xl font-black text-slate-900 dark:text-white tracking-widest my-3">
+            25:00
+        </div>
+        
+        <div class="flex justify-center gap-3 mt-5">
+            <button id="pomodoro-start-btn" onclick="startPomodoro()" class="flex-1 bg-gradient-to-r from-[#75cb50] to-[#10b981] hover:from-[#10b981] hover:to-[#059669] text-white font-bold py-2.5 px-4 rounded-xl shadow-[0_0_15px_rgba(34,197,94,0.3)] transition-all hover:scale-[1.02] text-sm flex items-center justify-center gap-1.5">
+                Mulai
+            </button>
+            <button onclick="resetPomodoro()" class="px-4 py-2.5 bg-black/5 dark:bg-white/5 text-slate-600 dark:text-slate-300 font-bold rounded-xl hover:bg-black/10 dark:hover:bg-white/10 transition flex items-center justify-center" title="Reset Sesi">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+            </button>
         </div>
     </div>
 </div>
+
 <script>
     const WORK_MINUTES = 25;
     const BREAK_MINUTES = 5;
@@ -22,29 +47,74 @@
 
     document.addEventListener("DOMContentLoaded", () => {
         updateDisplay();
-        // Jika halaman di-refresh dan timer sedang berjalan, lanjutkan
+        
+        // UX Cerdas: Jika refresh halaman saat timer masih jalan, 
+        // munculkan dalam mode Mini Tab saja agar tidak menghalangi layar
         if (localStorage.getItem('pomodoro_end_time')) {
-            // Tampilkan popup otomatis jika timer sedang jalan
-            const popup = document.getElementById('pomodoro-popup');
-            if (popup) popup.classList.remove('hidden');
-            
+            const mini = document.getElementById('pomodoro-mini');
+            if (mini) {
+                mini.classList.remove('hidden');
+                setTimeout(() => mini.classList.remove('translate-x-full'), 10);
+            }
             startTimerLogic();
         }
     });
 
-    function togglePomodoro() {
+    // --- FUNGSI ANIMASI SLIDE --- //
+    
+    function minimizePomodoro() {
         const popup = document.getElementById('pomodoro-popup');
-        if (popup) popup.classList.toggle('hidden');
+        const mini = document.getElementById('pomodoro-mini');
+        
+        if (popup) {
+            // Geser keluar layar
+            popup.classList.add('translate-x-[200%]', 'opacity-0');
+            setTimeout(() => popup.classList.add('hidden'), 500); 
+        }
+        
+        if (mini) {
+            // Munculkan tab kecil
+            mini.classList.remove('hidden');
+            setTimeout(() => mini.classList.remove('translate-x-full'), 100);
+        }
     }
+
+    function maximizePomodoro() {
+        const popup = document.getElementById('pomodoro-popup');
+        const mini = document.getElementById('pomodoro-mini');
+        
+        if (mini) {
+            // Sembunyikan tab kecil
+            mini.classList.add('translate-x-full');
+            setTimeout(() => mini.classList.add('hidden'), 500);
+        }
+        
+        if (popup) {
+            // Munculkan popup utama
+            popup.classList.remove('hidden');
+            setTimeout(() => popup.classList.remove('translate-x-[200%]', 'opacity-0'), 10);
+        }
+    }
+
+    function closePomodoro() {
+        const popup = document.getElementById('pomodoro-popup');
+        if (popup) {
+            popup.classList.add('translate-x-[200%]', 'opacity-0');
+            setTimeout(() => popup.classList.add('hidden'), 500);
+        }
+    }
+
+    // --- LOGIKA TIMER --- //
 
     function startPomodoro() {
         if (localStorage.getItem('pomodoro_end_time')) return; 
         
-        // Memunculkan popup saat tombol start di-klik
         const popup = document.getElementById('pomodoro-popup');
-        if (popup) popup.classList.remove('hidden');
+        if (popup) {
+            popup.classList.remove('hidden');
+            setTimeout(() => popup.classList.remove('translate-x-[200%]', 'opacity-0'), 10);
+        }
         
-        // Mulai dari mode 'work'
         setTimerPhase('work', WORK_MINUTES);
         startTimerLogic();
     }
@@ -56,7 +126,6 @@
     }
 
     function startTimerLogic() {
-        // Disable tombol start di popup
         const startBtnPopup = document.getElementById('pomodoro-start-btn');
         if (startBtnPopup) {
             startBtnPopup.disabled = true;
@@ -64,12 +133,13 @@
             startBtnPopup.innerText = 'Berjalan...';
         }
 
-        // Disable tombol start di Card halaman Gamifikasi (jika sedang dibuka)
         const startBtnCard = document.getElementById('card-pomodoro-start-btn');
         if (startBtnCard) {
             startBtnCard.disabled = true;
             startBtnCard.classList.add('opacity-50', 'cursor-not-allowed');
-            startBtnCard.innerText = 'Berjalan...';
+            if(document.getElementById('btn-start-text')) {
+                document.getElementById('btn-start-text').innerText = 'Berjalan...';
+            }
         }
 
         timerInterval = setInterval(() => {
@@ -94,10 +164,10 @@
         if (modeText) {
             if (mode === 'work') {
                 modeText.innerText = '🔥 Fokus Belajar';
-                modeText.className = 'text-xs text-green-400 font-bold uppercase tracking-wider block mb-1';
+                modeText.className = 'text-[10px] uppercase font-extrabold tracking-wider text-[#75cb50] block mb-1';
             } else {
                 modeText.innerText = '☕ Waktu Istirahat';
-                modeText.className = 'text-xs text-blue-400 font-bold uppercase tracking-wider block mb-1';
+                modeText.className = 'text-[10px] uppercase font-extrabold tracking-wider text-blue-500 block mb-1';
             }
         }
 
@@ -111,31 +181,32 @@
 
         const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-        // 1. Update teks di Popup
+        // Update semua angka timer yang ada
         const popupDisplay = document.getElementById('pomodoro-display');
         if (popupDisplay) popupDisplay.innerText = timeString;
 
-        // 2. Update teks di Card Gamifikasi (jika halamannya sedang dibuka)
         const cardDisplay = document.getElementById('card-pomodoro-display');
         if (cardDisplay) cardDisplay.innerText = timeString;
+
+        const miniDisplay = document.getElementById('mini-timer-display');
+        if (miniDisplay) miniDisplay.innerText = timeString;
     }
 
     function handlePhaseComplete() {
         const mode = localStorage.getItem('pomodoro_mode');
         
         if (mode === 'work') {
-            // Fase kerja habis (25 menit), otomatis masuk fase istirahat (5 menit)
+            // Popup muncul otomatis saat work selesai untuk notifikasi istirahat
+            maximizePomodoro(); 
             alert("Waktu fokus selesai! Lanjut istirahat 5 menit ya.");
             setTimerPhase('break', BREAK_MINUTES);
             startTimerLogic();
         } else {
-            // Fase istirahat habis (5 menit), total siklus 30 menit selesai
             localStorage.removeItem('pomodoro_end_time');
             localStorage.removeItem('pomodoro_mode');
             
             alert("Siklus Pomodoro selesai! Data sesimu sedang disimpan.");
-            saveSessionToDatabase(WORK_MINUTES); // Kirim 25 sebagai durasi belajar riil
-            
+            saveSessionToDatabase(WORK_MINUTES);
             resetUIAfterComplete();
         }
     }
@@ -148,11 +219,18 @@
     }
 
     function resetUIAfterComplete() {
-        // Sembunyikan popup kembali setelah selesai/reset
         const popup = document.getElementById('pomodoro-popup');
-        if (popup) popup.classList.add('hidden');
+        const mini = document.getElementById('pomodoro-mini');
+        
+        if (popup) {
+            popup.classList.add('translate-x-[200%]', 'opacity-0');
+            setTimeout(() => popup.classList.add('hidden'), 500);
+        }
+        if (mini) {
+            mini.classList.add('translate-x-full');
+            setTimeout(() => mini.classList.add('hidden'), 500);
+        }
 
-        // Reset tombol popup
         const startBtnPopup = document.getElementById('pomodoro-start-btn');
         if (startBtnPopup) {
             startBtnPopup.disabled = false;
@@ -160,12 +238,13 @@
             startBtnPopup.innerText = 'Mulai';
         }
 
-        // Reset tombol card
         const startBtnCard = document.getElementById('card-pomodoro-start-btn');
         if (startBtnCard) {
             startBtnCard.disabled = false;
             startBtnCard.classList.remove('opacity-50', 'cursor-not-allowed');
-            startBtnCard.innerText = 'Start';
+            if(document.getElementById('btn-start-text')) {
+                document.getElementById('btn-start-text').innerText = 'Start';
+            }
         }
 
         updateDisplay();
@@ -173,29 +252,24 @@
 
     function saveSessionToDatabase(learningDurationMinutes) {
         const metaTag = document.querySelector('meta[name="csrf-token"]');
-        if (!metaTag) {
-            console.error("Meta tag CSRF token tidak ditemukan. Pastikan sudah ditambahkan di <head>.");
-            return;
-        }
-
-        const csrfToken = metaTag.getAttribute('content');
+        if (!metaTag) return;
 
         fetch("{{ route('pomodoro.store') }}", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRF-TOKEN": csrfToken,
+                "X-CSRF-TOKEN": metaTag.getAttribute('content'),
                 "Accept": "application/json"
             },
             body: JSON.stringify({
-                duration: learningDurationMinutes,
-                // materi_id: null 
+                duration: learningDurationMinutes
             })
         })
         .then(response => response.json())
         .then(data => {
             if(data.success) {
                 console.log(data.message);
+                // Biarkan user yang merefresh manual agar tidak mengganggu aktivitas 
             }
         })
         .catch(error => console.error("Error saving session:", error));
