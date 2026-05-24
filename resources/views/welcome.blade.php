@@ -68,11 +68,11 @@
         <style>
             /* Glassmorphism Classes */
             .glass-panel {
-                background: rgba(255, 255, 255, 0.35);
+                background: rgba(255, 255, 255, 0.75);
                 backdrop-filter: blur(40px);
                 -webkit-backdrop-filter: blur(40px);
-                border: 1px solid rgba(255, 255, 255, 0.9);
-                box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+                border: 1px solid rgba(15, 23, 42, 0.15);
+                box-shadow: 0 20px 45px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.6);
             }
             .dark .glass-panel {
                 background: rgba(18, 18, 18, 0.7);
@@ -95,10 +95,18 @@
         <div class="fixed top-[20%] left-[60%] w-6 bg-gradient-to-r from-bamboo-fresh/15 to-transparent blur-[8px] transform rotate-[35deg] z-[-1] h-[150vh] -translate-y-[50%] pointer-events-none rounded-full"></div>
         
         <!-- Floating Bamboo Leaves -->
-        <div class="fixed top-[-10vh] left-[15vw] text-bamboo-fresh/40 text-7xl blur-[3px] animate-leaf-fall pointer-events-none z-[-1]" style="animation-duration: 22s;">🍃</div>
-        <div class="fixed top-[-10vh] left-[45vw] text-bamboo-emerald/30 text-5xl blur-[5px] animate-leaf-fall pointer-events-none z-[-1]" style="animation-duration: 18s; animation-delay: 5s;">🍃</div>
-        <div class="fixed top-[-10vh] left-[75vw] text-bamboo-fresh/20 text-8xl blur-[4px] animate-leaf-fall pointer-events-none z-[-1]" style="animation-duration: 26s; animation-delay: 2s;">🍃</div>
-        <div class="fixed top-[-10vh] left-[90vw] text-bamboo-emerald/40 text-4xl blur-[2px] animate-leaf-fall pointer-events-none z-[-1]" style="animation-duration: 15s; animation-delay: 8s;">🍃</div>
+        <div class="fixed top-[-10vh] left-[15vw] text-bamboo-fresh/40 blur-[3px] animate-leaf-fall pointer-events-none z-[-1]" style="animation-duration: 22s;">
+            <svg class="h-14 w-14 fill-current" viewBox="0 0 24 24"><path d="M17 2a15 15 0 0 1-15 15v-1a14 14 0 0 0 14-14h1z"></path></svg>
+        </div>
+        <div class="fixed top-[-10vh] left-[45vw] text-bamboo-emerald/30 blur-[5px] animate-leaf-fall pointer-events-none z-[-1]" style="animation-duration: 18s; animation-delay: 5s;">
+            <svg class="h-10 w-10 fill-current" viewBox="0 0 24 24"><path d="M17 2a15 15 0 0 1-15 15v-1a14 14 0 0 0 14-14h1z"></path></svg>
+        </div>
+        <div class="fixed top-[-10vh] left-[75vw] text-bamboo-fresh/20 blur-[4px] animate-leaf-fall pointer-events-none z-[-1]" style="animation-duration: 26s; animation-delay: 2s;">
+            <svg class="h-16 w-16 fill-current" viewBox="0 0 24 24"><path d="M17 2a15 15 0 0 1-15 15v-1a14 14 0 0 0 14-14h1z"></path></svg>
+        </div>
+        <div class="fixed top-[-10vh] left-[90vw] text-bamboo-emerald/40 blur-[2px] animate-leaf-fall pointer-events-none z-[-1]" style="animation-duration: 15s; animation-delay: 8s;">
+            <svg class="h-8 w-8 fill-current" viewBox="0 0 24 24"><path d="M17 2a15 15 0 0 1-15 15v-1a14 14 0 0 0 14-14h1z"></path></svg>
+        </div>
 
         <!-- Sleek Top Navigation Bar -->
         <header class="w-full max-w-[1600px] mx-auto flex justify-between items-center p-6 md:p-8 z-50 relative">
@@ -109,7 +117,7 @@
                 </div>
             </div>
             
-            <nav class="hidden lg:flex gap-1 glass-panel dark:border-panda-gray p-1.5 rounded-full font-semibold text-slate-700 dark:text-cream shadow-sm border border-white">
+            <nav class="hidden lg:flex gap-1 glass-panel dark:border-panda-gray p-1.5 rounded-full font-semibold text-slate-700 dark:text-cream shadow-sm">
                 <a href="/" class="hover:bg-white/80 dark:hover:bg-panda-gray px-6 py-2 rounded-full transition-all text-sm">Beranda</a>
                 <a href="#tentang" class="hover:bg-white/80 dark:hover:bg-panda-gray px-6 py-2 rounded-full transition-all text-sm">Tentang</a>
                 <a href="#fitur" class="hover:bg-white/80 dark:hover:bg-panda-gray px-6 py-2 rounded-full transition-all text-sm">Fitur Unggulan</a>
@@ -373,33 +381,51 @@
                 <h3 class="font-heading font-black text-3xl text-panda-black dark:text-cream mb-8">Runtunan Belajar Aktif</h3>
                 
                 <div class="flex items-center gap-4 bg-white/50 dark:bg-panda-black/50 p-6 rounded-2xl border border-white/20">
-                    <!-- Iteration for Flames -->
                     <div class="flex-1 flex justify-between">
                         <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-orange-100 dark:bg-orange-500/20 rounded-full animate-pulse-glow">
-                            <span class="text-orange-500 text-xl sm:text-2xl drop-shadow-[0_0_8px_rgba(249,115,22,0.8)]">🔥</span>
+                            <svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 18.582c.553-.948.887-2.022.887-3.177 0-3.314-2.686-6-6-6s-6 2.686-6 6c0 1.155.334 2.229.887 3.177M12 2.25c.348 2.378-1.5 4.5-1.5 6.75s2.25 3 2.25 5.25"></path>
+                            </svg>
                         </div>
                         <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-orange-100 dark:bg-orange-500/20 rounded-full animate-pulse-glow" style="animation-delay: 0.2s;">
-                            <span class="text-orange-500 text-xl sm:text-2xl drop-shadow-[0_0_8px_rgba(249,115,22,0.8)]">🔥</span>
+                            <svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 18.582c.553-.948.887-2.022.887-3.177 0-3.314-2.686-6-6-6s-6 2.686-6 6c0 1.155.334 2.229.887 3.177M12 2.25c.348 2.378-1.5 4.5-1.5 6.75s2.25 3 2.25 5.25"></path>
+                            </svg>
                         </div>
                         <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-orange-100 dark:bg-orange-500/20 rounded-full animate-pulse-glow" style="animation-delay: 0.4s;">
-                            <span class="text-orange-500 text-xl sm:text-2xl drop-shadow-[0_0_8px_rgba(249,115,22,0.8)]">🔥</span>
+                            <svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 18.582c.553-.948.887-2.022.887-3.177 0-3.314-2.686-6-6-6s-6 2.686-6 6c0 1.155.334 2.229.887 3.177M12 2.25c.348 2.378-1.5 4.5-1.5 6.75s2.25 3 2.25 5.25"></path>
+                            </svg>
                         </div>
                         <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-orange-100 dark:bg-orange-500/20 rounded-full animate-pulse-glow" style="animation-delay: 0.6s;">
-                            <span class="text-orange-500 text-xl sm:text-2xl drop-shadow-[0_0_8px_rgba(249,115,22,0.8)]">🔥</span>
+                            <svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 18.582c.553-.948.887-2.022.887-3.177 0-3.314-2.686-6-6-6s-6 2.686-6 6c0 1.155.334 2.229.887 3.177M12 2.25c.348 2.378-1.5 4.5-1.5 6.75s2.25 3 2.25 5.25"></path>
+                            </svg>
                         </div>
                         <!-- Inactive flames -->
                         <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-slate-200 dark:bg-slate-800 rounded-full grayscale opacity-50">
-                            <span class="text-orange-500 text-xl sm:text-2xl">🔥</span>
+                            <svg class="w-6 h-6 text-orange-500/60" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 18.582c.553-.948.887-2.022.887-3.177 0-3.314-2.686-6-6-6s-6 2.686-6 6c0 1.155.334 2.229.887 3.177M12 2.25c.348 2.378-1.5 4.5-1.5 6.75s2.25 3 2.25 5.25"></path>
+                            </svg>
                         </div>
                         <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-slate-200 dark:bg-slate-800 rounded-full grayscale opacity-50">
-                            <span class="text-orange-500 text-xl sm:text-2xl">🔥</span>
+                            <svg class="w-6 h-6 text-orange-500/60" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 18.582c.553-.948.887-2.022.887-3.177 0-3.314-2.686-6-6-6s-6 2.686-6 6c0 1.155.334 2.229.887 3.177M12 2.25c.348 2.378-1.5 4.5-1.5 6.75s2.25 3 2.25 5.25"></path>
+                            </svg>
                         </div>
                         <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-slate-200 dark:bg-slate-800 rounded-full grayscale opacity-50">
-                            <span class="text-orange-500 text-xl sm:text-2xl">🔥</span>
+                            <svg class="w-6 h-6 text-orange-500/60" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 18.582c.553-.948.887-2.022.887-3.177 0-3.314-2.686-6-6-6s-6 2.686-6 6c0 1.155.334 2.229.887 3.177M12 2.25c.348 2.378-1.5 4.5-1.5 6.75s2.25 3 2.25 5.25"></path>
+                            </svg>
                         </div>
                     </div>
                 </div>
-                <p class="mt-4 font-bold text-slate-500 dark:text-slate-400 text-center">4 Hari berturut-turut! Lanjutkan performa hebatmu! 🔥</p>
+                <p class="mt-4 font-bold text-slate-500 dark:text-slate-400 text-center flex items-center justify-center gap-1.5">
+                    4 Hari berturut-turut! Lanjutkan performa hebatmu! 
+                    <svg class="w-5 h-5 text-orange-500 inline animate-bounce" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 18.582c.553-.948.887-2.022.887-3.177 0-3.314-2.686-6-6-6s-6 2.686-6 6c0 1.155.334 2.229.887 3.177M12 2.25c.348 2.378-1.5 4.5-1.5 6.75s2.25 3 2.25 5.25"></path>
+                    </svg>
+                </p>
             </div>
 
             <!-- Dashboard Log -->
@@ -451,7 +477,11 @@
                 
                 <!-- Steps -->
                 <div class="flex flex-col items-center mb-10 md:mb-0 bg-transparent relative group">
-                    <div class="w-20 h-20 bg-white dark:bg-panda-gray rounded-full shadow-lg border-4 border-bamboo-fresh flex items-center justify-center text-3xl mb-4 z-10 transition-transform duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_10px_20px_rgba(34,197,94,0.3)]">📚</div>
+                    <div class="w-20 h-20 bg-white dark:bg-panda-gray rounded-full shadow-lg border-4 border-bamboo-fresh flex items-center justify-center mb-4 z-10 transition-transform duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_10px_20px_rgba(34,197,94,0.3)]">
+                        <svg class="w-8 h-8 text-bamboo-emerald" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
                     <h4 class="font-extrabold text-lg text-panda-black dark:text-cream text-center">Baca Materi</h4>
                     <p class="text-xs text-slate-500 dark:text-slate-400 text-center max-w-[150px] mt-2">Pelajari teori rekayasa perangkat lunak.</p>
                 </div>
@@ -459,7 +489,11 @@
                 <div class="md:hidden h-12 border-l-[3px] border-dashed border-bamboo-fresh/50 my-[-15px] z-[-1]"></div>
                 
                 <div class="flex flex-col items-center mb-10 md:mb-0 bg-transparent relative group">
-                    <div class="w-20 h-20 bg-white dark:bg-panda-gray rounded-full shadow-lg border-4 border-bamboo-fresh flex items-center justify-center text-3xl mb-4 z-10 transition-transform duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_10px_20px_rgba(34,197,94,0.3)] holo-glow">🤖</div>
+                    <div class="w-20 h-20 bg-white dark:bg-panda-gray rounded-full shadow-lg border-4 border-bamboo-fresh flex items-center justify-center mb-4 z-10 transition-transform duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_10px_20px_rgba(34,197,94,0.3)] holo-glow">
+                        <svg class="w-8 h-8 text-bamboo-emerald" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 3h6M12 3v2m-6 3h12a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2V10a2 2 0 012-2zm2 4h.01M14 12h.01M9 16h6"></path>
+                        </svg>
+                    </div>
                     <h4 class="font-extrabold text-lg text-panda-black dark:text-cream text-center">Ringkas dengan AI</h4>
                     <p class="text-xs text-slate-500 dark:text-slate-400 text-center max-w-[150px] mt-2">Menghasilkan poin penting konsep analisis.</p>
                 </div>
@@ -467,7 +501,11 @@
                 <div class="md:hidden h-12 border-l-[3px] border-dashed border-bamboo-fresh/50 my-[-15px] z-[-1]"></div>
                 
                 <div class="flex flex-col items-center mb-10 md:mb-0 bg-transparent relative group">
-                    <div class="w-20 h-20 bg-white dark:bg-panda-gray rounded-full shadow-lg border-4 border-bamboo-fresh flex items-center justify-center text-3xl mb-4 z-10 transition-transform duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_10px_20px_rgba(34,197,94,0.3)]">💡</div>
+                    <div class="w-20 h-20 bg-white dark:bg-panda-gray rounded-full shadow-lg border-4 border-bamboo-fresh flex items-center justify-center mb-4 z-10 transition-transform duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_10px_20px_rgba(34,197,94,0.3)]">
+                        <svg class="w-8 h-8 text-bamboo-emerald" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                    </div>
                     <h4 class="font-extrabold text-lg text-panda-black dark:text-cream text-center">Simpan Catatan</h4>
                     <p class="text-xs text-slate-500 dark:text-slate-400 text-center max-w-[150px] mt-2">Tinjau ulang di dashboard Anda.</p>
                 </div>
@@ -475,7 +513,11 @@
                 <div class="md:hidden h-12 border-l-[3px] border-dashed border-bamboo-fresh/50 my-[-15px] z-[-1]"></div>
                 
                 <div class="flex flex-col items-center mb-10 md:mb-0 bg-transparent relative group">
-                    <div class="w-20 h-20 bg-white dark:bg-panda-gray rounded-full shadow-lg border-4 border-bamboo-fresh flex items-center justify-center text-3xl mb-4 z-10 transition-transform duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_10px_20px_rgba(34,197,94,0.3)]">🎯</div>
+                    <div class="w-20 h-20 bg-white dark:bg-panda-gray rounded-full shadow-lg border-4 border-bamboo-fresh flex items-center justify-center mb-4 z-10 transition-transform duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_10px_20px_rgba(34,197,94,0.3)]">
+                        <svg class="w-8 h-8 text-bamboo-emerald" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.475 3.475 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.475 3.475 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.475 3.475 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.475 3.475 0 013.138-3.138z"></path>
+                        </svg>
+                    </div>
                     <h4 class="font-extrabold text-lg text-panda-black dark:text-cream text-center">Kerjakan Latihan</h4>
                     <p class="text-xs text-slate-500 dark:text-slate-400 text-center max-w-[150px] mt-2">Selesaikan kuis uji pemahaman.</p>
                 </div>
