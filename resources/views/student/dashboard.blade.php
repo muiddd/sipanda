@@ -1,6 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" id="main-html" class="dark">
+<html lang="en" id="main-html">
 <head>
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>siPanda - Learning Dashboard</title>
@@ -152,7 +159,12 @@
             <header class="flex flex-col md:flex-row md:justify-between md:items-end mb-12 gap-6 pt-4">
                 @auth
                 <div>
-                    <h1 class="font-heading text-4xl font-black text-slate-900 dark:text-white transition-colors">Halo, {{ auth()->user()->name }} <span class="animate-wave inline-block origin-bottom-right">👋</span></h1>
+                    <h1 class="font-heading text-4xl font-black text-slate-900 dark:text-white transition-colors flex items-center gap-2">
+                        Halo, {{ auth()->user()->name }}
+                        <svg class="w-8 h-8 text-[#75cb50] animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                        </svg>
+                    </h1>
                     <p class="text-slate-500 dark:text-slate-400 text-sm mt-2 font-medium">{{ now()->translatedFormat('l, d F Y') }}</p>
                 </div>
                 @endauth
@@ -224,7 +236,9 @@
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxjaXJjbGUgY3g9IjMiIGN5PSIzIiByPSIxIiBmaWxsPSJyZ2JhKDAsMCwwLDAuMDUpIi8+PC9zdmc+')] dark:bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxjaXJjbGUgY3g9IjMiIGN5PSIzIiByPSIxIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDMpIi8+PC9zdmc+')] opacity-50 z-0"></div>
 
                 <div class="relative z-10 w-24 h-24 rounded-3xl bg-gradient-to-br from-[#10b981]/20 to-[#75cb50]/5 mb-8 flex items-center justify-center border border-[#75cb50]/30 holo-glow group-hover:scale-110 transition-transform duration-700 ease-out shadow-[inset_0_0_20px_rgba(34,197,94,0.2)]">
-                    <span class="text-5xl drop-shadow-[0_0_15px_rgba(34,197,94,0.8)] filter">✨</span>
+                    <svg class="w-10 h-10 text-[#75cb50] drop-shadow-[0_0_15px_rgba(34,197,94,0.8)] animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
                 </div>
                 
                 <h2 class="relative z-10 font-heading text-4xl lg:text-5xl font-black text-slate-900 dark:text-white mb-5 tracking-tight transition-colors">
@@ -242,7 +256,11 @@
                         <label class="block text-left text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 ml-1">Upload Materi <span class="text-xs font-normal text-slate-500">(PDF, DOCX, PPT)</span></label>
                         <label id="dropzone-container" class="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-[#75cb50]/40 rounded-2xl cursor-pointer bg-[#75cb50]/5 hover:bg-[#75cb50]/10 hover:border-[#75cb50]/60 transition-all duration-300 group">
                             <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                <span id="upload-icon" class="text-4xl mb-3 filter drop-shadow-[0_0_10px_rgba(34,197,94,0.3)] group-hover:scale-110 transition-transform">📄</span>
+                                <div id="upload-icon" class="mb-3 filter drop-shadow-[0_0_10px_rgba(34,197,94,0.3)] group-hover:scale-110 transition-transform">
+                                    <svg class="w-10 h-10 text-[#75cb50]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                    </svg>
+                                </div>
                                 <p id="file-name" class="text-sm font-semibold text-slate-700 dark:text-slate-300">Pilih file materi</p>
                                 <p id="upload-subtext" class="text-xs text-slate-500 mt-1 font-medium">atau drag & drop ke sini</p>
                             </div>
@@ -256,8 +274,8 @@
                             <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 ml-1">Pilih Mode AI</label>
                             <div class="relative">
                                 <select name="action" class="w-full bg-slate-50 hover:bg-slate-100 dark:bg-[#2a2a2a] dark:hover:bg-[#333] border border-black/10 dark:border-white/10 text-slate-900 dark:text-white rounded-xl pl-5 pr-10 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#75cb50]/50 transition-all font-semibold appearance-none cursor-pointer">
-                                    <option value="summary">📝 Rangkum Materi</option>
-                                    <option value="quiz">🎯 Buatkan Latihan Soal</option>
+                                    <option value="summary">Rangkum Materi</option>
+                                    <option value="quiz">Buatkan Latihan Soal</option>
                                 </select>
                                 <div class="absolute inset-y-0 right-0 top-0 flex items-center pr-4 pointer-events-none text-slate-500">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -281,7 +299,11 @@
                     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxjaXJjbGUgY3g9IjMiIGN5PSIzIiByPSIxIiBmaWxsPSJyZ2JhKDAsMCwwLDAuMDUpIi8+PC9zdmc+')] dark:bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxjaXJjbGUgY3g9IjMiIGN5PSIzIiByPSIxIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDMpIi8+PC9zdmc+')] opacity-50 z-0"></div>
 
                     <div class="relative z-10 flex items-center gap-3 mb-6">
-                        <div class="w-10 h-10 rounded-xl bg-[#75cb50]/20 flex items-center justify-center text-2xl">📝</div>
+                        <div class="w-10 h-10 rounded-xl bg-[#75cb50]/20 flex items-center justify-center text-[#75cb50]">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
                         <div>
                             <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Rangkuman Materi</h3>
                             <p class="text-xs text-slate-500 font-medium uppercase tracking-wider">Processed by siPanda AI</p>
@@ -307,7 +329,11 @@
                     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxjaXJjbGUgY3g9IjMiIGN5PSIzIiByPSIxIiBmaWxsPSJyZ2JhKDAsMCwwLDAuMDUpIi8+PC9zdmc+')] dark:bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxjaXJjbGUgY3g9IjMiIGN5PSIzIiByPSIxIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDMpIi8+PC9zdmc+')] opacity-50 z-0"></div>
 
                     <div class="relative z-10 flex items-center gap-3 mb-6">
-                        <div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center text-2xl">🎯</div>
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-500">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                            </svg>
+                        </div>
                         <div>
                             <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Latihan Soal</h3>
                             <p class="text-xs text-slate-500 font-medium uppercase tracking-wider">Uji Pemahamanmu</p>
@@ -337,36 +363,6 @@
     <x-pomodoro-timer />
 
     <script>
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-        const htmlElement = document.getElementById('main-html'); // Menggunakan id yang kita pasang di html
-
-        // 1. Cek preferensi user saat halaman dimuat
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            htmlElement.classList.add('dark');
-            themeToggleLightIcon.classList.remove('hidden');
-        } else {
-            htmlElement.classList.remove('dark');
-            themeToggleDarkIcon.classList.remove('hidden');
-        }
-
-        // 2. Event click tombol toggle
-        themeToggleBtn.addEventListener('click', function() {
-            // Tukar Icon
-            themeToggleDarkIcon.classList.toggle('hidden');
-            themeToggleLightIcon.classList.toggle('hidden');
-
-            // Set localStorage dan Class HTML
-            if (htmlElement.classList.contains('dark')) {
-                htmlElement.classList.remove('dark');
-                localStorage.setItem('color-theme', 'light');
-            } else {
-                htmlElement.classList.add('dark');
-                localStorage.setItem('color-theme', 'dark');
-            }
-        });
-
         // 3. File Upload Preview Logic
         const fileUpload = document.getElementById('file-upload');
         const uploadIcon = document.getElementById('upload-icon');
@@ -379,8 +375,12 @@
                 const file = this.files[0];
                 const fileName = file.name;
                 
-                // Update UI for selected file
-                uploadIcon.innerText = '✅';
+                // Update UI for selected file with premium SVG
+                uploadIcon.innerHTML = `
+                    <svg class="w-10 h-10 text-[#10b981]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                `;
                 fileNameDisp.innerText = fileName;
                 uploadSubtext.innerText = 'File terpilih (Klik untuk mengganti)';
                 
@@ -388,8 +388,12 @@
                 dropzoneContainer.classList.remove('border-dashed');
                 dropzoneContainer.classList.add('border-solid', 'bg-[#75cb50]/10', 'border-[#75cb50]');
             } else {
-                // Reset to original state
-                uploadIcon.innerText = '📄';
+                // Reset to original cloud SVG
+                uploadIcon.innerHTML = `
+                    <svg class="w-10 h-10 text-[#75cb50]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                    </svg>
+                `;
                 fileNameDisp.innerText = 'Pilih file materi';
                 uploadSubtext.innerText = 'atau drag & drop ke sini';
                 

@@ -1,11 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" id="main-html" class="dark">
+<html lang="en" id="main-html">
 
 <head>
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>siPanda - Latihan Soal</title>
-    
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -130,7 +137,7 @@
             <header class="flex flex-col md:flex-row md:justify-between md:items-end mb-12 gap-6 pt-4">
                 <div>
                     <h1 class="font-heading text-4xl font-black text-slate-900 dark:text-white transition-colors">
-                        Latihan <span class="text-[#75cb50]">Soal</span> 🎯
+                        Latihan <span class="text-[#75cb50]">Soal</span>
                     </h1>
                     <p class="text-slate-500 dark:text-slate-400 text-sm mt-2 font-medium">
                         Pilih materi pembelajaran untuk menguji pemahamanmu dengan AI siPanda.
@@ -143,10 +150,16 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($materis as $materi)
                 <div class="glass p-6 group cursor-pointer hover:border-[#75cb50]/50 transition-all relative overflow-hidden flex flex-col justify-between min-h-[250px]">
-                    <div class="absolute -right-4 -top-4 text-6xl opacity-5 group-hover:opacity-10 transition-all">📝</div>
+                    <div class="absolute -right-6 -top-6 text-slate-400/10 dark:text-slate-500/5 group-hover:scale-110 group-hover:-rotate-12 transition-all duration-500 pointer-events-none">
+                        <svg class="w-24 h-24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                        </svg>
+                    </div>
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-[#75cb50]/10 flex items-center justify-center text-2xl mb-4 border border-[#75cb50]/20">
-                            💡
+                        <div class="w-12 h-12 rounded-xl bg-[#75cb50]/10 flex items-center justify-center text-[#75cb50] mb-4 border border-[#75cb50]/20 group-hover:bg-[#75cb50]/20 transition-all">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                            </svg>
                         </div>
                         {{-- Mengambil judul dari database --}}
                         <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white mb-2">
@@ -170,8 +183,12 @@
             </div>
             @else
             {{-- Tampilan Kosong Jika Belum Ada Materi --}}
-            <div class="text-center py-20 glass">
-                <p class="text-6xl mb-4">📭</p>
+            <div class="text-center py-20 glass flex flex-col items-center justify-center">
+                <div class="flex justify-center mb-6 text-slate-400/80">
+                    <svg class="w-20 h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0a2 2 0 01-2 2H6a2 2 0 01-2-2m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                    </svg>
+                </div>
                 <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Belum Ada Materi</h3>
                 <p class="text-slate-500 mt-2">Tunggu gurumu menambahkan materi pembelajaran terlebih dahulu ya!</p>
             </div>
@@ -181,48 +198,10 @@
     </div>
 
     <x-pomodoro-timer />
-    
+
     <script>
-        const htmlElement = document.getElementById('main-html');
-
-        // Cek local storage untuk tema, sinkron dengan sidebar
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            htmlElement.classList.add('dark');
-        } else {
-            htmlElement.classList.remove('dark');
-        }
-
-        // Sinkronisasi ikon tema di sidebar (dark/light icon)
-        document.addEventListener('DOMContentLoaded', () => {
-            const darkIcon = document.getElementById('theme-toggle-dark-icon');
-            const lightIcon = document.getElementById('theme-toggle-light-icon');
-
-            // Tampilkan ikon yang sesuai saat load
-            if (htmlElement.classList.contains('dark')) {
-                lightIcon?.classList.remove('hidden');
-            } else {
-                darkIcon?.classList.remove('hidden');
-            }
-
-            // Toggle tema saat tombol di sidebar diklik
-            const themeToggleBtn = document.getElementById('theme-toggle');
-            if (themeToggleBtn) {
-                themeToggleBtn.addEventListener('click', () => {
-                    darkIcon?.classList.toggle('hidden');
-                    lightIcon?.classList.toggle('hidden');
-
-                    if (htmlElement.classList.contains('dark')) {
-                        htmlElement.classList.remove('dark');
-                        localStorage.setItem('color-theme', 'light');
-                    } else {
-                        htmlElement.classList.add('dark');
-                        localStorage.setItem('color-theme', 'dark');
-                    }
-                });
-            }
-        });
+        // No custom page theme-toggle is needed here as it is globally managed by the sidebar.
     </script>
-
 </body>
 
 </html>

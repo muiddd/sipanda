@@ -1,15 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" id="main-html" class="dark">
+<html lang="en" id="main-html">
+
 <head>
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>siPanda - To-Do List</title>
-    
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = { darkMode: 'class' }
+        tailwind.config = {
+            darkMode: 'class'
+        }
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;800;900&display=swap');
@@ -22,28 +32,39 @@
             -webkit-font-smoothing: antialiased;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
+
         .dark body {
             background-color: #121212;
             color: #f2f1e8;
         }
-        h1, h2, h3, h4, h5, h6, .font-heading {
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .font-heading {
             font-family: 'Outfit', sans-serif;
             letter-spacing: -0.01em;
         }
+
         .glass {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(40px);
             -webkit-backdrop-filter: blur(40px);
             border: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
             border-radius: 1.5rem;
             transition: all 0.3s ease;
         }
+
         .dark .glass {
             background: rgba(18, 18, 18, 0.7);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 2px 0 rgba(255,255,255,0.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.05);
         }
+
         .bg-orb {
             position: fixed;
             border-radius: 50%;
@@ -53,9 +74,26 @@
             pointer-events: none;
             transition: opacity 0.3s ease;
         }
-        .dark .bg-orb { opacity: 0.25; }
-        .orb-1 { width: 500px; height: 500px; background: #75cb50; top: -100px; right: -100px; }
-        .orb-2 { width: 400px; height: 400px; background: #00ac73; bottom: 10%; left: -50px; }
+
+        .dark .bg-orb {
+            opacity: 0.25;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: #75cb50;
+            top: -100px;
+            right: -100px;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: #00ac73;
+            bottom: 10%;
+            left: -50px;
+        }
 
         /* Custom checkbox */
         .task-checkbox {
@@ -70,11 +108,16 @@
             transition: all 0.2s ease;
             position: relative;
         }
-        .dark .task-checkbox { border-color: rgba(255,255,255,0.2); }
+
+        .dark .task-checkbox {
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
         .task-checkbox:checked {
             background-color: #75cb50;
             border-color: #75cb50;
         }
+
         .task-checkbox:checked::after {
             content: '';
             position: absolute;
@@ -87,10 +130,12 @@
             border-left: none;
             transform: rotate(45deg);
         }
+
         .task-item.completed .task-label {
             text-decoration: line-through;
             opacity: 0.4;
         }
+
         .tag {
             font-size: 10px;
             font-weight: 700;
@@ -113,22 +158,49 @@
             background: transparent;
             color: #94a3b8;
         }
-        .dark .filter-pill { color: rgba(255,255,255,0.35); }
-        .filter-pill:hover { color: #75cb50; border-color: rgba(117,203,80,0.3); }
-        .filter-pill.active {
-            background: rgba(117,203,80,0.15);
-            color: #75cb50;
-            border-color: rgba(117,203,80,0.4);
+
+        .dark .filter-pill {
+            color: rgba(255, 255, 255, 0.35);
         }
 
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #f8fafc; }
-        .dark ::-webkit-scrollbar-track { background: #121212; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        .dark ::-webkit-scrollbar-thumb { background: #2a2a2a; }
-        ::-webkit-scrollbar-thumb:hover { background: #75cb50; }
+        .filter-pill:hover {
+            color: #75cb50;
+            border-color: rgba(117, 203, 80, 0.3);
+        }
+
+        .filter-pill.active {
+            background: rgba(117, 203, 80, 0.15);
+            color: #75cb50;
+            border-color: rgba(117, 203, 80, 0.4);
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f8fafc;
+        }
+
+        .dark ::-webkit-scrollbar-track {
+            background: #121212;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: #2a2a2a;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #75cb50;
+        }
     </style>
 </head>
+
 <body class="relative min-h-screen">
 
     <div class="bg-orb orb-1"></div>
@@ -143,7 +215,7 @@
             {{-- Header --}}
             <header class="mb-10 pt-4">
                 <h1 class="font-heading text-4xl font-black text-slate-900 dark:text-white">
-                    To-Do <span class="text-[#75cb50]">List</span> ✅
+                    To-Do <span class="text-[#75cb50]">List</span>
                 </h1>
                 <p class="text-slate-500 dark:text-slate-400 text-sm mt-2 font-medium">
                     Catat dan selesaikan tugasmu hari ini.
@@ -169,15 +241,14 @@
             {{-- Input Tambah Tugas --}}
             <div class="glass px-5 py-4 flex items-center gap-4 mb-5">
                 <svg class="w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
                 <input
                     id="task-input"
                     type="text"
                     placeholder="Tambah tugas baru..."
                     class="flex-1 bg-transparent outline-none text-sm text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 font-medium"
-                    onkeydown="if(event.key==='Enter') addTask()"
-                />
+                    onkeydown="if(event.key==='Enter') addTask()" />
                 <select id="tag-select" class="bg-transparent outline-none text-xs font-bold text-slate-400 dark:text-slate-500 cursor-pointer border border-slate-200 dark:border-white/10 rounded-lg px-2 py-1">
                     <option value="Materi">📗 Materi</option>
                     <option value="Latihan">💻 Latihan</option>
@@ -185,10 +256,9 @@
                 </select>
                 <button
                     onclick="addTask()"
-                    class="bg-[#75cb50] hover:bg-[#64b043] active:scale-95 text-white w-9 h-9 rounded-xl flex items-center justify-center transition-all shadow-lg shadow-green-500/20 flex-shrink-0"
-                >
+                    class="bg-[#75cb50] hover:bg-[#64b043] active:scale-95 text-white w-9 h-9 rounded-xl flex items-center justify-center transition-all shadow-lg shadow-green-500/20 flex-shrink-0">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
                     </svg>
                 </button>
             </div>
@@ -236,43 +306,13 @@
     <x-pomodoro-timer />
 
     <script>
-        const htmlElement = document.getElementById('main-html');
-
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            htmlElement.classList.add('dark');
-        } else {
-            htmlElement.classList.remove('dark');
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
-            const darkIcon  = document.getElementById('theme-toggle-dark-icon');
-            const lightIcon = document.getElementById('theme-toggle-light-icon');
-            if (htmlElement.classList.contains('dark')) {
-                lightIcon?.classList.remove('hidden');
-            } else {
-                darkIcon?.classList.remove('hidden');
-            }
-            const themeToggleBtn = document.getElementById('theme-toggle');
-            if (themeToggleBtn) {
-                themeToggleBtn.addEventListener('click', () => {
-                    darkIcon?.classList.toggle('hidden');
-                    lightIcon?.classList.toggle('hidden');
-                    if (htmlElement.classList.contains('dark')) {
-                        htmlElement.classList.remove('dark');
-                        localStorage.setItem('color-theme', 'light');
-                    } else {
-                        htmlElement.classList.add('dark');
-                        localStorage.setItem('color-theme', 'dark');
-                    }
-                });
-            }
-
             loadTasks();
         });
 
         // ── Helpers ──────────────────────────────────────────────
         const STORAGE_KEY = 'sipanda_todos';
-        let activeFilter  = 'Semua';
+        let activeFilter = 'Semua';
 
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('filter-pills').addEventListener('click', (e) => {
@@ -294,7 +334,7 @@
         }
 
         function tagStyle(tag) {
-            if (tag === 'Materi')  return 'background:rgba(117,203,80,0.15);color:#4ade80;';
+            if (tag === 'Materi') return 'background:rgba(117,203,80,0.15);color:#4ade80;';
             if (tag === 'Latihan') return 'background:rgba(59,130,246,0.15);color:#60a5fa;';
             if (tag === 'Penting') return 'background:rgba(245,158,11,0.15);color:#fbbf24;';
             return 'background:rgba(255,255,255,0.1);color:#94a3b8;';
@@ -304,35 +344,59 @@
         function loadTasks() {
             // Seed data awal kalau kosong
             if (!localStorage.getItem(STORAGE_KEY)) {
-                saveTasks([
-                    { id: 1, text: 'Belajar Struktur Data — Stack & Queue', tag: 'Materi',   done: false },
-                    { id: 2, text: 'Kerjakan latihan soal Algoritma Dasar',  tag: 'Latihan', done: false },
-                    { id: 3, text: 'Review catatan sebelum ujian besok',      tag: 'Penting', done: false },
-                    { id: 4, text: 'Membaca materi Array dan Linked List',    tag: 'Materi',  done: true  },
-                    { id: 5, text: 'Mengerjakan kuis Gamifikasi minggu ini',  tag: 'Latihan', done: true  },
+                saveTasks([{
+                        id: 1,
+                        text: 'Belajar Struktur Data — Stack & Queue',
+                        tag: 'Materi',
+                        done: false
+                    },
+                    {
+                        id: 2,
+                        text: 'Kerjakan latihan soal Algoritma Dasar',
+                        tag: 'Latihan',
+                        done: false
+                    },
+                    {
+                        id: 3,
+                        text: 'Review catatan sebelum ujian besok',
+                        tag: 'Penting',
+                        done: false
+                    },
+                    {
+                        id: 4,
+                        text: 'Membaca materi Array dan Linked List',
+                        tag: 'Materi',
+                        done: true
+                    },
+                    {
+                        id: 5,
+                        text: 'Mengerjakan kuis Gamifikasi minggu ini',
+                        tag: 'Latihan',
+                        done: true
+                    },
                 ]);
             }
             renderTasks();
         }
 
         function renderTasks() {
-            const all      = getTasks();
+            const all = getTasks();
             const filtered = activeFilter === 'Semua' ? all : all.filter(t => t.tag === activeFilter);
 
             const pending = filtered.filter(t => !t.done);
-            const done    = filtered.filter(t =>  t.done);
+            const done = filtered.filter(t => t.done);
 
-            document.getElementById('pending-list').innerHTML  = pending.map(taskHTML).join('');
-            document.getElementById('done-list').innerHTML     = done.map(taskHTML).join('');
+            document.getElementById('pending-list').innerHTML = pending.map(taskHTML).join('');
+            document.getElementById('done-list').innerHTML = done.map(taskHTML).join('');
 
             document.getElementById('pending-empty').classList.toggle('hidden', pending.length > 0);
-            document.getElementById('done-section').classList.toggle('hidden',  done.length === 0);
+            document.getElementById('done-section').classList.toggle('hidden', done.length === 0);
 
             // Stats selalu dari semua data (tidak ikut filter)
-            const total   = all.length;
+            const total = all.length;
             const doneLen = all.filter(t => t.done).length;
-            document.getElementById('stat-total').textContent   = total;
-            document.getElementById('stat-done').textContent    = doneLen;
+            document.getElementById('stat-total').textContent = total;
+            document.getElementById('stat-done').textContent = doneLen;
             document.getElementById('stat-pending').textContent = all.filter(t => !t.done).length;
 
             const pct = total > 0 ? Math.round((doneLen / total) * 100) : 0;
@@ -366,25 +430,33 @@
         }
 
         function escapeHTML(str) {
-            return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         }
 
         // ── Actions ───────────────────────────────────────────────
         function addTask() {
             const input = document.getElementById('task-input');
-            const tag   = document.getElementById('tag-select').value;
-            const text  = input.value.trim();
+            const tag = document.getElementById('tag-select').value;
+            const text = input.value.trim();
             if (!text) return;
 
             const tasks = getTasks();
-            tasks.unshift({ id: Date.now(), text, tag, done: false });
+            tasks.unshift({
+                id: Date.now(),
+                text,
+                tag,
+                done: false
+            });
             saveTasks(tasks);
             input.value = '';
             renderTasks();
         }
 
         function toggleTask(id) {
-            const tasks = getTasks().map(t => t.id === id ? { ...t, done: !t.done } : t);
+            const tasks = getTasks().map(t => t.id === id ? {
+                ...t,
+                done: !t.done
+            } : t);
             saveTasks(tasks);
             renderTasks();
         }
@@ -396,4 +468,5 @@
     </script>
 
 </body>
+
 </html>

@@ -1,7 +1,14 @@
 <!DOCTYPE html>
-<html lang="id" id="main-html" class="dark">
+<html lang="id" id="main-html">
 
 <head>
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>siPanda - Materi</title>
@@ -251,8 +258,7 @@
             {{-- Header --}}
             <header class="flex flex-col md:flex-row md:justify-between md:items-end mb-10 gap-6 pt-4">
                 <div>
-                    <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-2">📚 Perpustakaan
-                        Belajar</p>
+                    <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-2">Perpustakaan Belajar</p>
                     <h1 class="font-heading text-4xl font-black text-slate-900 dark:text-white">Materi Belajar</h1>
                     <p class="text-slate-500 dark:text-slate-400 text-sm mt-2 font-medium">
                         Pilih kategori dan materi yang ingin kamu pelajari hari ini.
@@ -275,7 +281,7 @@
                     @foreach($materiGrouped as $kategori => $materis)
                         <button class="cat-tab {{ $loop->first ? 'active' : '' }}" data-cat="{{ $kategori }}"
                             onclick="switchCat('{{ $kategori }}', this)">
-                            📖 {{ $kategori }}
+                            {{ $kategori }}
                         </button>
                     @endforeach
                 </div>
@@ -291,9 +297,12 @@
                 {{-- Subjects Grid --}}
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5" id="subjects-grid"></div>
             @else
-                {{-- Tampilan Jika Database Masih Kosong --}}
-                <div class="text-center py-20">
-                    <p class="text-6xl mb-4">🐼</p>
+                <div class="text-center py-20 flex flex-col items-center justify-center">
+                    <div class="flex justify-center mb-6 text-slate-400/80">
+                        <svg class="w-20 h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0a2 2 0 01-2 2H6a2 2 0 01-2-2m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                        </svg>
+                    </div>
                     <h3 class="text-xl font-bold dark:text-white">Belum ada materi</h3>
                     <p class="text-slate-500 mt-2">Guru belum menambahkan materi pembelajaran apapun ke dalam sistem.</p>
                 </div>
@@ -317,14 +326,22 @@
 
             document.getElementById('stats-row').innerHTML = `
                 <div class="glass p-4 flex items-center gap-4">
-                    <div class="w-10 h-10 rounded-xl bg-[rgba(34,197,94,0.1)] flex items-center justify-center text-xl border border-[#75cb50]/20">📚</div>
+                    <div class="w-10 h-10 rounded-xl bg-[rgba(34,197,94,0.1)] flex items-center justify-center text-[#75cb50] border border-[#75cb50]/20">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
                     <div>
                         <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Total Materi</p>
                         <p class="font-heading text-2xl font-black text-slate-900 dark:text-white">${materis.length}</p>
                     </div>
                 </div>
                 <div class="glass p-4 flex items-center gap-4">
-                    <div class="w-10 h-10 rounded-xl bg-[rgba(34,197,94,0.1)] flex items-center justify-center text-xl border border-[#75cb50]/20">🚀</div>
+                    <div class="w-10 h-10 rounded-xl bg-[rgba(34,197,94,0.1)] flex items-center justify-center text-[#75cb50] border border-[#75cb50]/20">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                    </div>
                     <div>
                         <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Kategori</p>
                         <p class="font-heading text-lg font-black text-slate-900 dark:text-white pt-1">${cat}</p>
@@ -346,8 +363,10 @@
 
             if (materis.length === 0) {
                 document.getElementById('subjects-grid').innerHTML = `
-                    <div class="col-span-4 text-center py-16 text-slate-400">
-                        <p class="text-4xl mb-3">🔍</p>
+                    <div class="col-span-4 text-center py-16 text-slate-400 flex flex-col items-center justify-center">
+                        <svg class="w-12 h-12 mb-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
                         <p class="font-semibold">Materi tidak ditemukan</p>
                         <p class="text-sm mt-1">Coba gunakan kata kunci lain</p>
                     </div>
@@ -361,7 +380,11 @@
 
                 return `
                     <a href="${url}" class="subject-card animate-up" style="animation-delay: ${i * 0.05}s">
-                        <div class="card-icon-wrap">📄</div>
+                        <div class="card-icon-wrap text-[#75cb50]">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                        </div>
                         <p class="font-heading font-bold text-[1rem] text-slate-900 dark:text-slate-100 mb-1">${title}</p>
                         <p class="text-xs text-slate-500 font-medium mt-auto pt-4">Klik untuk mulai membaca</p>
                         <span class="card-arrow">→</span>
@@ -387,19 +410,6 @@
         if (currentCat) {
             renderStats(currentCat);
             renderGrid(currentCat);
-        }
-    </script>
-
-    {{-- Theme Toggle Script (Tetap sama) --}}
-    <script>
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        // ... (asumsikan tombol toggle tema ada di sidebar) ...
-        const htmlElement = document.getElementById('main-html');
-
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            htmlElement.classList.add('dark');
-        } else {
-            htmlElement.classList.remove('dark');
         }
     </script>
 </body>

@@ -1,6 +1,13 @@
 <!DOCTYPE html>
-<html lang="id" id="main-html" class="dark">
+<html lang="id" id="main-html">
 <head>
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -41,21 +48,26 @@
             </div>
 
             @if(session('success'))
-                <div class="bg-[#75cb50]/10 border border-[#75cb50]/50 text-[#75cb50] p-4 rounded-xl mb-6 font-bold">
-                    ✅ {{ session('success') }}
+                <div class="bg-[#75cb50]/10 border border-[#75cb50]/50 text-[#75cb50] p-4 rounded-xl mb-6 font-bold flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                    <span>{{ session('success') }}</span>
                 </div>
             @endif
 
             @if($savedSoal->isEmpty())
-                <div class="glass p-10 text-center max-w-2xl mx-auto mt-20">
-                    <div class="text-6xl mb-6">🤖</div>
+                <div class="glass p-10 text-center max-w-2xl mx-auto mt-20 flex flex-col items-center">
+                    <div class="text-[#75cb50] mb-6">
+                        <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                    </div>
                     <h2 class="font-heading text-2xl font-bold mb-2 dark:text-white">Siap Menguji Pemahamanmu?</h2>
                     <p class="text-slate-500 mb-8">AI siPanda akan membaca materi secara instan dan membuatkan 5 soal pilihan ganda khusus untukmu.</p>
                     
                     <form action="{{ route('student.latihansoal.generate', $materi->materi_id) }}" method="POST">
                         @csrf
-                        <button type="submit" onclick="this.innerHTML='Menganalisis Materi... ⏳'; this.classList.add('opacity-75', 'cursor-not-allowed')" class="bg-[#75cb50] hover:bg-[#64b043] text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all shadow-lg shadow-green-500/30">
-                            ✨ Generate Soal AI Sekarang
+                        <button type="submit" onclick="this.innerHTML='Menganalisis Materi...'; this.classList.add('opacity-75', 'cursor-not-allowed')" class="bg-[#75cb50] hover:bg-[#64b043] text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all shadow-lg shadow-green-500/30">
+                            Generate Soal AI Sekarang
                         </button>
                     </form>
                 </div>
@@ -63,7 +75,7 @@
                 <div class="max-w-4xl mx-auto pb-20">
                     
                     <div id="score-card" class="hidden glass p-10 text-center mb-10 transform transition-all duration-500 scale-95 opacity-0">
-                        <h2 class="font-heading text-3xl font-black text-slate-900 dark:text-white mb-2">Selesai! 🎉</h2>
+                        <h2 class="font-heading text-3xl font-black text-slate-900 dark:text-white mb-2">Kuis Selesai</h2>
                         <p class="text-slate-500 font-medium mb-2">Skor kamu telah otomatis tersimpan di database.</p>
                         <div class="inline-block bg-[#75cb50]/10 border-2 border-[#75cb50] rounded-3xl p-8 mt-4">
                             <p class="text-sm font-bold text-[#75cb50] tracking-widest uppercase mb-1">Total Nilai</p>
@@ -97,7 +109,10 @@
                             
                             <div id="kunci_{{ $index }}" class="hidden mt-6 pl-14">
                                 <div class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
-                                    <p class="text-sm font-bold text-amber-600 dark:text-amber-400">💡 Jawaban Benar: <span class="font-normal">{{ $soal->options['jawaban_benar'] }}</span></p>
+                                    <p class="text-sm font-bold text-amber-600 dark:text-amber-400 flex items-center gap-1">
+                                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                                        Jawaban Benar: <span class="font-normal text-slate-700 dark:text-slate-300">{{ $soal->options['jawaban_benar'] }}</span>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -105,7 +120,7 @@
 
                         <div class="text-center mt-12" id="submit-section">
                             <button type="submit" class="bg-[#75cb50] hover:bg-[#64b043] text-white px-10 py-4 rounded-2xl font-black text-xl transition-all shadow-xl shadow-green-500/30 hover:-translate-y-1">
-                                Kumpulkan Jawaban 🚀
+                                Kumpulkan Jawaban
                             </button>
                         </div>
                     </form>
@@ -118,12 +133,7 @@
     <x-pomodoro-timer />
     
     <script>
-        const htmlElement = document.getElementById('main-html');
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            htmlElement.classList.add('dark');
-        } else {
-            htmlElement.classList.remove('dark');
-        }
+        // No custom page theme-toggle is needed here as it is globally managed by the sidebar.
     </script>
 
     @if($savedSoal->isNotEmpty())
