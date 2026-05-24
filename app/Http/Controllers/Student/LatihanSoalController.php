@@ -32,6 +32,9 @@ class LatihanSoalController extends Controller
         $materi = Materi::where('materi_id', $id)->firstOrFail();
         $text = strip_tags($materi->konten_teks);
 
+        // Limiting text to prevent exceeding API limits
+        $text = substr($text, 0, 10000);
+
         $instruction = "Kamu adalah guru pembuat soal. Buatkan 5 soal pilihan ganda berdasarkan teks berikut. WAJIB HANYA OUTPUT ARRAY JSON MURNI TANPA TEKS PENGANTAR. Format persis seperti ini: [{\"soal\":\"...\",\"opsi\":[\"A. ...\",\"B. ...\",\"C. ...\",\"D. ...\"],\"jawaban_benar\":\"A. ...\"}]";
 
         try {
@@ -40,7 +43,7 @@ class LatihanSoalController extends Controller
                 'HTTP-Referer' => config('app.url'),
                 'X-Title' => 'siPanda Learning App',
             ])->post('https://openrouter.ai/api/v1/chat/completions', [
-                'model' => 'openai/gpt-oss-120b:free',
+                'model' => 'meta-llama/llama-3-8b-instruct:free',
                 'messages' => [
                     ['role' => 'system', 'content' => $instruction],
                     ['role' => 'user', 'content' => $text],
@@ -49,10 +52,18 @@ class LatihanSoalController extends Controller
 
             $result = $response->json();
             $aiResult = $result['choices'][0]['message']['content'] ?? '[]';
+            
+            // Clean markdown json markers if present
             $aiResult = str_replace(['```json', '```'], '', trim($aiResult));
+            
+            // Bulletproof JSON array extraction
+            if (preg_match('/\[\s*\{.*\}\s*\]/s', $aiResult, $matches)) {
+                $aiResult = $matches[0];
+            }
+            
             $soalJson = json_decode($aiResult, true);
 
-            if (!$soalJson) {
+            if (!$soalJson || !is_array($soalJson)) {
                 throw new \Exception('AI gagal memformat soal. Silakan coba lagi.');
             }
 
@@ -70,7 +81,25 @@ class LatihanSoalController extends Controller
                 ]);
             }
 
-            // INI YANG BIKIN ERROR TADI! Harus di-redirect ke halaman GET, bukan return view!
+            // Log AI Usage to show up in Gamifikasi stats
+            try {
+                $usage = $result['usage'] ?? [];
+                $promptTokens = $usage['prompt_tokens'] ?? str_word_count($text);
+                $completionTokens = $usage['completion_tokens'] ?? str_word_count($aiResult);
+                $totalTokens = $usage['total_tokens'] ?? ($promptTokens + $completionTokens);
+                
+                \App\Models\AiUsageLog::create([
+                    'user_id' => auth()->user()->id,
+                    'materi_id' => $id,
+                    'activity_type' => 'quiz',
+                    'prompt_tokens' => $promptTokens,
+                    'completion_tokens' => $completionTokens,
+                    'total_tokens' => $totalTokens,
+                ]);
+            } catch (\Exception $ex) {
+                // Silently ignore
+            }
+
             return redirect()->route('student.latihansoal.show', $id)
                 ->with('success', 'Soal berhasil digenerate dan disimpan ke Database!');
         } catch (\Exception $e) {
@@ -82,12 +111,23 @@ class LatihanSoalController extends Controller
     {
         $answers = $request->answers;
 
+        if (!$answers || !is_array($answers)) {
+            return response()->json(['status' => 'error', 'message' => 'Data jawaban tidak valid.'], 400);
+        }
+
+        // Clear previous answers to prevent duplicates
+        $latihanIds = collect($answers)->pluck('latihan_id')->toArray();
+        DB::table('user_answers')
+            ->where('user_id', auth()->id())
+            ->whereIn('latihan_id', $latihanIds)
+            ->delete();
+
         foreach ($answers as $ans) {
             DB::table('user_answers')->insert([
                 'user_id' => auth()->id(),
                 'latihan_id' => $ans['latihan_id'],
-                // Karena tabelmu formatnya char(1), kita cuma ambil huruf depannya saja (misal "A")
-                'answer' => substr($ans['answer'], 0, 1),
+                // Ambil huruf pertama (A, B, C, D)
+                'answer' => substr(trim($ans['answer']), 0, 1),
                 'is_correct' => $ans['is_correct'],
                 'created_at' => now(),
                 'updated_at' => now(),
