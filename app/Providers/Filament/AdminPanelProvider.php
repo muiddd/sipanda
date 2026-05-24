@@ -30,7 +30,8 @@ class AdminPanelProvider extends PanelProvider
             ->path('sipanda')
             ->login()
             ->registration(\App\Filament\Pages\Auth\CustomRegister::class)
-            ->brandLogo(asset('images/logo.svg')) 
+            ->passwordReset()
+            ->brandLogo(asset('images/logo.svg'))
             ->darkModeBrandLogo(asset('images/logo-white.svg'))
             ->brandLogoHeight('3rem')
             ->colors([
@@ -38,7 +39,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->renderHook(
                 'panels::head.end',
-                fn (): string => \Illuminate\Support\Facades\Blade::render('
+                fn(): string => \Illuminate\Support\Facades\Blade::render('
                     <style>
                         aside.fi-sidebar,
                         aside.fi-sidebar > div,
