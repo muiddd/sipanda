@@ -10,6 +10,8 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class AdminStatsWidget extends BaseWidget
 {
+    protected static ?int $sort = 1;
+
     protected function getStats(): array
     {
         // 1. Total Students
