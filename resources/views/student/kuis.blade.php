@@ -71,9 +71,9 @@
                     <h2 class="font-heading text-2xl font-bold mb-2 dark:text-white">Siap Menguji Pemahamanmu?</h2>
                     <p class="text-slate-500 mb-8">AI siPanda akan membaca materi secara instan dan membuatkan 5 soal pilihan ganda khusus untukmu.</p>
                     
-                    <form action="{{ route('student.latihansoal.generate', $materi->materi_id) }}" method="POST">
+                    <form action="{{ route('student.latihansoal.generate', $materi->materi_id) }}" method="POST" onsubmit="if (typeof showSipandaLoader === 'function') { showSipandaLoader('siPanda Sedang Membuat Kuis...', ['Membaca materi kuliah...', 'Menghubungi AI...', 'Menyusun 5 soal pilihan ganda...', 'Menyimpan soal ke database...']); }">
                         @csrf
-                        <button type="submit" onclick="this.innerHTML='Menganalisis Materi...'; this.classList.add('opacity-75', 'cursor-not-allowed')" class="bg-[#75cb50] hover:bg-[#64b043] text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all shadow-lg shadow-green-500/30">
+                        <button type="submit" class="bg-[#75cb50] hover:bg-[#64b043] text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all shadow-lg shadow-green-500/30">
                             Generate Soal AI Sekarang
                         </button>
                     </form>
@@ -213,5 +213,6 @@
         });
     </script>
     @endif
+    @include('student.partials.loading')
 </body>
 </html>
