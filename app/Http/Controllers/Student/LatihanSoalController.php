@@ -38,33 +38,41 @@ class LatihanSoalController extends Controller
         $instruction = "Kamu adalah guru pembuat soal. Buatkan 5 soal pilihan ganda berdasarkan teks berikut. WAJIB HANYA OUTPUT ARRAY JSON MURNI TANPA TEKS PENGANTAR. Format persis seperti ini: [{\"soal\":\"...\",\"opsi\":[\"A. ...\",\"B. ...\",\"C. ...\",\"D. ...\"],\"jawaban_benar\":\"A. ...\"}]";
 
         try {
-            $response = Http::withHeaders([
+            $response = Http::withoutVerifying()->withHeaders([
                 'Authorization' => 'Bearer ' . config('services.openrouter.api_key'),
                 'HTTP-Referer' => config('app.url'),
                 'X-Title' => 'siPanda Learning App',
             ])->post('https://openrouter.ai/api/v1/chat/completions', [
-                'model' => 'meta-llama/llama-3-8b-instruct:free',
+                'model' => 'openai/gpt-oss-120b:free',
                 'messages' => [
                     ['role' => 'system', 'content' => $instruction],
                     ['role' => 'user', 'content' => $text],
                 ],
             ]);
 
+            if ($response->failed()) {
+                throw new \Exception('API OpenRouter gagal merespon (' . $response->status() . '): ' . ($response->json('error.message') ?? $response->body()));
+            }
+
             $result = $response->json();
-            $aiResult = $result['choices'][0]['message']['content'] ?? '[]';
-            
+            $aiResult = $result['choices'][0]['message']['content'] ?? null;
+
+            if (!$aiResult) {
+                throw new \Exception('AI mengembalikan respon kosong atau terpotong. Silakan coba lagi.');
+            }
+
             // Clean markdown json markers if present
             $aiResult = str_replace(['```json', '```'], '', trim($aiResult));
-            
+
             // Bulletproof JSON array extraction
             if (preg_match('/\[\s*\{.*\}\s*\]/s', $aiResult, $matches)) {
                 $aiResult = $matches[0];
             }
-            
+
             $soalJson = json_decode($aiResult, true);
 
-            if (!$soalJson || !is_array($soalJson)) {
-                throw new \Exception('AI gagal memformat soal. Silakan coba lagi.');
+            if (empty($soalJson) || !is_array($soalJson)) {
+                throw new \Exception('Format soal dari AI tidak valid atau kosong: ' . substr($aiResult, 0, 100));
             }
 
             // Hapus soal lama untuk materi ini agar tidak dobel
@@ -87,7 +95,7 @@ class LatihanSoalController extends Controller
                 $promptTokens = $usage['prompt_tokens'] ?? str_word_count($text);
                 $completionTokens = $usage['completion_tokens'] ?? str_word_count($aiResult);
                 $totalTokens = $usage['total_tokens'] ?? ($promptTokens + $completionTokens);
-                
+
                 \App\Models\AiUsageLog::create([
                     'user_id' => auth()->user()->id,
                     'materi_id' => $id,
