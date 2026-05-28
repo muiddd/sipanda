@@ -10,6 +10,7 @@ use App\Http\Controllers\Student\GamifikasiController;
 use App\Http\Controllers\Student\LatihanSoalController;
 use App\Http\Controllers\Student\SettingsController;
 use App\Http\Controllers\Student\PomodoroController;
+use App\Http\Controllers\Student\RiwayatSkorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,6 +84,6 @@ Route::middleware([
     Route::post('/pomodoro/store', [PomodoroController::class, 'store'])->name('pomodoro.store');
     
     // 8. Riwayat Skor (History)
-    Route::get('/riwayatskor', [\App\Http\Controllers\Student\ScoreHistoryController::class, 'index'])->name('student.riwayatskor');
-    Route::get('/riwayatskor/{materi}/{date}', [\App\Http\Controllers\Student\ScoreHistoryController::class, 'show'])->name('student.riwayatskor.show');
+    Route::get('/riwayatskor', [RiwayatSkorController::class, 'index'])->name('student.riwayatskor');
+    Route::get('/riwayatskor/{materi}/{date}', [RiwayatSkorController::class, 'show'])->name('student.riwayatskor.show');
 });
