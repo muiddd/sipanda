@@ -268,23 +268,18 @@
                         </label>
                     </div>
                     
-                    <!-- Action Selection -->
-                    <div class="flex-1 w-full flex flex-col gap-5 justify-center mt-2 md:mt-0 text-left">
-                        <div class="relative">
-                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 ml-1">Pilih Mode AI</label>
-                            <div class="relative">
-                                <select name="action" class="w-full bg-slate-50 hover:bg-slate-100 dark:bg-[#2a2a2a] dark:hover:bg-[#333] border border-black/10 dark:border-white/10 text-slate-900 dark:text-white rounded-xl pl-5 pr-10 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#75cb50]/50 transition-all font-semibold appearance-none cursor-pointer">
-                                    <option value="summary">Rangkum Materi</option>
-                                    <option value="quiz">Buatkan Latihan Soal</option>
-                                </select>
-                                <div class="absolute inset-y-0 right-0 top-0 flex items-center pr-4 pointer-events-none text-slate-500">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                                </div>
-                            </div>
+                    <!-- Action Selection (Summary Only) -->
+                    <div class="flex-1 w-full flex flex-col justify-center mt-2 md:mt-0 text-left">
+                        <input type="hidden" name="action" value="summary">
+                        
+                        <div class="mb-5 px-2">
+                            <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Meringkas Otomatis</h3>
+                            <p class="text-xs text-slate-500 leading-relaxed font-medium">AI siPanda akan membaca file Anda secara mendalam dan mengekstrak poin-poin terpentingnya ke dalam format yang rapi dan mudah dipahami.</p>
                         </div>
-                        <button type="submit" class="w-full bg-gradient-to-r from-[#75cb50] to-[#10b981] hover:from-[#10b981] hover:to-[#059669] text-white font-bold py-3.5 px-6 rounded-xl shadow-[0_0_20px_rgba(34,197,94,0.3)] transition-all hover:scale-[1.02] hover:shadow-[0_0_25px_rgba(34,197,94,0.4)] flex items-center justify-center gap-2 mt-1 -ml-0.5">
-                            <span>Mulai Proses AI</span>
+
+                        <button type="submit" class="w-full bg-gradient-to-r from-[#75cb50] to-[#10b981] hover:from-[#10b981] hover:to-[#059669] text-white font-bold py-4 px-6 rounded-xl shadow-[0_0_20px_rgba(34,197,94,0.3)] transition-all hover:scale-[1.02] hover:shadow-[0_0_25px_rgba(34,197,94,0.4)] flex items-center justify-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            <span>Upload & Ringkas File</span>
                         </button>
                     </div>
                 </form>
