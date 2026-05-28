@@ -1,42 +1,59 @@
         <aside class="fixed top-0 left-0 h-screen w-72 p-6 flex flex-col z-50">
             <div class="glass glass-sidebar h-full flex flex-col p-6 border-l-0">
-                
+
                 <div class="font-heading text-3xl font-black mb-10 flex items-center gap-3">
-                    <img src="{{ asset('images/logo.svg') }}" 
-                            alt="siPanda Logo" 
-                            class="h-[3rem] w-auto block dark:hidden" />
-            
-                    <img src="{{ asset('images/logo-white.svg') }}" 
-                            alt="siPanda Logo Dark" 
-                            class="h-[3rem] w-auto hidden dark:block" />
+                    <img src="{{ asset('images/logo.svg') }}"
+                        alt="siPanda Logo"
+                        class="h-[3rem] w-auto block dark:hidden" />
+
+                    <img src="{{ asset('images/logo-white.svg') }}"
+                        alt="siPanda Logo Dark"
+                        class="h-[3rem] w-auto hidden dark:block" />
                 </div>
-            
+
                 <nav class="flex-1 space-y-2">
                     <a href="{{ route('student.dashboard') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl {{ request()->routeIs('student.dashboard') ? 'bg-[#75cb50]/10 text-[#75cb50] font-semibold' : 'hover:bg-black/5 dark:hover:bg-white/5 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium' }} text-sm transition relative overflow-hidden group">
                         @if(request()->routeIs('student.dashboard'))
                         <div class="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-transparent via-[#75cb50]/50 to-transparent"></div>
                         @endif
-                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                        </svg>
                         Dashboard
                     </a>
                     <a href="{{ route('student.materi') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl {{ request()->routeIs('student.materi') ? 'bg-[#75cb50]/10 text-[#75cb50] font-semibold' : 'hover:bg-black/5 dark:hover:bg-white/5 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium' }} text-sm transition">
-                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
                         Materi
                     </a>
                     <a href="{{ route('student.latihansoal') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl {{ request()->routeIs('student.latihansoal') ? 'bg-[#75cb50]/10 text-[#75cb50] font-semibold' : 'hover:bg-black/5 dark:hover:bg-white/5 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium' }} text-sm transition">
-                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
                         Latihan Soal
+                    </a>
+                    <a href="{{ route('student.riwayatskor') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl {{ request()->routeIs('student.riwayatskor') ? 'bg-[#75cb50]/10 text-[#75cb50] font-semibold' : 'hover:bg-black/5 dark:hover:bg-white/5 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium' }} text-sm transition">
+                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 11V7a1 1 0 012 0v4h3a1 1 0 010 2h-3v4a1 1 0 11-2 0v-4H8a1 1 0 010-2h3z"></path>
+                        </svg>
+                        Riwayat Skor
                     </a>
                     <a href="{{ route('student.gamifikasi') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl {{ request()->routeIs('student.gamifikasi') ? 'bg-[#75cb50]/10 text-[#75cb50] font-semibold' : 'hover:bg-black/5 dark:hover:bg-white/5 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium' }} text-sm transition relative overflow-hidden group">
                         @if(request()->routeIs('student.gamifikasi'))
                         <div class="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-transparent via-[#75cb50]/50 to-transparent"></div>
                         @endif
-                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"></path></svg>
+                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"></path>
+                        </svg>
                         Gamifikasi
                     </a>
                     <a href="{{ route('todo') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl {{ request()->routeIs('todo') ? 'bg-[#75cb50]/10 text-[#75cb50] font-semibold' : 'hover:bg-black/5 dark:hover:bg-white/5 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium' }} text-sm transition">
-                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    To-Do List
+                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        To-Do List
                     </a>
                 </nav>
 
@@ -61,7 +78,10 @@
                         <div class="text-xs text-slate-500 truncate">{{ auth()->user()->email }}</div>
                     </div>
                     <a href="{{ route('student.settings') }}" class="text-slate-500 dark:text-slate-400 hover:text-[#75cb50] dark:hover:text-[#75cb50] hover:bg-black/5 dark:hover:bg-white/10 p-2 rounded-lg transition {{ request()->routeIs('student.settings') ? 'text-[#75cb50] dark:text-[#75cb50]' : '' }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
                     </a>
                 </div>
             </div>
@@ -78,9 +98,9 @@
                     if (!themeToggleBtn) return;
 
                     // 1. Cek preferensi saat halaman dimuat
-                    const isDarkTheme = localStorage.getItem('color-theme') === 'dark' || 
+                    const isDarkTheme = localStorage.getItem('color-theme') === 'dark' ||
                         (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
-                    
+
                     if (isDarkTheme) {
                         htmlElement.classList.add('dark');
                         if (themeToggleLightIcon) themeToggleLightIcon.classList.remove('hidden');
@@ -94,7 +114,7 @@
                     // 2. Bersihkan event listener lama untuk mencegah duplikasi jika di-include
                     themeToggleBtn.replaceWith(themeToggleBtn.cloneNode(true));
                     const newToggleBtn = document.getElementById('theme-toggle');
-                    
+
                     // Ambil ulang referensi icon setelah kloning tombol
                     const newDarkIcon = document.getElementById('theme-toggle-dark-icon');
                     const newLightIcon = document.getElementById('theme-toggle-light-icon');

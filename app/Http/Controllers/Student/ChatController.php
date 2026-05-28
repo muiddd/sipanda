@@ -28,6 +28,39 @@ class ChatController extends Controller
 
     public function processAi(Request $request)
     {
+        if ($request->has('materi_id')) {
+            try {
+                // 1. Ambil teks asli dari database
+                $materi = \App\Models\Materi::findOrFail($request->materi_id);
+                $teksMateri = strip_tags($materi->konten_teks);
+
+                // 2. Siapkan perintah untuk AI
+                $instruction = "Kamu adalah asisten guru yang ahli merangkum. Buatlah rangkuman eksekutif dari teks materi berikut. Gunakan bahasa Indonesia yang mudah dipahami, poin-poin yang jelas, dan fokus pada inti materi saja.";
+
+                // 3. Tembak ke OpenRouter AI
+                $response = Http::withHeaders([
+                    'Authorization' => 'Bearer ' . config('services.openrouter.api_key'),
+                    'HTTP-Referer' => config('app.url'),
+                    'X-Title' => 'siPanda Learning App',
+                ])->post('https://openrouter.ai/api/v1/chat/completions', [
+                    'model' => 'openai/gpt-oss-120b:free', 
+                    'messages' => [
+                        ['role' => 'system', 'content' => $instruction],
+                        ['role' => 'user', 'content' => $teksMateri],
+                    ],
+                ]);
+
+                $result = $response->json();
+                $aiSummary = $result['choices'][0]['message']['content'] ?? 'Gagal membuat rangkuman.';
+
+                // 4. Kembalikan ke halaman Ruang Baca dengan membawa data rangkuman
+                return back()->with('ai_summary', $aiSummary);
+
+            } catch (\Exception $e) {
+                return back()->with('error', 'Gagal memproses AI: ' . $e->getMessage());
+            }
+        }
+
         $request->validate([
             'file' => 'required|file|mimes:pdf|max:10240',
             'action' => 'required|in:summary,quiz',

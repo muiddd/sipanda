@@ -10,6 +10,7 @@ use App\Http\Controllers\Student\GamifikasiController;
 use App\Http\Controllers\Student\LatihanSoalController;
 use App\Http\Controllers\Student\SettingsController;
 use App\Http\Controllers\Student\PomodoroController;
+use App\Http\Controllers\Student\RiwayatSkorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,9 @@ Route::get('/', function () {
 // ==========================================
 // AUTHENTICATION ROUTES
 // ==========================================
+Route::get('/auth/google', [App\Http\Controllers\Auth\GoogleController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/auth/google/callback', [App\Http\Controllers\Auth\GoogleController::class, 'handleGoogleCallback'])->name('auth.google.callback');
+
 Route::get('/register', function () {
     return redirect('/sipanda/register');
 })->name('register');
@@ -81,4 +85,8 @@ Route::middleware([
 
     //7. Pomodoro Timer
     Route::post('/pomodoro/store', [PomodoroController::class, 'store'])->name('pomodoro.store');
+
+    // 8. Riwayat Skor (History)
+    Route::get('/riwayatskor', [RiwayatSkorController::class, 'index'])->name('student.riwayatskor');
+    Route::get('/riwayatskor/{materi}/{date}', [RiwayatSkorController::class, 'show'])->name('student.riwayatskor.show');
 });

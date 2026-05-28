@@ -220,7 +220,7 @@
             <a href="#tentang" class="text-slate-800 dark:text-cream hover:text-bamboo-fresh py-2 rounded-xl transition-all">Tentang</a>
             <a href="#fitur" class="text-slate-800 dark:text-cream hover:text-bamboo-fresh py-2 rounded-xl transition-all">Fitur Unggulan</a>
         </nav>
-        
+
         <div class="h-px bg-black/5 dark:bg-white/10 w-full"></div>
 
         <div class="flex flex-col gap-3">
@@ -229,8 +229,8 @@
                 Dashboard
             </a>
             <a href="{{ route('logout') }}"
-               onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-               class="w-full text-center text-red-500 hover:text-red-700 font-bold py-2 transition text-sm">
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                class="w-full text-center text-red-500 hover:text-red-700 font-bold py-2 transition text-sm">
                 Logout
             </a>
             @else
