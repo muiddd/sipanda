@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id" id="main-html">
+
 <head>
     <script>
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -11,67 +12,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>siPanda - Ruang Baca</title>
-    
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config = { darkMode: 'class' }</script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;800;900&display=swap');
-        
-        body { background-color: #f8fafc; color: #0f172a; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        .dark body { background-color: #121212; color: #f2f1e8; }
-        .font-heading { font-family: 'Outfit', sans-serif; }
-        
-        /* Efek Glassmorphism */
-        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(40px); border: 1px solid rgba(0, 0, 0, 0.05); box-shadow: 0 10px 25px rgba(0,0,0,0.03); border-radius: 1.5rem; }
-        .dark .glass { background: rgba(18, 18, 18, 0.7); border: 1px solid rgba(255, 255, 255, 0.1); }
-        
-        /* Ornamen Latar Belakang */
-        .bg-orb { position: fixed; border-radius: 50%; filter: blur(120px); z-index: -1; opacity: 0.1; pointer-events: none; }
-        .dark .bg-orb { opacity: 0.25; }
-        .orb-1 { width: 500px; height: 500px; background: #75cb50; top: -100px; right: -100px; }
-        
-        /* ==========================================
-           STYLING KHUSUS UNTUK TEKS MATERI (READABILITY)
-           ========================================== */
-        .konten-materi {
-            font-size: 1.125rem; /* 18px untuk kenyamanan membaca */
-            color: #334155;
-            transition: color 0.3s;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;800;900&display=swap');
+
+        body {
+            background-color: #f8fafc;
+            color: #0f172a;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
         }
-        .dark .konten-materi { color: #cbd5e1; }
-        
-        .konten-materi p { margin-bottom: 1.5rem; line-height: 1.8; letter-spacing: 0.01em; }
-        
-        .konten-materi h1, .konten-materi h2 { 
-            font-family: 'Outfit', sans-serif; 
-            font-weight: 800; 
-            font-size: 1.875rem; 
-            margin-top: 3rem; 
-            margin-bottom: 1.25rem; 
-            color: #1e293b; 
-            line-height: 1.3;
+
+        .dark body {
+            background-color: #121212;
+            color: #f2f1e8;
         }
-        .dark .konten-materi h1, .dark .konten-materi h2 { color: #f8fafc; }
-        
-        .konten-materi h3 { 
-            font-family: 'Outfit', sans-serif; 
-            font-weight: 700; 
-            font-size: 1.5rem; 
-            margin-top: 2.5rem; 
-            margin-bottom: 1rem; 
-            color: #75cb50; 
+
+        .font-heading {
+            font-family: 'Outfit', sans-serif;
         }
-        
-        .konten-materi ul { margin-left: 1.5rem; margin-bottom: 1.5rem; list-style-type: disc; }
-        .konten-materi ol { margin-left: 1.5rem; margin-bottom: 1.5rem; list-style-type: decimal; }
-        .konten-materi li { margin-bottom: 0.75rem; padding-left: 0.5rem; line-height: 1.7; }
-        
-        .konten-materi strong { color: #0f172a; font-weight: 700; }
-        .dark .konten-materi strong { color: #f8fafc; }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+            border-radius: 1.5rem;
+        }
+
+        .dark .glass {
+            background: rgba(18, 18, 18, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .dark .bg-orb {
+            opacity: 0.25;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: #75cb50;
+            top: -100px;
+            right: -100px;
+        }
+
+        /* Styling khusus untuk konten teks dari database */
+        .konten-materi p {
+            margin-bottom: 1.25rem;
+            line-height: 1.8;
+        }
+
+        .konten-materi h1,
+        .konten-materi h2,
+        .konten-materi h3 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: bold;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #75cb50;
+        }
+
+        .konten-materi ul,
+        .konten-materi ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .konten-materi li {
+            margin-bottom: 0.5rem;
+        }
     </style>
 </head>
+
 <body class="relative min-h-screen">
     <div class="bg-orb orb-1"></div>
 
@@ -104,15 +134,14 @@
                     <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white mb-6 leading-tight">
                         {{ $materi->judul_materi }}
                     </h1>
-                    
-                    <div class="flex flex-wrap items-center justify-center gap-3 md:gap-4 text-xs md:text-sm font-medium text-slate-500">
-                        <span class="bg-slate-100 dark:bg-slate-800/80 px-4 py-1.5 rounded-full flex items-center gap-2 border border-slate-200 dark:border-slate-700">
+                    <div class="flex items-center justify-center gap-4 text-sm font-medium text-slate-500">
+                        <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full flex items-center gap-1">
                             <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             <span>{{ \Carbon\Carbon::parse($materi->tanggal_publikasi)->format('d M Y') }}</span>
                         </span>
-                        <span class="bg-[#75cb50]/10 text-[#75cb50] px-4 py-1.5 rounded-full border border-[#75cb50]/20 flex items-center gap-2">
-                            <svg class="w-4 h-4 text-[#75cb50]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <span>Materi Resmi siPanda</span>
+                        <span class="bg-[#75cb50]/10 text-[#75cb50] px-3 py-1 rounded-full border border-[#75cb50]/20 flex items-center gap-1">
+                            <svg class="w-4 h-4 text-[#75cb50]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
+                            <span>Materi siPanda</span>
                         </span>
                     </div>
                 </div>
@@ -190,8 +219,9 @@
             </div>
         </main>
     </div>
-    
+
     <x-pomodoro-timer />
 
 </body>
+
 </html>

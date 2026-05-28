@@ -12,12 +12,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>siPanda - Materi</title>
-    
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = { darkMode: 'class' }
+        tailwind.config = {
+            darkMode: 'class'
+        }
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;800;900&display=swap');
@@ -276,43 +278,43 @@
             </header>
 
             @if(count($materiGrouped) > 0)
-                {{-- Category Tabs (Dibuat otomatis sesuai nama Kategori di Database) --}}
-                <div class="flex gap-3 mb-8 flex-wrap" id="tabs-container">
-                    @foreach($materiGrouped as $kategori => $materis)
-                        <button class="cat-tab {{ $loop->first ? 'active' : '' }}" data-cat="{{ $kategori }}"
-                            onclick="switchCat('{{ $kategori }}', this)">
-                            {{ $kategori }}
-                        </button>
-                    @endforeach
-                </div>
+            {{-- Category Tabs (Dibuat otomatis sesuai nama Kategori di Database) --}}
+            <div class="flex gap-3 mb-8 flex-wrap" id="tabs-container">
+                @foreach($materiGrouped as $kategori => $materis)
+                <button class="cat-tab {{ $loop->first ? 'active' : '' }}" data-cat="{{ $kategori }}"
+                    onclick="switchCat('{{ $kategori }}', this)">
+                    {{ $kategori }}
+                </button>
+                @endforeach
+            </div>
 
-                {{-- Stats Row --}}
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8" id="stats-row"></div>
+            {{-- Stats Row --}}
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8" id="stats-row"></div>
 
-                {{-- Section Label --}}
-                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-4" id="grid-label">
-                    Daftar Materi
-                </p>
+            {{-- Section Label --}}
+            <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-4" id="grid-label">
+                Daftar Materi
+            </p>
 
-                {{-- Subjects Grid --}}
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5" id="subjects-grid"></div>
+            {{-- Subjects Grid --}}
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5" id="subjects-grid"></div>
             @else
-                <div class="text-center py-20 flex flex-col items-center justify-center">
-                    <div class="flex justify-center mb-6 text-slate-400/80">
-                        <svg class="w-20 h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0a2 2 0 01-2 2H6a2 2 0 01-2-2m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold dark:text-white">Belum ada materi</h3>
-                    <p class="text-slate-500 mt-2">Guru belum menambahkan materi pembelajaran apapun ke dalam sistem.</p>
+            <div class="text-center py-20 flex flex-col items-center justify-center">
+                <div class="flex justify-center mb-6 text-slate-400/80">
+                    <svg class="w-20 h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0a2 2 0 01-2 2H6a2 2 0 01-2-2m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                    </svg>
                 </div>
+                <h3 class="text-xl font-bold dark:text-white">Belum ada materi</h3>
+                <p class="text-slate-500 mt-2">Guru belum menambahkan materi pembelajaran apapun ke dalam sistem.</p>
+            </div>
             @endif
 
         </main>
     </div>
 
     <x-pomodoro-timer />
-    
+
     {{-- Script Kirim Data dari Laravel ke JS --}}
     <script>
         // Mengubah Collection Laravel menjadi JSON agar bisa dibaca JavaScript
@@ -401,7 +403,7 @@
             renderGrid(cat, searchQuery);
         }
 
-        document.getElementById('search-input').addEventListener('input', function () {
+        document.getElementById('search-input').addEventListener('input', function() {
             searchQuery = this.value;
             renderGrid(currentCat, searchQuery);
         });
