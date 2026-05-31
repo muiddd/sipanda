@@ -11,22 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('catatans', function (Blueprint $table) {
-            $table->id('catatan_id');
+        Schema::create('bookmarks', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('materi_id')->nullable()->constrained('materis')->cascadeOnDelete();
-            $table->string('title');
-            $table->text('content');
+            $table->unsignedBigInteger('materi_id');
+            $table->foreign('materi_id')->references('materi_id')->on('materis')->cascadeOnDelete();
             $table->timestamps();
         });
     }
 
-    
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('catatans');
+        Schema::dropIfExists('bookmarks');
     }
 };

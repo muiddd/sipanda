@@ -5,18 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Catatan extends Model
+class Bookmark extends Model
 {
     use HasFactory;
 
-    protected $table = 'catatans';
-
-    protected $fillable = [
-        'user_id',
-        'materi_id',
-        'judul_catatan',
-        'isi_catatan',
-    ];
+    protected $fillable = ['user_id', 'materi_id'];
 
     public function user()
     {
@@ -25,6 +18,6 @@ class Catatan extends Model
 
     public function materi()
     {
-        return $this->belongsTo(Materi::class, 'materi_id', 'materi_id'); 
+        return $this->belongsTo(Materi::class, 'materi_id', 'materi_id');
     }
 }

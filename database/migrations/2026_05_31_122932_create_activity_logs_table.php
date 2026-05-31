@@ -11,22 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('catatans', function (Blueprint $table) {
-            $table->id('catatan_id');
+        Schema::create('activity_logs', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('materi_id')->nullable()->constrained('materis')->cascadeOnDelete();
-            $table->string('title');
-            $table->text('content');
+            $table->string('aktivitas'); 
+            $table->string('deskripsi')->nullable();
             $table->timestamps();
         });
     }
 
-    
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('catatans');
+        Schema::dropIfExists('activity_logs');
     }
 };
