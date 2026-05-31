@@ -38,7 +38,7 @@ class ChatController extends Controller
                 $instruction = "Kamu adalah asisten guru yang ahli merangkum. Buatlah rangkuman eksekutif dari teks materi berikut. Gunakan bahasa Indonesia yang mudah dipahami, poin-poin yang jelas, dan fokus pada inti materi saja.";
 
                 // 3. Tembak ke OpenRouter AI
-                $response = Http::withHeaders([
+                $response = Http::timeout(120)->withHeaders([
                     'Authorization' => 'Bearer ' . config('services.openrouter.api_key'),
                     'HTTP-Referer' => config('app.url'),
                     'X-Title' => 'siPanda Learning App',
