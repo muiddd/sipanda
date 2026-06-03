@@ -25,6 +25,11 @@ class User extends Authenticatable
         'foto_profile',
     ];
 
+    public function favoriteMateris()
+    {
+        return $this->belongsToMany(Materi::class, 'user_favorite_materis', 'user_id', 'materi_id', 'id', 'materi_id')->withTimestamps();
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

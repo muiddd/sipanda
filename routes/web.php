@@ -59,6 +59,7 @@ Route::middleware([
     // 2. Materi
     Route::get('/materi', [MateriController::class, 'index'])->name('student.materi');
     Route::get('/materi/{id}', [MateriController::class, 'show'])->name('student.materi.show');
+    Route::post('/materi/{id}/favorite', [MateriController::class, 'toggleFavorite'])->name('student.materi.favorite');
 
     // 3. Gamifikasi & Sesi Belajar
     Route::get('/gamifikasi', [GamifikasiController::class, 'index'])->name('student.gamifikasi');
