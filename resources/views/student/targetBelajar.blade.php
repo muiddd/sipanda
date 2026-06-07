@@ -11,7 +11,7 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>siPanda - To-Do List</title>
+    <title>siPanda - Target Belajar</title>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -215,7 +215,7 @@
             {{-- Header --}}
             <header class="mb-10 pt-4">
                 <h1 class="font-heading text-4xl font-black text-slate-900 dark:text-white">
-                    To-Do <span class="text-[#75cb50]">List</span>
+                    Target <span class="text-[#75cb50]">Belajar</span>
                 </h1>
                 <p class="text-slate-500 dark:text-slate-400 text-sm mt-2 font-medium">
                     Catat dan selesaikan tugasmu hari ini.

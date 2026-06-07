@@ -23,7 +23,7 @@ class ChatController extends Controller
 
     public function todo()
     {
-        return view('student.todolist');
+        return view('student.targetBelajar');
     }
 
     public function processAi(Request $request)
