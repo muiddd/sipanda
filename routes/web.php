@@ -11,6 +11,7 @@ use App\Http\Controllers\Student\LatihanSoalController;
 use App\Http\Controllers\Student\SettingsController;
 use App\Http\Controllers\Student\PomodoroController;
 use App\Http\Controllers\Student\RiwayatSkorController;
+use App\Http\Controllers\Student\BukuCatatanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,4 +91,10 @@ Route::middleware([
     // 8. Riwayat Skor (History)
     Route::get('/riwayatskor', [RiwayatSkorController::class, 'index'])->name('student.riwayatskor');
     Route::get('/riwayatskor/{materi}/{date}', [RiwayatSkorController::class, 'show'])->name('student.riwayatskor.show');
+
+    // 9. Buku Catatan
+    Route::get('/bukucatatan', [BukuCatatanController::class, 'index'])->name('student.bukucatatan');
+    Route::post('/bukucatatan/export-ai', [BukuCatatanController::class, 'exportFromAi'])->name('student.bukucatatan.export-ai');
+    Route::post('/bukucatatan', [BukuCatatanController::class, 'store'])->name('student.bukucatatan.store');
+    Route::delete('/bukucatatan/{id}', [BukuCatatanController::class, 'destroy'])->name('student.bukucatatan.destroy');
 });
