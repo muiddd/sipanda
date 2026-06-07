@@ -13,4 +13,9 @@ class Latihan extends Model
     protected $casts = [
         'options' => 'array',
     ];
+
+    public function materi()
+    {
+        return $this->belongsTo(Materi::class, 'materi_id', 'materi_id');
+    }
 }

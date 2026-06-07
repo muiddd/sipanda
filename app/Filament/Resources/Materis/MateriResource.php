@@ -22,6 +22,8 @@ class MateriResource extends Resource
 {
     protected static ?string $model = Materi::class;
 
+    protected static \UnitEnum|string|null $navigationGroup = 'Akademik & Pembelajaran';
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'judul';

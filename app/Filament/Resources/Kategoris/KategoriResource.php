@@ -19,6 +19,8 @@ class KategoriResource extends Resource
 {
     protected static ?string $model = Kategori::class;
 
+    protected static \UnitEnum|string|null $navigationGroup = 'Akademik & Pembelajaran';
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedFolder;
 
     protected static ?string $recordTitleAttribute = 'name';
