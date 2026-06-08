@@ -30,6 +30,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Materi::class, 'user_favorite_materis', 'user_id', 'materi_id', 'id', 'materi_id')->withTimestamps();
     }
 
+    public function streak()
+    {
+        return $this->hasOne(UserStreak::class, 'user_id', 'id');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

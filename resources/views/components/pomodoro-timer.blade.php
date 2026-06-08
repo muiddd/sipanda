@@ -55,8 +55,8 @@
 </div>
 
 <script>
-    const WORK_MINUTES = 25;
-    const BREAK_MINUTES = 5;
+    const WORK_MINUTES = 1;
+    const BREAK_MINUTES = 1;
 
     let timerInterval;
 
@@ -82,15 +82,13 @@
         const mini = document.getElementById('pomodoro-mini');
 
         if (popup) {
-            // Geser keluar layar
-            popup.classList.add('translate-x-[200%]', 'opacity-0');
-            setTimeout(() => popup.classList.add('hidden'), 500);
+            popup.classList.add('translate-x-[150%]', 'opacity-0', 'pointer-events-none');
+            popup.classList.remove('translate-x-0', 'opacity-100');
         }
 
         if (mini) {
-            // Munculkan tab kecil
-            mini.classList.remove('hidden');
-            setTimeout(() => mini.classList.remove('translate-x-full'), 100);
+            mini.classList.remove('translate-x-full', 'opacity-0', 'pointer-events-none');
+            mini.classList.add('translate-x-0', 'opacity-100');
         }
     }
 
@@ -99,23 +97,21 @@
         const mini = document.getElementById('pomodoro-mini');
 
         if (mini) {
-            // Sembunyikan tab kecil
-            mini.classList.add('translate-x-full');
-            setTimeout(() => mini.classList.add('hidden'), 500);
+            mini.classList.add('translate-x-full', 'opacity-0', 'pointer-events-none');
+            mini.classList.remove('translate-x-0', 'opacity-100');
         }
 
         if (popup) {
-            // Munculkan popup utama
-            popup.classList.remove('hidden');
-            setTimeout(() => popup.classList.remove('translate-x-[200%]', 'opacity-0'), 10);
+            popup.classList.remove('translate-x-[150%]', 'opacity-0', 'pointer-events-none');
+            popup.classList.add('translate-x-0', 'opacity-100');
         }
     }
 
     function closePomodoro() {
         const popup = document.getElementById('pomodoro-popup');
         if (popup) {
-            popup.classList.add('translate-x-[200%]', 'opacity-0');
-            setTimeout(() => popup.classList.add('hidden'), 500);
+            popup.classList.add('translate-x-[150%]', 'opacity-0', 'pointer-events-none');
+            popup.classList.remove('translate-x-0', 'opacity-100');
         }
     }
 
@@ -124,11 +120,12 @@
     function startPomodoro() {
         if (localStorage.getItem('pomodoro_end_time')) return;
 
-        const popup = document.getElementById('pomodoro-popup');
-        if (popup) {
-            popup.classList.remove('hidden');
-            setTimeout(() => popup.classList.remove('translate-x-[200%]', 'opacity-0'), 10);
-        }
+        // const popup = document.getElementById('pomodoro-popup');
+        // if (popup) {
+        //     popup.classList.remove('hidden');
+        //     setTimeout(() => popup.classList.remove('translate-x-[200%]', 'opacity-0'), 10);
+        // }
+        maximizePomodoro();
 
         setTimerPhase('work', WORK_MINUTES);
         startTimerLogic();
@@ -242,16 +239,22 @@
     }
 
     function resetUIAfterComplete() {
-        const popup = document.getElementById('pomodoro-popup');
-        const mini = document.getElementById('pomodoro-mini');
+        // const popup = document.getElementById('pomodoro-popup');
+        // const mini = document.getElementById('pomodoro-mini');
 
-        if (popup) {
-            popup.classList.add('translate-x-[200%]', 'opacity-0');
-            setTimeout(() => popup.classList.add('hidden'), 500);
-        }
+        // if (popup) {
+        //     popup.classList.add('translate-x-[200%]', 'opacity-0');
+        //     setTimeout(() => popup.classList.add('hidden'), 500);
+        // }
+        // if (mini) {
+        //     mini.classList.add('translate-x-full');
+        //     setTimeout(() => mini.classList.add('hidden'), 500);
+        // }
+        closePomodoro(); // Tutup popup
+        const mini = document.getElementById('pomodoro-mini');
         if (mini) {
-            mini.classList.add('translate-x-full');
-            setTimeout(() => mini.classList.add('hidden'), 500);
+            mini.classList.add('translate-x-full', 'opacity-0', 'pointer-events-none');
+            mini.classList.remove('translate-x-0', 'opacity-100');
         }
 
         const startBtnPopup = document.getElementById('pomodoro-start-btn');
