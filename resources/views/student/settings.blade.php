@@ -197,7 +197,7 @@
 
         @include('student.partials.sidebar')
 
-        <main class="ml-72 flex-1 p-8 px-10 xl:px-14 min-h-screen">
+        <main class="ml-0 lg:ml-72 flex-1 p-8 px-10 xl:px-14 min-h-screen pt-20 lg:pt-8">
 
             <header class="mb-12 pt-4">
                 <h1 class="font-heading text-4xl font-black text-slate-900 dark:text-white transition-colors">Pengaturan Akun</h1>

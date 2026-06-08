@@ -109,17 +109,19 @@
         @include('student.partials.sidebar')
 
         {{-- Penyesuaian padding mobile (p-4) dan desktop (md:p-8) --}}
-        <main class="ml-0 md:ml-72 flex-1 p-4 md:p-8 md:px-10 xl:px-14 min-h-screen relative z-10 transition-all">
-            
+        <main class="ml-0 lg:ml-72 flex-1 p-4 md:p-8 md:px-10 xl:px-14 min-h-screen relative z-10 transition-all pt-20 lg:pt-8">
+
             <div class="mb-6 md:mb-8 pt-4 md:pt-0">
                 <a href="{{ route('student.materi') }}" class="inline-flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-[#75cb50] transition-colors bg-white/50 dark:bg-black/20 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-800">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
                     Kembali ke Daftar
                 </a>
             </div>
 
             <div class="glass p-6 md:p-12 lg:p-16 max-w-4xl mx-auto mb-20 shadow-xl shadow-slate-200/50 dark:shadow-none relative overflow-hidden">
-                
+
                 {{-- Aksen Latar Atas --}}
                 <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-[#75cb50]/10 to-transparent pointer-events-none"></div>
 
@@ -130,17 +132,22 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                         </svg>
                     </div>
-                    
+
                     <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white mb-6 leading-tight">
                         {{ $materi->judul_materi }}
                     </h1>
                     <div class="flex items-center justify-center gap-4 text-sm font-medium text-slate-500">
                         <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full flex items-center gap-1">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
                             <span>{{ \Carbon\Carbon::parse($materi->tanggal_publikasi)->format('d M Y') }}</span>
                         </span>
                         <span class="bg-[#75cb50]/10 text-[#75cb50] px-3 py-1 rounded-full border border-[#75cb50]/20 flex items-center gap-1">
-                            <svg class="w-4 h-4 text-[#75cb50]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
+                            <svg class="w-4 h-4 text-[#75cb50]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
+                            </svg>
                             <span>Materi siPanda</span>
                         </span>
                     </div>
@@ -160,7 +167,7 @@
 
                     {{-- Flexbox untuk menyusun tombol agar responsif & Serasi --}}
                     <div class="flex flex-col md:flex-row items-center justify-center gap-4">
-                        
+
                         {{-- Tombol 1: Buatkan Rangkuman AI (Style: Outline Green) --}}
                         <form action="{{ route('ai.process') }}" method="POST" class="w-full md:w-auto">
                             @csrf
@@ -181,7 +188,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                             </svg>
                         </a>
-                        
+
                     </div>
                 </div>
 
@@ -199,18 +206,21 @@
                             <p class="text-sm text-[#75cb50] font-bold uppercase tracking-wider mt-1">Berdasarkan Materi Ini</p>
                         </div>
                     </div>
-                    
+
                     <div class="prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 leading-relaxed text-lg">
                         {!! Str::markdown(session('ai_summary')) !!}
                     </div>
                 </div>
-                
+
                 {{-- Script otomatis scroll ke hasil rangkuman --}}
                 <script>
                     document.addEventListener("DOMContentLoaded", function() {
                         const resultBox = document.getElementById('ai-summary-result');
-                        if(resultBox) {
-                            resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        if (resultBox) {
+                            resultBox.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'center'
+                            });
                         }
                     });
                 </script>

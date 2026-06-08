@@ -14,4 +14,9 @@ class Materi extends Model
     {
         return $this->belongsTo(Kategori::class, 'kategori_id');
     }
+
+    public function favoritedBy()
+    {
+        return $this->belongsToMany(User::class, 'user_favorite_materis', 'materi_id', 'user_id', 'materi_id', 'id')->withTimestamps();
+    }
 }

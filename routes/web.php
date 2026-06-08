@@ -11,6 +11,8 @@ use App\Http\Controllers\Student\LatihanSoalController;
 use App\Http\Controllers\Student\SettingsController;
 use App\Http\Controllers\Student\PomodoroController;
 use App\Http\Controllers\Student\RiwayatSkorController;
+use App\Http\Controllers\Student\BukuCatatanController;
+use App\Http\Controllers\Student\ActivityLogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +61,7 @@ Route::middleware([
     // 2. Materi
     Route::get('/materi', [MateriController::class, 'index'])->name('student.materi');
     Route::get('/materi/{id}', [MateriController::class, 'show'])->name('student.materi.show');
+    Route::post('/materi/{id}/favorite', [MateriController::class, 'toggleFavorite'])->name('student.materi.favorite');
 
     // 3. Gamifikasi & Sesi Belajar
     Route::get('/gamifikasi', [GamifikasiController::class, 'index'])->name('student.gamifikasi');
@@ -89,4 +92,16 @@ Route::middleware([
     // 8. Riwayat Skor (History)
     Route::get('/riwayatskor', [RiwayatSkorController::class, 'index'])->name('student.riwayatskor');
     Route::get('/riwayatskor/{materi}/{date}', [RiwayatSkorController::class, 'show'])->name('student.riwayatskor.show');
-});
+
+    // 9. Buku Catatan
+    Route::get('/bukucatatan', [BukuCatatanController::class, 'index'])->name('student.bukucatatan');
+    Route::post('/bukucatatan/export-ai', [BukuCatatanController::class, 'exportFromAi'])->name('student.bukucatatan.export-ai');
+    Route::post('/bukucatatan', [BukuCatatanController::class, 'store'])->name('student.bukucatatan.store');
+    Route::delete('/bukucatatan/{id}', [BukuCatatanController::class, 'destroy'])->name('student.bukucatatan.destroy');
+
+    // 10. Activity Log
+    Route::middleware(['auth'])->prefix('student')->name('student.')->group(function () {
+    Route::get('activity-log', [ActivityLogController::class, 'index'])->name('activity-log.index');
+    Route::post('activity-log', [ActivityLogController::class, 'store'])->name('activity-log.store');
+    });
+  });

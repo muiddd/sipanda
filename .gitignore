@@ -21,3 +21,5 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+MANUAL_BOOK_USER.md
+MANUAL_BOOK_USER.txt
