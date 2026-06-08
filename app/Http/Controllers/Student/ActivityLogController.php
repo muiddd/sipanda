@@ -60,7 +60,7 @@ class ActivityLogController extends Controller
 
         // Normalisasi ke level 0-4 untuk warna
         $maxMinutes = max($minutesByDate->max() ?? 1, 1);
-        $heatmapLevels = collect($heatmap)->map(fn($m) => match(true) {
+        $heatmapLevels = collect($heatmap)->map(fn($m) => match (true) {
             $m === 0       => 0,
             $m < $maxMinutes * 0.25 => 1,
             $m < $maxMinutes * 0.5  => 2,
@@ -90,7 +90,7 @@ class ActivityLogController extends Controller
             ->get()
             ->groupBy(fn($s) => $s->started_at->toDateString());
 
-        return view('student.activitylog', compact(
+        return view('student.activityLog', compact(
             'todayMinutes',
             'todayCount',
             'avgFocus',
@@ -109,7 +109,7 @@ class ActivityLogController extends Controller
             'topic'      => 'nullable|string|max:200',
             'started_at' => 'required|date',
             'ended_at'   => 'required|date|after:started_at',
-            'focus_score'=> 'nullable|integer|min:0|max:100',
+            'focus_score' => 'nullable|integer|min:0|max:100',
         ]);
 
         StudySession::create([

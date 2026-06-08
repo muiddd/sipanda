@@ -45,7 +45,7 @@ class BukuCatatanController extends Controller
             $selectedCatatan = $catatan->firstWhere('catatan_id', $request->query('catatan_id'));
         }
 
-        return view('student.bukucatatan', compact(
+        return view('student.bukuCatatan', compact(
             'daftarBuku',
             'catatan',
             'selectedBuku',
