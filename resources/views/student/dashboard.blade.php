@@ -196,24 +196,25 @@
         <!-- sideabar -->
         @include('student.partials.sidebar')
 
-        <main class="ml-72 flex-1 p-8 px-10 xl:px-14 min-h-screen">
+        <main class="ml-0 lg:ml-72 flex-1 p-8 px-10 xl:px-14 min-h-screen pt-20 lg:pt-8">
 
             <header class="flex flex-col md:flex-row md:justify-between md:items-end mb-12 gap-6 pt-4">
                 @auth
-                    <div>
-                        <h1
-                            class="font-heading text-4xl font-black text-slate-900 dark:text-white transition-colors flex items-center gap-2">
-                            Halo, {{ auth()->user()->name }}
-                            <svg class="w-8 h-8 text-[#75cb50] animate-pulse" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"
-                                    d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z">
-                                </path>
-                            </svg>
-                        </h1>
-                        <p class="text-slate-500 dark:text-slate-400 text-sm mt-2 font-medium">
-                            {{ now()->translatedFormat('l, d F Y') }}</p>
-                    </div>
+                <div>
+                    <h1
+                        class="font-heading text-4xl font-black text-slate-900 dark:text-white transition-colors flex items-center gap-2">
+                        Halo, {{ auth()->user()->name }}
+                        <svg class="w-8 h-8 text-[#75cb50] animate-pulse" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"
+                                d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z">
+                            </path>
+                        </svg>
+                    </h1>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mt-2 font-medium">
+                        {{ now()->translatedFormat('l, d F Y') }}
+                    </p>
+                </div>
                 @endauth
             </header>
 
@@ -404,55 +405,58 @@
                 </form>
                 {{-- TEMPAT MENAMPILKAN ERROR JIKA PDF/AI GAGAL --}}
                 @if(session('error'))
-                    <div
-                        class="mt-8 relative z-10 w-full max-w-3xl mx-auto bg-red-500/10 border border-red-500/30 text-red-500 px-6 py-4 rounded-xl flex items-center gap-4 animate-in fade-in slide-in-from-top-4">
-                        <svg class="w-8 h-8 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        <div>
-                            <h4 class="font-bold text-sm">Gagal Memproses File</h4>
-                            <p class="font-medium text-xs mt-0.5 opacity-80">{{ session('error') }}</p>
-                        </div>
+                <div
+                    class="mt-8 relative z-10 w-full max-w-3xl mx-auto bg-red-500/10 border border-red-500/30 text-red-500 px-6 py-4 rounded-xl flex items-center gap-4 animate-in fade-in slide-in-from-top-4">
+                    <svg class="w-8 h-8 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <div>
+                        <h4 class="font-bold text-sm">Gagal Memproses File</h4>
+                        <p class="font-medium text-xs mt-0.5 opacity-80">{{ session('error') }}</p>
                     </div>
+                </div>
                 @endif
 
                 {{-- KOTAK HASIL RANGKUMAN DARI UPLOAD PDF --}}
                 @if(session('ai_summary'))
-                    <div id="ai-summary-result"
-                        class="mt-16 w-full max-w-4xl mx-auto bg-[#75cb50]/5 dark:bg-[#75cb50]/10 border-2 border-[#75cb50]/30 rounded-3xl p-8 md:p-10 relative overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500 text-left">
-                        <div class="flex items-center gap-4 mb-8 border-b border-[#75cb50]/20 pb-6">
-                            <div
-                                class="w-14 h-14 rounded-2xl bg-[#75cb50] flex items-center justify-center text-white shadow-lg shadow-green-500/30">
-                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"
-                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="font-heading text-2xl font-bold text-slate-900 dark:text-white">Rangkuman AI</h3>
-                                <p class="text-sm text-[#75cb50] font-bold uppercase tracking-wider mt-1">Dari File Upload
-                                    Anda</p>
-                            </div>
-                        </div>
-
-                        {{-- Render Markdown persis seperti di Ruang Baca --}}
+                <div id="ai-summary-result"
+                    class="mt-16 w-full max-w-4xl mx-auto bg-[#75cb50]/5 dark:bg-[#75cb50]/10 border-2 border-[#75cb50]/30 rounded-3xl p-8 md:p-10 relative overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500 text-left">
+                    <div class="flex items-center gap-4 mb-8 border-b border-[#75cb50]/20 pb-6">
                         <div
-                            class="prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 leading-relaxed text-lg">
-                            {!! Str::markdown(session('ai_summary')) !!}
+                            class="w-14 h-14 rounded-2xl bg-[#75cb50] flex items-center justify-center text-white shadow-lg shadow-green-500/30">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-heading text-2xl font-bold text-slate-900 dark:text-white">Rangkuman AI</h3>
+                            <p class="text-sm text-[#75cb50] font-bold uppercase tracking-wider mt-1">Dari File Upload
+                                Anda</p>
                         </div>
                     </div>
 
-                    {{-- Script otomatis scroll ke bawah jika hasil/error muncul --}}
-                    <script>
-                        document.addEventListener("DOMContentLoaded", function () {
-                            const resultBox = document.getElementById('ai-summary-result');
-                            if (resultBox) {
-                                resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                            }
-                        });
-                    </script>
+                    {{-- Render Markdown persis seperti di Ruang Baca --}}
+                    <div
+                        class="prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 leading-relaxed text-lg">
+                        {!! Str::markdown(session('ai_summary')) !!}
+                    </div>
+                </div>
+
+                {{-- Script otomatis scroll ke bawah jika hasil/error muncul --}}
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const resultBox = document.getElementById('ai-summary-result');
+                        if (resultBox) {
+                            resultBox.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'center'
+                            });
+                        }
+                    });
+                </script>
                 @endif
             </div>
 
@@ -460,92 +464,92 @@
             <div id="ai-output-container" class="mt-8 space-y-6">
 
                 @if(isset($summary))
+                <div
+                    class="glass p-10 lg:p-16 flex flex-col relative overflow-hidden group border-t border-t-[#75cb50]/30 mt-10 animate-in fade-in slide-in-from-bottom-4 duration-500 text-left">
                     <div
-                        class="glass p-10 lg:p-16 flex flex-col relative overflow-hidden group border-t border-t-[#75cb50]/30 mt-10 animate-in fade-in slide-in-from-bottom-4 duration-500 text-left">
-                        <div
-                            class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#75cb50]/10 to-transparent opacity-60 pointer-events-none">
-                        </div>
-                        <div
-                            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxjaXJjbGUgY3g9IjMiIGN5PSIzIiByPSIxIiBmaWxsPSJyZ2JhKDAsMCwwLDAuMDUpIi8+PC9zdmc+')] dark:bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxjaXJjbGUgY3g9IjMiIGN5PSIzIiByPSIxIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDMpIi8+PC9zdmc+')] opacity-50 z-0">
-                        </div>
+                        class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#75cb50]/10 to-transparent opacity-60 pointer-events-none">
+                    </div>
+                    <div
+                        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxjaXJjbGUgY3g9IjMiIGN5PSIzIiByPSIxIiBmaWxsPSJyZ2JhKDAsMCwwLDAuMDUpIi8+PC9zdmc+')] dark:bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxjaXJjbGUgY3g9IjMiIGN5PSIzIiByPSIxIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDMpIi8+PC9zdmc+')] opacity-50 z-0">
+                    </div>
 
-                        <div class="relative z-10 flex items-center gap-3 mb-6">
-                            <div
-                                class="w-10 h-10 rounded-xl bg-[#75cb50]/20 flex items-center justify-center text-[#75cb50]">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"
-                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Rangkuman Materi
-                                </h3>
-                                <p class="text-xs text-slate-500 font-medium uppercase tracking-wider">Processed by siPanda
-                                    AI</p>
-                            </div>
-                        </div>
-
+                    <div class="relative z-10 flex items-center gap-3 mb-6">
                         <div
-                            class="relative z-10 prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 leading-relaxed italic">
-                            {!! Str::markdown($summary->summary_text ?? '') !!}
+                            class="w-10 h-10 rounded-xl bg-[#75cb50]/20 flex items-center justify-center text-[#75cb50]">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                </path>
+                            </svg>
                         </div>
-
-                        <div class="relative z-10 mt-6 pt-6 border-t border-black/5 dark:border-white/5 flex justify-end">
-                            <button class="text-sm font-bold text-[#75cb50] hover:underline flex items-center gap-2">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4">
-                                    </path>
-                                </svg>
-                                Download PDF
-                            </button>
+                        <div>
+                            <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Rangkuman Materi
+                            </h3>
+                            <p class="text-xs text-slate-500 font-medium uppercase tracking-wider">Processed by siPanda
+                                AI</p>
                         </div>
                     </div>
+
+                    <div
+                        class="relative z-10 prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 leading-relaxed italic">
+                        {!! Str::markdown($summary->summary_text ?? '') !!}
+                    </div>
+
+                    <div class="relative z-10 mt-6 pt-6 border-t border-black/5 dark:border-white/5 flex justify-end">
+                        <button class="text-sm font-bold text-[#75cb50] hover:underline flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4">
+                                </path>
+                            </svg>
+                            Download PDF
+                        </button>
+                    </div>
+                </div>
                 @endif
 
                 @if(session('quiz_result'))
+                <div
+                    class="glass p-10 lg:p-16 flex flex-col relative overflow-hidden group border-t border-t-blue-500/30 mt-10 animate-in fade-in slide-in-from-bottom-4 duration-700 text-left">
                     <div
-                        class="glass p-10 lg:p-16 flex flex-col relative overflow-hidden group border-t border-t-blue-500/30 mt-10 animate-in fade-in slide-in-from-bottom-4 duration-700 text-left">
-                        <div
-                            class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-blue-500/10 to-transparent opacity-60 pointer-events-none">
-                        </div>
-                        <div
-                            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxjaXJjbGUgY3g9IjMiIGN5PSIzIiByPSIxIiBmaWxsPSJyZ2JhKDAsMCwwLDAuMDUpIi8+PC9zdmc+')] dark:bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxjaXJjbGUgY3g9IjMiIGN5PSIzIiByPSIxIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDMpIi8+PC9zdmc+')] opacity-50 z-0">
-                        </div>
+                        class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-blue-500/10 to-transparent opacity-60 pointer-events-none">
+                    </div>
+                    <div
+                        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxjaXJjbGUgY3g9IjMiIGN5PSIzIiByPSIxIiBmaWxsPSJyZ2JhKDAsMCwwLDAuMDUpIi8+PC9zdmc+')] dark:bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxjaXJjbGUgY3g9IjMiIGN5PSIzIiByPSIxIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDMpIi8+PC9zdmc+')] opacity-50 z-0">
+                    </div>
 
-                        <div class="relative z-10 flex items-center gap-3 mb-6">
-                            <div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-500">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"
-                                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Latihan Soal</h3>
-                                <p class="text-xs text-slate-500 font-medium uppercase tracking-wider">Uji Pemahamanmu</p>
-                            </div>
+                    <div class="relative z-10 flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-500">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"
+                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4">
+                                </path>
+                            </svg>
                         </div>
-
-                        <div class="relative z-10 space-y-4 text-slate-700 dark:text-slate-300">
-                            <div
-                                class="whitespace-pre-line bg-black/5 dark:bg-white/5 p-6 rounded-2xl border border-black/5 dark:border-white/5 font-medium leading-relaxed">
-                                {!! session('quiz_result') !!}
-                            </div>
-                        </div>
-
-                        <div class="relative z-10 mt-6 flex gap-3">
-                            <button
-                                class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-blue-500/20">
-                                Kerjakan Sekarang
-                            </button>
-                            <button
-                                class="px-6 py-3 glass border-blue-500/20 text-blue-500 font-bold rounded-xl hover:bg-blue-500/10 transition">
-                                Share
-                            </button>
+                        <div>
+                            <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Latihan Soal</h3>
+                            <p class="text-xs text-slate-500 font-medium uppercase tracking-wider">Uji Pemahamanmu</p>
                         </div>
                     </div>
+
+                    <div class="relative z-10 space-y-4 text-slate-700 dark:text-slate-300">
+                        <div
+                            class="whitespace-pre-line bg-black/5 dark:bg-white/5 p-6 rounded-2xl border border-black/5 dark:border-white/5 font-medium leading-relaxed">
+                            {!! session('quiz_result') !!}
+                        </div>
+                    </div>
+
+                    <div class="relative z-10 mt-6 flex gap-3">
+                        <button
+                            class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-blue-500/20">
+                            Kerjakan Sekarang
+                        </button>
+                        <button
+                            class="px-6 py-3 glass border-blue-500/20 text-blue-500 font-bold rounded-xl hover:bg-blue-500/10 transition">
+                            Share
+                        </button>
+                    </div>
+                </div>
                 @endif
             </div>
         </main>
@@ -561,7 +565,7 @@
         const uploadSubtext = document.getElementById('upload-subtext');
         const dropzoneContainer = document.getElementById('dropzone-container');
 
-        fileUpload.addEventListener('change', function () {
+        fileUpload.addEventListener('change', function() {
             if (this.files && this.files.length > 0) {
                 const file = this.files[0];
                 const fileName = file.name;
@@ -596,7 +600,7 @@
         // 4. AI Process Loading Overlay trigger
         const aiForm = document.querySelector('form[action*="ai/process"]');
         if (aiForm) {
-            aiForm.addEventListener('submit', function (e) {
+            aiForm.addEventListener('submit', function(e) {
                 const fileInput = document.getElementById('file-upload');
                 if (fileInput && fileInput.files.length > 0) {
                     window.showSipandaLoader();

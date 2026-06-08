@@ -15,10 +15,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = { darkMode: 'class' }
+        tailwind.config = {
+            darkMode: 'class'
+        }
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;800;900&display=swap');
+
         body {
             background-color: #f8fafc;
             color: #0f172a;
@@ -27,72 +30,227 @@
             -webkit-font-smoothing: antialiased;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
-        .dark body { background-color: #121212; color: #f2f1e8; }
-        h1,h2,h3,h4,h5,h6,.font-heading { font-family: 'Outfit', sans-serif; letter-spacing: -0.01em; }
+
+        .dark body {
+            background-color: #121212;
+            color: #f2f1e8;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .font-heading {
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -0.01em;
+        }
+
         .glass {
-            background: rgba(255,255,255,0.7);
+            background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(40px);
             -webkit-backdrop-filter: blur(40px);
-            border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
             border-radius: 1.5rem;
             transition: all 0.3s ease;
         }
+
         .dark .glass {
-            background: rgba(18,18,18,0.7);
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 2px 0 rgba(255,255,255,0.05);
+            background: rgba(18, 18, 18, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.05);
         }
-        .glass-sidebar { border-radius: 0 1.5rem 1.5rem 0; border-left: none; }
-        .bg-orb { position: fixed; border-radius: 50%; filter: blur(120px); z-index: -1; opacity: 0.1; pointer-events: none; transition: opacity 0.3s ease; }
-        .dark .bg-orb { opacity: 0.25; }
-        .orb-1 { width:500px;height:500px;background:#75cb50;top:-100px;right:-100px; }
-        .orb-2 { width:400px;height:400px;background:#00ac73;bottom:10%;left:-50px; }
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        .dark ::-webkit-scrollbar-thumb { background: #2a2a2a; }
-        ::-webkit-scrollbar-thumb:hover { background: #75cb50; }
+
+        .glass-sidebar {
+            border-radius: 0 1.5rem 1.5rem 0;
+            border-left: none;
+        }
+
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.1;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .dark .bg-orb {
+            opacity: 0.25;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: #75cb50;
+            top: -100px;
+            right: -100px;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: #00ac73;
+            bottom: 10%;
+            left: -50px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: #2a2a2a;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #75cb50;
+        }
 
         /* Tipe badge */
-        .badge-ai        { background: rgba(117,203,80,0.15); color: #75cb50; border: 1px solid rgba(117,203,80,0.3); }
-        .badge-highlight { background: rgba(251,191,36,0.15); color: #f59e0b; border: 1px solid rgba(251,191,36,0.3); }
-        .badge-manual    { background: rgba(99,102,241,0.15); color: #6366f1; border: 1px solid rgba(99,102,241,0.3); }
-        .badge-penting   { background: rgba(239,68,68,0.15);  color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
+        .badge-ai {
+            background: rgba(117, 203, 80, 0.15);
+            color: #75cb50;
+            border: 1px solid rgba(117, 203, 80, 0.3);
+        }
+
+        .badge-highlight {
+            background: rgba(251, 191, 36, 0.15);
+            color: #f59e0b;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+
+        .badge-manual {
+            background: rgba(99, 102, 241, 0.15);
+            color: #6366f1;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .badge-penting {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
 
         /* Catatan list item */
-        .catatan-item { transition: all 0.2s ease; cursor: pointer; border-left: 3px solid transparent; }
-        .catatan-item:hover { background: rgba(117,203,80,0.05); border-left-color: rgba(117,203,80,0.3); }
-        .catatan-item.active { background: rgba(117,203,80,0.08); border-left-color: #75cb50; }
-        .dark .catatan-item:hover { background: rgba(117,203,80,0.04); }
-        .dark .catatan-item.active { background: rgba(117,203,80,0.06); }
+        .catatan-item {
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+        }
+
+        .catatan-item:hover {
+            background: rgba(117, 203, 80, 0.05);
+            border-left-color: rgba(117, 203, 80, 0.3);
+        }
+
+        .catatan-item.active {
+            background: rgba(117, 203, 80, 0.08);
+            border-left-color: #75cb50;
+        }
+
+        .dark .catatan-item:hover {
+            background: rgba(117, 203, 80, 0.04);
+        }
+
+        .dark .catatan-item.active {
+            background: rgba(117, 203, 80, 0.06);
+        }
 
         /* Buku list item */
-        .buku-item { transition: all 0.2s ease; cursor: pointer; }
-        .buku-item:hover { background: rgba(0,0,0,0.04); }
-        .buku-item.active { background: rgba(117,203,80,0.1); border: 1px solid rgba(117,203,80,0.25); }
-        .dark .buku-item:hover { background: rgba(255,255,255,0.04); }
-        .dark .buku-item.active { background: rgba(117,203,80,0.08); }
+        .buku-item {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .buku-item:hover {
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        .buku-item.active {
+            background: rgba(117, 203, 80, 0.1);
+            border: 1px solid rgba(117, 203, 80, 0.25);
+        }
+
+        .dark .buku-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .dark .buku-item.active {
+            background: rgba(117, 203, 80, 0.08);
+        }
 
         /* Prose for catatan content */
-        .prose-catatan { line-height: 1.75; }
-        .prose-catatan h1,.prose-catatan h2,.prose-catatan h3 { font-family:'Outfit',sans-serif; font-weight:700; margin-bottom:0.5em; }
-        .prose-catatan p { margin-bottom:0.75em; }
-        .prose-catatan ul,.prose-catatan ol { padding-left:1.25em; margin-bottom:0.75em; }
-        .prose-catatan li { margin-bottom:0.25em; }
-        .prose-catatan strong { font-weight:700; }
+        .prose-catatan {
+            line-height: 1.75;
+        }
+
+        .prose-catatan h1,
+        .prose-catatan h2,
+        .prose-catatan h3 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            margin-bottom: 0.5em;
+        }
+
+        .prose-catatan p {
+            margin-bottom: 0.75em;
+        }
+
+        .prose-catatan ul,
+        .prose-catatan ol {
+            padding-left: 1.25em;
+            margin-bottom: 0.75em;
+        }
+
+        .prose-catatan li {
+            margin-bottom: 0.25em;
+        }
+
+        .prose-catatan strong {
+            font-weight: 700;
+        }
 
         /* Modal overlay */
-        .modal-overlay { background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); }
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+        }
 
         /* Sidebar highlight strip */
-        .buku-accent { width: 3px; background: linear-gradient(to bottom, #75cb50, #10b981); border-radius: 2px; }
+        .buku-accent {
+            width: 3px;
+            background: linear-gradient(to bottom, #75cb50, #10b981);
+            border-radius: 2px;
+        }
 
         @keyframes fadeInUp {
-            from { opacity:0; transform:translateY(12px); }
-            to   { opacity:1; transform:translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        .fade-in-up { animation: fadeInUp 0.35s ease forwards; }
+
+        .fade-in-up {
+            animation: fadeInUp 0.35s ease forwards;
+        }
     </style>
 </head>
 
@@ -103,10 +261,10 @@
     <div class="flex min-h-screen">
         @include('student.partials.sidebar')
 
-        <main class="ml-72 flex-1 min-h-screen flex flex-col">
+        <main class="ml-0 lg:ml-72 flex-1 min-h-screen flex flex-col pt-20 lg:pt-0">
 
             {{-- ======= TOP HEADER ======= --}}
-            <header class="px-10 pt-8 pb-6 flex items-center justify-between">
+            <header class="px-4 md:px-10 pt-8 pb-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                 <div>
                     <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-1">
                         PERPUSTAKAAN BELAJAR
@@ -118,26 +276,26 @@
                         </span>
                     </h1>
                 </div>
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-3 flex-wrap">
                     {{-- Search --}}
-                    <div class="relative">
+                    <div class="relative flex-1 min-w-[200px] lg:flex-none">
                         <input type="text" id="search-input" placeholder="Cari catatan..."
-                            class="w-52 pl-9 pr-4 py-2.5 rounded-xl text-sm bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-[#75cb50]/50 focus:ring-2 focus:ring-[#75cb50]/10 transition">
+                            class="w-full lg:w-52 pl-9 pr-4 py-2.5 rounded-xl text-sm bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-[#75cb50]/50 focus:ring-2 focus:ring-[#75cb50]/10 transition">
                         <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </div>
                     {{-- Filter --}}
                     <button class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-400 bg-white dark:bg-white/5 hover:border-[#75cb50]/40 transition">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
                         </svg>
                         Filter
                     </button>
                     {{-- PDF --}}
                     <button class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-400 bg-white dark:bg-white/5 hover:border-[#75cb50]/40 transition">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                         </svg>
                         PDF
                     </button>
@@ -145,7 +303,7 @@
                     <button onclick="openModalBaru()"
                         class="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold bg-gradient-to-r from-[#75cb50] to-[#10b981] text-white shadow-[0_4px_15px_rgba(34,197,94,0.25)] hover:shadow-[0_4px_20px_rgba(34,197,94,0.4)] hover:scale-[1.02] transition-all">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
                         </svg>
                         Buku Baru
                     </button>
@@ -153,27 +311,27 @@
             </header>
 
             {{-- ======= STATS BAR ======= --}}
-            <div class="px-10 mb-6 grid grid-cols-4 gap-4">
+            <div class="px-4 md:px-10 mb-6 grid grid-cols-2 md:grid-cols-4 gap-4">
                 @php
-                    $stats = [
-                        ['label'=>'Total Buku',    'val'=>$totalBuku,    'icon'=>'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253'],
-                        ['label'=>'Total Catatan', 'val'=>$totalCatatan, 'icon'=>'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'],
-                        ['label'=>'Dari AI',       'val'=>$totalDariAi,  'icon'=>'M13 10V3L4 14h7v7l9-11h-7z'],
-                        ['label'=>'Hari ini',      'val'=>$hariIni,      'icon'=>'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z', 'sub'=>'Terakhir Diupdate'],
-                    ];
+                $stats = [
+                ['label'=>'Total Buku', 'val'=>$totalBuku, 'icon'=>'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253'],
+                ['label'=>'Total Catatan', 'val'=>$totalCatatan, 'icon'=>'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'],
+                ['label'=>'Dari AI', 'val'=>$totalDariAi, 'icon'=>'M13 10V3L4 14h7v7l9-11h-7z'],
+                ['label'=>'Hari ini', 'val'=>$hariIni, 'icon'=>'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z', 'sub'=>'Terakhir Diupdate'],
+                ];
                 @endphp
                 @foreach($stats as $s)
                 <div class="glass p-5 flex items-center gap-4">
                     <div class="w-10 h-10 rounded-xl bg-[#75cb50]/10 flex items-center justify-center text-[#75cb50] border border-[#75cb50]/20 flex-shrink-0">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $s['icon'] }}"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $s['icon'] }}" />
                         </svg>
                     </div>
                     <div>
                         <p class="font-heading text-2xl font-black text-slate-900 dark:text-white">{{ $s['val'] }}</p>
                         <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">{{ $s['label'] }}</p>
                         @if(isset($s['sub']))
-                            <p class="text-[10px] text-slate-500 mt-0.5">{{ $s['sub'] }}</p>
+                        <p class="text-[10px] text-slate-500 mt-0.5">{{ $s['sub'] }}</p>
                         @endif
                     </div>
                 </div>
@@ -184,22 +342,22 @@
             @if(session('success'))
             <div id="toast-success" class="mx-10 mb-4 px-5 py-3.5 rounded-xl bg-[#75cb50]/10 border border-[#75cb50]/30 text-[#75cb50] text-sm font-semibold flex items-center gap-3 fade-in-up">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 {{ session('success') }}
                 <button onclick="this.parentElement.remove()" class="ml-auto opacity-60 hover:opacity-100">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
             @endif
 
             {{-- ======= THREE COLUMN LAYOUT ======= --}}
-            <div class="px-10 pb-10 flex gap-4 flex-1 min-h-0" style="height: calc(100vh - 280px)">
+            <div class="px-4 md:px-10 pb-10 flex flex-col lg:flex-row gap-4 flex-1 min-h-0 lg:h-[calc(100vh-280px)]">
 
                 {{-- === KOLOM 1: DAFTAR BUKU === --}}
-                <div class="w-64 flex-shrink-0 glass flex flex-col overflow-hidden">
+                <div class="w-full lg:w-64 flex-shrink-0 glass flex flex-col overflow-hidden h-[250px] lg:h-auto">
                     <div class="p-4 border-b border-black/5 dark:border-white/5 flex items-center justify-between">
                         <h3 class="font-heading text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                             Buku Saya
@@ -207,7 +365,7 @@
                         <button onclick="openModalBaru()" title="Buku Baru"
                             class="w-7 h-7 rounded-lg bg-[#75cb50]/10 text-[#75cb50] flex items-center justify-center hover:bg-[#75cb50]/20 transition">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
                             </svg>
                         </button>
                     </div>
@@ -217,7 +375,7 @@
                             class="buku-item flex items-center gap-3 p-3 rounded-xl {{ $selectedBuku === $buku->nama_buku ? 'active' : '' }}">
                             <div class="w-8 h-8 rounded-lg bg-[#75cb50]/10 flex items-center justify-center text-[#75cb50] flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                                 </svg>
                             </div>
                             <div class="flex-1 min-w-0">
@@ -229,14 +387,14 @@
                                 </p>
                             </div>
                             @if($selectedBuku === $buku->nama_buku)
-                                <div class="buku-accent self-stretch"></div>
+                            <div class="buku-accent self-stretch"></div>
                             @endif
                         </a>
                         @empty
                         <div class="text-center py-8 px-4">
                             <div class="w-12 h-12 rounded-2xl bg-[#75cb50]/10 flex items-center justify-center text-[#75cb50] mx-auto mb-3">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                                 </svg>
                             </div>
                             <p class="text-xs text-slate-400 font-medium">Belum ada buku</p>
@@ -247,7 +405,7 @@
                 </div>
 
                 {{-- === KOLOM 2: DAFTAR CATATAN === --}}
-                <div class="w-72 flex-shrink-0 glass flex flex-col overflow-hidden">
+                <div class="w-full lg:w-72 flex-shrink-0 glass flex flex-col overflow-hidden h-[300px] lg:h-auto">
                     <div class="p-4 border-b border-black/5 dark:border-white/5">
                         <h3 class="font-heading text-sm font-bold text-slate-700 dark:text-slate-300">
                             {{ $selectedBuku ?? 'Pilih Buku' }}
@@ -301,7 +459,7 @@
                 </div>
 
                 {{-- === KOLOM 3: DETAIL CATATAN === --}}
-                <div class="flex-1 glass flex flex-col overflow-hidden">
+                <div class="flex-1 w-full glass flex flex-col overflow-hidden">
                     @if($selectedCatatan)
                     <div class="flex-1 overflow-y-auto p-8 fade-in-up">
 
@@ -310,7 +468,7 @@
                             <div>
                                 <div class="flex items-center gap-2 mb-2">
                                     <svg class="w-4 h-4 text-[#75cb50]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                                     </svg>
                                     <span class="text-[11px] font-bold text-[#75cb50] uppercase tracking-widest">RINGKASAN AI</span>
                                 </div>
@@ -368,7 +526,7 @@
                         <a href="{{ route('student.materi.show', $selectedCatatan->materi_id) }}"
                             class="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-sm font-bold bg-gradient-to-r from-[#75cb50] to-[#10b981] text-white shadow-[0_4px_15px_rgba(34,197,94,0.2)] hover:shadow-[0_4px_20px_rgba(34,197,94,0.35)] hover:scale-[1.01] transition-all">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                             </svg>
                             Buka Materi Sumber
                         </a>
@@ -376,13 +534,13 @@
                         <div class="flex gap-2">
                             <button class="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold border border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-black/5 dark:hover:bg-white/5 transition">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                 </svg>
                                 Edit
                             </button>
                             <button class="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold border border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-black/5 dark:hover:bg-white/5 transition">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                                 </svg>
                                 PDF
                             </button>
@@ -393,7 +551,7 @@
                             <button type="submit"
                                 class="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold text-red-500 border border-red-500/20 hover:bg-red-500/5 transition">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                 </svg>
                                 Hapus Catatan
                             </button>
@@ -405,7 +563,7 @@
                     <div class="flex-1 flex flex-col items-center justify-center text-center px-8">
                         <div class="w-20 h-20 rounded-3xl bg-[#75cb50]/10 flex items-center justify-center text-[#75cb50] mb-5 border border-[#75cb50]/20">
                             <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
                         </div>
                         <h3 class="font-heading text-xl font-bold text-slate-700 dark:text-slate-300 mb-2">
@@ -432,7 +590,7 @@
                 <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Catatan Baru</h3>
                 <button onclick="closeModalBaru()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
@@ -451,7 +609,7 @@
                     <datalist id="daftar-buku-datalist">
                         @foreach($daftarBuku as $b)
                         <option value="{{ $b->nama_buku }}">
-                        @endforeach
+                            @endforeach
                     </datalist>
                 </div>
                 <div>
@@ -504,6 +662,7 @@
             modal.classList.remove('hidden');
             modal.classList.add('flex');
         }
+
         function closeModalBaru() {
             const modal = document.getElementById('modal-baru');
             modal.classList.add('hidden');
@@ -549,4 +708,5 @@
         if (toast) setTimeout(() => toast.remove(), 4000);
     </script>
 </body>
+
 </html>

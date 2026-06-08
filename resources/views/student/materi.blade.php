@@ -255,7 +255,7 @@
     <div class="flex min-h-screen">
         @include('student.partials.sidebar')
 
-        <main class="ml-72 flex-1 p-8 px-10 xl:px-14 min-h-screen">
+        <main class="ml-0 lg:ml-72 flex-1 p-8 px-10 xl:px-14 min-h-screen pt-20 lg:pt-8">
 
             {{-- Header --}}
             <header class="flex flex-col md:flex-row md:justify-between md:items-end mb-10 gap-6 pt-4">
@@ -328,9 +328,9 @@
 
         function renderStats(cat) {
             const isFavorites = cat === 'Favorit';
-            const materis = isFavorites
-                ? Object.values(dbData).flat().filter(m => favoriteMateriIds.includes(m.materi_id))
-                : dbData[cat] || [];
+            const materis = isFavorites ?
+                Object.values(dbData).flat().filter(m => favoriteMateriIds.includes(m.materi_id)) :
+                dbData[cat] || [];
 
             document.getElementById('stats-row').innerHTML = `
                 <div class="glass p-4 flex items-center gap-4">
