@@ -183,12 +183,12 @@
                 </div>
 
                 <div class="glass p-6">
-                    <p class="text-slate-500 dark:text-slate-400 text-[11px] font-semibold uppercase tracking-wider mb-1">Streak</p>
+                    <p class="text-slate-500 dark:text-slate-400 text-[11px] font-semibold uppercase tracking-wider mb-1">Runtunan/p>
                     <h2 class="font-heading text-4xl font-black text-slate-900 dark:text-white">
                         {{ $streak }} <span class="text-xl text-slate-500 font-medium">hari</span>
                     </h2>
                     <p class="text-xs text-slate-500 mt-4 font-medium">
-                        {{ $streak > 0 ? 'Pertahankan terus!' : 'Belum ada streak' }}
+                        {{ $streak > 0 ? 'Pertahankan terus!' : 'Belum ada runtunan' }}
                     </p>
                 </div>
 

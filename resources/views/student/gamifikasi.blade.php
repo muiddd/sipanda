@@ -166,7 +166,7 @@
                     <div>
                         <div class="flex justify-between items-start">
                             <div>
-                                <p class="text-slate-500 dark:text-slate-400 text-sm font-semibold mb-1 uppercase tracking-wider text-[11px]">Streak Belajar</p>
+                                <p class="text-slate-500 dark:text-slate-400 text-sm font-semibold mb-1 uppercase tracking-wider text-[11px]">Runtunan Belajar</p>
                                 <h2 class="font-heading text-4xl font-black text-[#ff8c00] drop-shadow-[0_0_10px_rgba(255,140,0,0.3)] transition-colors">
                                     {{ auth()->user()->streak->current_streak ?? 0 }} <span class="text-xl text-slate-500 dark:text-slate-400 font-medium">hari</span>
                                 </h2>
@@ -179,14 +179,14 @@
                         @if((auth()->user()->streak->current_streak ?? 0) > 0)
                             <p class="text-xs text-slate-500 mt-3 font-medium">Rekor tertinggi: {{ auth()->user()->streak->longest_streak ?? 0 }} hari</p>
                         @else
-                            <p class="text-xs text-slate-500 mt-3 font-medium">Belum ada streak. Ayo mulai!</p>
+                            <p class="text-xs text-slate-500 mt-3 font-medium">Belum ada runtunan. Ayo mulai!</p>
                         @endif
                     </div>
 
                     @if((auth()->user()->streak->current_streak ?? 0) > 0)
                     <button onclick="shareStreak({{ auth()->user()->streak->current_streak }})" class="mt-4 w-full bg-gradient-to-r from-[#ff8c00] to-[#ff6b00] hover:from-[#ff6b00] hover:to-[#e65c00] text-white font-bold py-2.5 rounded-xl text-xs transition-all shadow-[0_0_15px_rgba(255,140,0,0.3)] hover:scale-[1.02] flex items-center justify-center gap-1.5 z-10">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
-                        Pamerkan Streak!
+                        Pamerkan Runtunan!
                     </button>
                     @endif
                 </div>
@@ -316,8 +316,8 @@
 
     <script>
         function shareStreak(streakDays) {
-            const shareTitle = "Streak Belajar siPanda 🐼🔥";
-            const shareText = `Yey! Aku sudah belajar konsisten selama ${streakDays} hari berturut-turut bareng siPanda! 😎🔥 \n\nAyo atur fokusmu dan bangun kebiasaan belajarmu sekarang!`;
+            const shareTitle = "Runtunan Belajar siPanda";
+            const shareText = `Yey! Aku sudah belajar konsisten selama ${streakDays} hari berturut-turut bareng siPanda! \n\nAyo atur fokusmu dan bangun kebiasaan belajarmu sekarang!`;
             const shareUrl = window.location.origin; 
             
             if (navigator.share) {
@@ -326,7 +326,7 @@
                     text: shareText,
                     url: shareUrl
                 }).then(() => {
-                    console.log('Berhasil membagikan streak!');
+                    console.log('Berhasil membagikan runtunan!');
                 }).catch((error) => {
                     console.error('Gagal membagikan:', error);
                 });

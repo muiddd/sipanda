@@ -415,7 +415,7 @@
 
                     {{-- Filter Tabs --}}
                     <div class="px-3 pt-3 flex gap-1.5" id="filter-tabs">
-                        @foreach(['Semua','AI','Highlight','Manual'] as $tab)
+                        @foreach(['Semua','AI','Sorotan','Manual'] as $tab)
                         <button onclick="filterCatatan('{{ $tab }}')"
                             data-tab="{{ $tab }}"
                             class="tab-btn px-3 py-1.5 rounded-lg text-[11px] font-bold transition
@@ -570,7 +570,7 @@
                             Pilih catatan
                         </h3>
                         <p class="text-sm text-slate-400 leading-relaxed max-w-xs">
-                            Pilih catatan dari daftar di sebelah kiri, atau ekspor ringkasan AI dari halaman Dashboard.
+                            Pilih catatan dari daftar di sebelah kiri, atau ekspor ringkasan AI dari halaman Beranda.
                         </p>
                     </div>
                     @endif
@@ -622,7 +622,7 @@
                         <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Tipe</label>
                         <select name="tipe" class="w-full px-4 py-3 rounded-xl text-sm bg-white dark:bg-[#1a1a1a] border border-black/10 dark:border-white/10 text-slate-700 dark:text-slate-200 focus:outline-none focus:border-[#75cb50]/50 transition">
                             <option value="Manual">Manual</option>
-                            <option value="Highlight">Highlight</option>
+                            <option value="Highlight">Sorotan</option>
                         </select>
                     </div>
                     <div>

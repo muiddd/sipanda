@@ -31,7 +31,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"
                                 d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                         </svg>
-                        Dashboard
+                        Beranda
                     </a>
 
                     <a href="{{ route('student.materi') }}"
@@ -185,7 +185,7 @@
     <nav class="flex flex-col gap-2 text-center text-base font-bold">
         <a href="{{ route('student.dashboard') }}"
             class="py-3 rounded-xl transition-all {{ request()->routeIs('student.dashboard') ? 'bg-[#75cb50]/15 text-[#75cb50]' : 'text-slate-800 dark:text-slate-300 hover:text-[#75cb50] hover:bg-black/5 dark:hover:bg-white/5' }}">
-            Dashboard
+            Beranda
         </a>
         <a href="{{ route('student.materi') }}"
             class="py-3 rounded-xl transition-all {{ request()->routeIs('student.materi') ? 'bg-[#75cb50]/15 text-[#75cb50]' : 'text-slate-800 dark:text-slate-300 hover:text-[#75cb50] hover:bg-black/5 dark:hover:bg-white/5' }}">

@@ -11,7 +11,7 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>siPanda - Learning Dashboard</title>
+    <title>siPanda - Beranda</title>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -255,7 +255,7 @@
                         <div>
                             <p
                                 class="text-slate-500 dark:text-slate-400 text-sm font-semibold mb-1 uppercase tracking-wider text-[11px]">
-                                Streak</p>
+                                Runtunan</p>
                              <h2
                                 class="font-heading text-4xl font-black text-[#ff8c00] drop-shadow-[0_0_10px_rgba(255,140,0,0.3)] transition-colors">
                                 {{ auth()->user()->streak->current_streak ?? 0 }} <span class="text-xl text-slate-500 dark:text-slate-400 font-medium">hari</span></h2>
@@ -272,7 +272,7 @@
                     @if((auth()->user()->streak->current_streak ?? 0) > 0)
                         <p class="text-xs text-slate-500 mt-5 font-medium">Rekor tertinggi: {{ auth()->user()->streak->longest_streak ?? 0 }} hari</p>
                     @else
-                        <p class="text-xs text-slate-500 mt-5 font-medium">Belum ada streak dibangun</p>
+                        <p class="text-xs text-slate-500 mt-5 font-medium">Belum ada runtunan dibangun</p>
                     @endif
                 </div>
 
@@ -307,7 +307,7 @@
                         <div>
                             <p
                                 class="text-slate-500 dark:text-slate-400 text-sm font-semibold mb-1 uppercase tracking-wider text-[11px]">
-                                Rank</p>
+                                Peringkat</p>
                             <h2
                                 class="font-heading text-4xl font-black text-slate-900 dark:text-white transition-colors">
                                 #0</h2>
@@ -350,7 +350,7 @@
                         class="text-transparent bg-clip-text bg-gradient-to-r from-[#75cb50] to-[#10b981]">AI</span>
                 </h2>
                 <p class="relative z-10 text-slate-500 dark:text-slate-400 text-lg mb-12 max-w-2xl leading-relaxed">
-                    Upload materi belajarmu dan biarkan AI membuat ringkasan materi serta latihan soal secara otomatis
+                    Unggah materi belajarmu dan biarkan AI membuat ringkasan materi serta latihan soal secara otomatis
                     dalam hitungan detik. Cerdas, cepat, dan efisien.
                 </p>
 
@@ -361,7 +361,7 @@
                     <!-- File Upload Area -->
                     <div class="flex-1 w-full relative">
                         <label
-                            class="block text-left text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 ml-1">Upload
+                            class="block text-left text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 ml-1">Unggah
                             Materi <span class="text-xs font-normal text-slate-500">(PDF, DOCX, PPT)</span></label>
                         <label id="dropzone-container"
                             class="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-[#75cb50]/40 rounded-2xl cursor-pointer bg-[#75cb50]/5 hover:bg-[#75cb50]/10 hover:border-[#75cb50]/60 transition-all duration-300 group">
@@ -403,7 +403,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
                                     d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                             </svg>
-                            <span>Upload & Ringkas File</span>
+                            <span>Unggah & Ringkas File</span>
                         </button>
                     </div>
                 </form>
@@ -594,7 +594,7 @@
                     </svg>
                 `;
                 fileNameDisp.innerText = 'Pilih file materi';
-                uploadSubtext.innerText = 'atau drag & drop ke sini';
+                uploadSubtext.innerText = 'atau seret & lepas ke sini';
 
                 dropzoneContainer.classList.add('border-dashed');
                 dropzoneContainer.classList.remove('border-solid', 'bg-[#75cb50]/10', 'border-[#75cb50]');
