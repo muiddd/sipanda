@@ -13,7 +13,7 @@
     <div class="grid grid-cols-[100px,1fr] gap-4 items-start">
         
         <div class="w-full">
-            <img src="{{ asset('images/panda.png') }}" alt="Panda" class="w-full h-auto object-contain scale-125 mt-2">
+            <img src="{{ asset('images/panda.PNG') }}" alt="Panda" class="w-full h-auto object-contain scale-125 mt-2">
         </div>
 
         <div class="flex flex-col text-left">
