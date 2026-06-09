@@ -8,49 +8,63 @@
     <span id="mini-timer-display" class="font-heading font-bold text-sm text-slate-900 dark:text-white tracking-wider">25:00</span>
 </div>
 
-<div id="pomodoro-popup" class="fixed top-8 right-8 w-[280px] glass p-6 z-[60] transition-all duration-500 transform translate-x-[200%] opacity-0 shadow-[0_15px_40px_rgba(0,0,0,0.15)] dark:shadow-[0_15px_40px_rgba(0,0,0,0.5)] hidden">
+<div id="pomodoro-popup" class="fixed top-8 right-8 w-[360px] glass p-6 z-[60] transition-all duration-500 transform translate-x-[200%] opacity-0 shadow-2xl rounded-3xl hidden">
+    
+    <div class="grid grid-cols-[100px,1fr] gap-4 items-start">
+        
+        <div class="w-full">
+            <img src="{{ asset('images/panda.png') }}" alt="Panda" class="w-full h-auto object-contain scale-125 mt-2">
+        </div>
 
-    <div class="flex justify-between items-center mb-4 border-b border-black/5 dark:border-white/5 pb-3">
-        <h4 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
-            <svg class="w-4 h-4 text-[#75cb50]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-            </svg>
-            <span class="font-heading tracking-wide text-xs">siPanda Timer</span>
-        </h4>
-        <div class="flex items-center gap-2">
-            <button onclick="minimizePomodoro()" class="text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors p-1 rounded hover:bg-black/5 dark:hover:bg-white/5" title="Sembunyikan ke samping">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path>
-                </svg>
-            </button>
-            <button onclick="closePomodoro()" class="text-slate-400 hover:text-red-500 transition-colors text-xl leading-none p-1 rounded hover:bg-red-500/10" title="Tutup Timer">
-                &times;
-            </button>
+        <div class="flex flex-col text-left">
+            <div class="flex justify-between items-center mb-3 border-b border-black/5 dark:border-white/5 pb-2">
+                <h4 class="font-bold text-sm text-slate-900 dark:text-white">siPanda Timer</h4>
+                <div class="flex items-center gap-1">
+                    <button onclick="minimizePomodoro()" class="text-slate-400 hover:text-white p-1 rounded hover:bg-black/5 dark:hover:bg-white/5">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+                    <button onclick="closePomodoro()" class="text-slate-400 hover:text-red-500 text-lg p-1 rounded hover:bg-red-500/10">&times;</button>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-start">
+                <span class="inline-flex items-center gap-1 bg-[#75cb50]/10 text-[#75cb50] px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wider">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#75cb50] animate-pulse"></span>
+                    Fokus Belajar
+                </span>
+                <div id="pomodoro-display" class="font-heading text-4xl font-black text-slate-900 dark:text-white tracking-widest my-1">
+                    25:00
+                </div>
+                
+                <div class="flex gap-2 mt-3 w-full">
+                    <button id="pomodoro-start-btn" onclick="startPomodoro()" class="flex-grow bg-gradient-to-r from-[#75cb50] to-[#10b981] text-white font-bold py-2.5 rounded-xl text-sm shadow-lg hover:scale-[1.02] transition-all">
+                        Mulai
+                    </button>
+                    <button onclick="resetPomodoro()" class="bg-black/5 dark:bg-white/5 text-slate-500 font-bold px-4 rounded-xl hover:bg-black/10 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
+</div>
 
-    <div class="text-center mt-2">
-        <span id="pomodoro-mode" class="block mb-2">
-            <span class="inline-flex items-center gap-1 bg-[#75cb50]/10 text-[#75cb50] px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wider">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#75cb50] animate-pulse"></span>
-                Fokus Belajar
-            </span>
-        </span>
-
-        <div id="pomodoro-display" class="font-heading text-5xl font-black text-slate-900 dark:text-white tracking-widest my-3">
-            25:00
+<div id="pomodoro-notif-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-[70] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 hidden">
+    <div class="relative bg-black/60 backdrop-blur-xl border border-white/5 w-[300px] p-6 rounded-3xl shadow-2xl text-center transform scale-90 transition-all duration-300">
+        
+        <div class="relative flex justify-center mb-4">
+            <div class="absolute inset-0 bg-[#75cb50] blur-2xl opacity-20 rounded-full scale-150"></div>
+            <div class="relative w-40 h-40 flex items-center justify-center">
+                <img id="notif-gif" src="" alt="Notif Animasi" class="w-full h-full object-contain">
+            </div>
         </div>
 
-        <div class="flex justify-center gap-3 mt-5">
-            <button id="pomodoro-start-btn" onclick="startPomodoro()" class="flex-1 bg-gradient-to-r from-[#75cb50] to-[#10b981] hover:from-[#10b981] hover:to-[#059669] text-white font-bold py-2.5 px-4 rounded-xl shadow-[0_0_15px_rgba(34,197,94,0.3)] transition-all hover:scale-[1.02] text-sm flex items-center justify-center gap-1.5">
-                Mulai
-            </button>
-            <button onclick="resetPomodoro()" class="px-4 py-2.5 bg-black/5 dark:bg-white/5 text-slate-600 dark:text-slate-300 font-bold rounded-xl hover:bg-black/10 dark:hover:bg-white/10 transition flex items-center justify-center" title="Reset Sesi">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                </svg>
-            </button>
-        </div>
+        <h3 id="notif-title" class="font-heading font-black text-lg text-white mb-2 tracking-wide"></h3>
+        <p id="notif-message" class="text-xs text-slate-400 mb-6 leading-relaxed"></p>
+
+        <button id="notif-btn" onclick="closeNotifModal()" class="w-full py-3 rounded-xl font-bold text-sm text-white transition-all shadow-lg hover:scale-[1.02] border border-white/10">
+            Oke, Siap!
+        </button>
     </div>
 </div>
 
@@ -59,6 +73,13 @@
     const BREAK_MINUTES = 5;
 
     let timerInterval;
+    let notifCallback = null;
+
+    const PANDA_GIFS = {
+        workComplete: "{{ asset('images/panda-rehat.GIF') }}",  // GIF pas selesai Belajar (waktunya istirahat)
+        breakComplete: "{{ asset('images/panda-ambis.GIF') }}", // GIF pas selesai Istirahat (waktunya ambis lagi)
+        popup: "{{ asset('images/panda-popup.GIF') }}"          // Tambahan GIF untuk popup
+    };
 
     document.addEventListener("DOMContentLoaded", () => {
         updateDisplay();
@@ -239,16 +260,36 @@
         if (mode === 'work') {
             // Popup muncul otomatis saat work selesai untuk notifikasi istirahat
             maximizePomodoro();
-            alert("Waktu fokus selesai! Lanjut istirahat 5 menit ya.");
-            setTimerPhase('break', BREAK_MINUTES);
-            startTimerLogic();
+            // alert("Waktu fokus selesai! Lanjut istirahat 5 menit ya.");
+            // setTimerPhase('break', BREAK_MINUTES);
+            // startTimerLogic();
+            showCustomNotif(
+                "Fokus Selesai!",
+                "Waktu fokus selesai! Lanjut istirahat 5 menit ya.",
+                PANDA_GIFS.workComplete,
+                "bg-gradient-to-r from-[#75cb50] to-[#10b981] shadow-[0_4px_12px_rgba(34,197,94,0.2)]",
+                () => {
+                    setTimerPhase('break', BREAK_MINUTES);
+                    startTimerLogic();
+                }
+            );
         } else {
             localStorage.removeItem('pomodoro_end_time');
             localStorage.removeItem('pomodoro_mode');
 
-            alert("Siklus Pomodoro selesai! Data sesimu sedang disimpan.");
-            saveSessionToDatabase(WORK_MINUTES);
-            resetUIAfterComplete();
+            // alert("Siklus Pomodoro selesai! Data sesimu sedang disimpan.");
+            // saveSessionToDatabase(WORK_MINUTES);
+            // resetUIAfterComplete();
+            showCustomNotif(
+                "Istirahat Selesai! ",
+                "Siklus Pomodoro selesai! Data sesimu sedang disimpan.",
+                PANDA_GIFS.breakComplete,
+                "bg-gradient-to-r from-[#75cb50] to-[#10b981] shadow-[0_4px_12px_rgba(34,197,94,0.2)]",
+                () => {
+                    saveSessionToDatabase(WORK_MINUTES);
+                    resetUIAfterComplete();
+                }
+            );
         }
     }
 
@@ -327,15 +368,73 @@
             })
             .then(data => {
                 if (data.success) {
-                    alert("Siklus Pomodoro berhasil disimpan! Halaman akan dimuat ulang untuk memperbarui statistik Anda.");
-                    window.location.reload();
+                    showCustomNotif(
+                        "Siklus Disimpan! ",
+                        "Siklus Pomodoro berhasil disimpan! Halaman akan dimuat ulang untuk memperbarui statistik Anda.",
+                        PANDA_GIFS.popup,
+                        "bg-gradient-to-r from-[#75cb50] to-[#10b981]",
+                        () => {
+                            window.location.reload();
+                        }
+                    );
                 } else {
-                    alert("Gagal menyimpan sesi: " + data.message);
+                    showCustomNotif(
+                        "Gagal Menyimpan! ",
+                        "Gagal menyimpan sesi: " + data.message,
+                        PANDA_GIFS.popup,
+                        "bg-gradient-to-r from-red-500 to-rose-600 shadow-[0_4px_12px_rgba(244,63,94,0.2)]",
+                        () => {}
+                    );
                 }
             })
             .catch(error => {
                 console.error("Error saving session:", error);
-                alert("Gagal menghubungi server untuk menyimpan sesi: " + error.message);
+                showCustomNotif(
+                    "Gangguan Server!",
+                    "Gagal menghubungi server untuk menyimpan sesi: " + error.message,
+                    PANDA_GIFS.popup,
+                    "bg-gradient-to-r from-amber-500 to-orange-600 shadow-[0_4px_12px_rgba(245,158,11,0.2)]",
+                    () => {}
+                );
             });
     }
+
+    function showCustomNotif(title, message, gifUrl, btnClass, callback) {
+        const modal = document.getElementById('pomodoro-notif-modal');
+        const modalContent = modal.querySelector('div');
+        
+        document.getElementById('notif-title').innerText = title;
+        document.getElementById('notif-message').innerText = message;
+        document.getElementById('notif-gif').src = gifUrl;
+        
+        const btn = document.getElementById('notif-btn');
+        btn.className = `w-full py-2.5 rounded-xl font-bold text-sm text-white transition-all shadow-md hover:scale-[1.02] ${btnClass}`;
+        
+        notifCallback = callback;
+        
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-90');
+            modalContent.classList.add('scale-100');
+        }, 10);
+    }
+
+    function closeNotifModal() {
+        const modal = document.getElementById('pomodoro-notif-modal');
+        const modalContent = modal.querySelector('div');
+        
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        modalContent.classList.remove('scale-100');
+        modalContent.classList.add('scale-90');
+        
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            if (notifCallback) {
+                notifCallback();
+                notifCallback = null;
+            }
+        }, 300);
+    }
+
 </script>
