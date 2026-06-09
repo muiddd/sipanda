@@ -38,6 +38,7 @@ return [
     # read env file dan mau di redirect ke ChatController
     'openrouter' => [
         'api_key' => env('OPENROUTER_API_KEY'),
+        'model' => env('OPENROUTER_MODEL', 'google/gemma-2-9b-it:free'),
     ],
 
     'google' => [

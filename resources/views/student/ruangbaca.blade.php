@@ -120,6 +120,25 @@
                 </a>
             </div>
 
+            {{-- Flash Alert Messages --}}
+            @if(session('error'))
+            <div class="max-w-4xl mx-auto mb-6 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 text-red-800 dark:text-red-200 px-6 py-4 rounded-2xl flex items-center gap-3 shadow-sm" role="alert">
+                <svg class="w-5 h-5 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="font-medium text-sm">{{ session('error') }}</span>
+            </div>
+            @endif
+
+            @if(session('success'))
+            <div class="max-w-4xl mx-auto mb-6 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-900/50 text-green-800 dark:text-green-200 px-6 py-4 rounded-2xl flex items-center gap-3 shadow-sm" role="alert">
+                <svg class="w-5 h-5 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="font-medium text-sm">{{ session('success') }}</span>
+            </div>
+            @endif
+
             <div class="glass p-6 md:p-12 lg:p-16 max-w-4xl mx-auto mb-20 shadow-xl shadow-slate-200/50 dark:shadow-none relative overflow-hidden">
 
                 {{-- Aksen Latar Atas --}}

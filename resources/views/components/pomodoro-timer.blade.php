@@ -9,11 +9,11 @@
 </div>
 
 <div id="pomodoro-popup" class="fixed top-8 right-8 w-[360px] glass p-6 z-[60] transition-all duration-500 transform translate-x-[200%] opacity-0 shadow-2xl rounded-3xl hidden">
-    
+
     <div class="grid grid-cols-[100px,1fr] gap-4 items-start">
-        
+
         <div class="w-full">
-            <img src="{{ asset('images/panda.PNG') }}" alt="Panda" class="w-full h-auto object-contain scale-125 mt-2">
+            <img src="{{ asset('images/panda.png') }}" alt="Panda" class="w-full h-auto object-contain scale-125 mt-2">
         </div>
 
         <div class="flex flex-col text-left">
@@ -21,7 +21,9 @@
                 <h4 class="font-bold text-sm text-slate-900 dark:text-white">siPanda Timer</h4>
                 <div class="flex items-center gap-1">
                     <button onclick="minimizePomodoro()" class="text-slate-400 hover:text-white p-1 rounded hover:bg-black/5 dark:hover:bg-white/5">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path></svg>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path>
+                        </svg>
                     </button>
                     <button onclick="closePomodoro()" class="text-slate-400 hover:text-red-500 text-lg p-1 rounded hover:bg-red-500/10">&times;</button>
                 </div>
@@ -35,13 +37,15 @@
                 <div id="pomodoro-display" class="font-heading text-4xl font-black text-slate-900 dark:text-white tracking-widest my-1">
                     25:00
                 </div>
-                
+
                 <div class="flex gap-2 mt-3 w-full">
                     <button id="pomodoro-start-btn" onclick="startPomodoro()" class="flex-grow bg-gradient-to-r from-[#75cb50] to-[#10b981] text-white font-bold py-2.5 rounded-xl text-sm shadow-lg hover:scale-[1.02] transition-all">
                         Mulai
                     </button>
                     <button onclick="resetPomodoro()" class="bg-black/5 dark:bg-white/5 text-slate-500 font-bold px-4 rounded-xl hover:bg-black/10 transition">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
                     </button>
                 </div>
             </div>
@@ -51,10 +55,10 @@
 
 <div id="pomodoro-notif-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-[70] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 hidden">
     <div class="relative bg-black/60 backdrop-blur-xl border border-white/5 w-[300px] p-6 rounded-3xl shadow-2xl text-center transform scale-90 transition-all duration-300">
-        
+
         <div class="relative flex justify-center mb-4">
             <div class="absolute inset-0 bg-[#75cb50] blur-2xl opacity-20 rounded-full scale-150"></div>
-            <div class="relative w-56 h-56 flex items-center justify-center">
+            <div class="relative w-40 h-40 flex items-center justify-center">
                 <img id="notif-gif" src="" alt="Notif Animasi" class="w-full h-full object-contain">
             </div>
         </div>
@@ -76,9 +80,9 @@
     let notifCallback = null;
 
     const PANDA_GIFS = {
-        workComplete: "{{ asset('images/panda-rehat.GIF') }}",  // GIF pas selesai Belajar (waktunya istirahat)
+        workComplete: "{{ asset('images/panda-rehat.GIF') }}", // GIF pas selesai Belajar (waktunya istirahat)
         breakComplete: "{{ asset('images/panda-ambis.GIF') }}", // GIF pas selesai Istirahat (waktunya ambis lagi)
-        popup: "{{ asset('images/panda-popup.GIF') }}"          // Tambahan GIF untuk popup
+        popup: "{{ asset('images/panda-popup.GIF') }}" // Tambahan GIF untuk popup
     };
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -402,16 +406,16 @@
     function showCustomNotif(title, message, gifUrl, btnClass, callback) {
         const modal = document.getElementById('pomodoro-notif-modal');
         const modalContent = modal.querySelector('div');
-        
+
         document.getElementById('notif-title').innerText = title;
         document.getElementById('notif-message').innerText = message;
         document.getElementById('notif-gif').src = gifUrl;
-        
+
         const btn = document.getElementById('notif-btn');
         btn.className = `w-full py-2.5 rounded-xl font-bold text-sm text-white transition-all shadow-md hover:scale-[1.02] ${btnClass}`;
-        
+
         notifCallback = callback;
-        
+
         modal.classList.remove('hidden');
         setTimeout(() => {
             modal.classList.remove('opacity-0', 'pointer-events-none');
@@ -423,11 +427,11 @@
     function closeNotifModal() {
         const modal = document.getElementById('pomodoro-notif-modal');
         const modalContent = modal.querySelector('div');
-        
+
         modal.classList.add('opacity-0', 'pointer-events-none');
         modalContent.classList.remove('scale-100');
         modalContent.classList.add('scale-90');
-        
+
         setTimeout(() => {
             modal.classList.add('hidden');
             if (notifCallback) {
@@ -436,5 +440,4 @@
             }
         }, 300);
     }
-
 </script>

@@ -21,10 +21,7 @@ class ChatController extends Controller
         return view('student.dashboard', compact('chats', 'summary'));
     }
 
-    public function todo()
-    {
-        return view('student.targetBelajar');
-    }
+
 
     public function processAi(Request $request)
     {
@@ -37,21 +34,9 @@ class ChatController extends Controller
                 // 2. Siapkan perintah untuk AI
                 $instruction = "Kamu adalah asisten guru yang ahli merangkum. Buatlah rangkuman eksekutif dari teks materi berikut. Gunakan bahasa Indonesia yang mudah dipahami, poin-poin yang jelas, dan fokus pada inti materi saja.";
 
-                // 3. Tembak ke OpenRouter AI
-                $response = Http::timeout(120)->withHeaders([
-                    'Authorization' => 'Bearer ' . config('services.openrouter.api_key'),
-                    'HTTP-Referer' => config('app.url'),
-                    'X-Title' => 'siPanda Learning App',
-                ])->post('https://openrouter.ai/api/v1/chat/completions', [
-                    'model' => 'openai/gpt-oss-120b:free', 
-                    'messages' => [
-                        ['role' => 'system', 'content' => $instruction],
-                        ['role' => 'user', 'content' => $teksMateri],
-                    ],
-                ]);
-
-                $result = $response->json();
-                $aiSummary = $result['choices'][0]['message']['content'] ?? 'Gagal membuat rangkuman.';
+                // 3. Tembak ke AI Service
+                $aiData = \App\Services\AiService::generate($teksMateri, $instruction);
+                $aiSummary = $aiData['text'];
 
                 // 4. Kembalikan ke halaman Ruang Baca dengan membawa data rangkuman
                 return back()->with('ai_summary', $aiSummary);
@@ -87,38 +72,22 @@ class ChatController extends Controller
                 ? "Rangkum teks berikut dengan poin-poin yang mudah dipahami mahasiswa:"
                 : "Buatkan 5 soal pilihan ganda berdasarkan teks berikut. WAJIB format JSON murni [{\"soal\":\"...\",\"opsi\":[\"A...\",\"B...\"],\"jawaban_benar\":\"A...\"}]:";
 
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . config('services.openrouter.api_key'),
-                'HTTP-Referer' => config('app.url'),
-                'X-Title' => 'siPanda Learning App',
-            ])->post('https://openrouter.ai/api/v1/chat/completions', [
-                'model' => 'openai/gpt-oss-120b:free',
-                'messages' => [
-                    ['role' => 'system', 'content' => $instruction],
-                    ['role' => 'user', 'content' => $text],
-                ],
-            ]);
-
-            $result = $response->json();
-            $aiResult = $result['choices'][0]['message']['content'] ?? 'Gagal memproses.';
+            // 3. Tembak ke AI Service
+            $aiData = \App\Services\AiService::generate($text, $instruction);
+            $aiResult = $aiData['text'];
 
             // Log AI Usage
             try {
                 $materi = \App\Models\Materi::first();
                 $materiId = $materi ? $materi->materi_id : 1;
                 
-                $usage = $result['usage'] ?? [];
-                $promptTokens = $usage['prompt_tokens'] ?? str_word_count($text);
-                $completionTokens = $usage['completion_tokens'] ?? str_word_count($aiResult);
-                $totalTokens = $usage['total_tokens'] ?? ($promptTokens + $completionTokens);
-                
                 \App\Models\AiUsageLog::create([
                     'user_id' => auth()->user()->id,
                     'materi_id' => $materiId,
                     'activity_type' => $request->action,
-                    'prompt_tokens' => $promptTokens,
-                    'completion_tokens' => $completionTokens,
-                    'total_tokens' => $totalTokens,
+                    'prompt_tokens' => $aiData['prompt_tokens'],
+                    'completion_tokens' => $aiData['completion_tokens'],
+                    'total_tokens' => $aiData['total_tokens'],
                 ]);
             } catch (\Exception $ex) {
                 // Silently ignore
@@ -141,4 +110,5 @@ class ChatController extends Controller
             return back()->with('error', 'Gagal memproses file: ' . $e->getMessage());
         }
     }
+
 }
