@@ -144,7 +144,7 @@
                 </div>
             </header>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
                 <div class="glass p-8 flex flex-col justify-center relative overflow-hidden group cursor-default h-full">
                     <div class="absolute -right-8 -bottom-8 text-slate-400/10 dark:text-slate-500/5 group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 pointer-events-none">
                         <svg class="w-32 h-32" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -160,11 +160,42 @@
                     </div>
                 </div>
 
+                <div class="glass p-6 group cursor-default relative overflow-hidden flex flex-col justify-between h-full">
+                    <div class="absolute -right-4 -top-4 text-7xl opacity-5 group-hover:scale-110 group-hover:opacity-10 transition-all duration-500 pointer-events-none">🔥</div>
+                    
+                    <div>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-slate-500 dark:text-slate-400 text-sm font-semibold mb-1 uppercase tracking-wider text-[11px]">Streak Belajar</p>
+                                <h2 class="font-heading text-4xl font-black text-[#ff8c00] drop-shadow-[0_0_10px_rgba(255,140,0,0.3)] transition-colors">
+                                    {{ auth()->user()->streak->current_streak ?? 0 }} <span class="text-xl text-slate-500 dark:text-slate-400 font-medium">hari</span>
+                                </h2>
+                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-[rgba(255,140,0,0.1)] flex items-center justify-center text-[#ff8c00] border border-[#ff8c00]/20 group-hover:bg-[#ff8c00]/20 transition duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path></svg>
+                            </div>
+                        </div>
+                        
+                        @if((auth()->user()->streak->current_streak ?? 0) > 0)
+                            <p class="text-xs text-slate-500 mt-3 font-medium">Rekor tertinggi: {{ auth()->user()->streak->longest_streak ?? 0 }} hari</p>
+                        @else
+                            <p class="text-xs text-slate-500 mt-3 font-medium">Belum ada streak. Ayo mulai!</p>
+                        @endif
+                    </div>
+
+                    @if((auth()->user()->streak->current_streak ?? 0) > 0)
+                    <button onclick="shareStreak({{ auth()->user()->streak->current_streak }})" class="mt-4 w-full bg-gradient-to-r from-[#ff8c00] to-[#ff6b00] hover:from-[#ff6b00] hover:to-[#e65c00] text-white font-bold py-2.5 rounded-xl text-xs transition-all shadow-[0_0_15px_rgba(255,140,0,0.3)] hover:scale-[1.02] flex items-center justify-center gap-1.5 z-10">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                        Pamerkan Streak!
+                    </button>
+                    @endif
+                </div>
+
                 <div class="glass p-8 relative overflow-hidden md:col-span-2 group">
                     <div class="flex flex-col md:flex-row justify-between items-center gap-8">
                         <div class="flex-1 text-left">
                             <h2 class="font-heading text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-2">
-                                <span></span>Pomodoro Timer
+                                Pomodoro Timer
                             </h2>
                             <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">Fokus belajar 25 menit, lalu istirahat 5 menit. Waktu akan otomatis tercatat ke dalam statistik.</p>
 
@@ -282,6 +313,34 @@
         window.chartData = @json($chartData);
     </script>
     <script src="{{ asset('js/gamifikasi-chart.js') }}"></script>
+
+    <script>
+        function shareStreak(streakDays) {
+            const shareTitle = "Streak Belajar siPanda 🐼🔥";
+            const shareText = `Yey! Aku sudah belajar konsisten selama ${streakDays} hari berturut-turut bareng siPanda! 😎🔥 \n\nAyo atur fokusmu dan bangun kebiasaan belajarmu sekarang!`;
+            const shareUrl = window.location.origin; 
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: shareTitle,
+                    text: shareText,
+                    url: shareUrl
+                }).then(() => {
+                    console.log('Berhasil membagikan streak!');
+                }).catch((error) => {
+                    console.error('Gagal membagikan:', error);
+                });
+            } else {
+                const fullText = `${shareTitle}\n\n${shareText}\n\nJoin di: ${shareUrl}`;
+                navigator.clipboard.writeText(fullText).then(() => {
+                    alert("Teks berhasil disalin! Silakan paste di status WhatsApp, Instagram, atau Twitter kamu! 🚀");
+                }).catch(err => {
+                    console.error('Gagal menyalin teks: ', err);
+                    alert("Yah, gagal menyalin teks. Coba browser lain ya!");
+                });
+            }
+        }
+    </script>
 </body>
 
 </html>

@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use App\Models\LearningSession;
+use App\Models\UserStreak;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class PomodoroController extends Controller
 {
@@ -29,6 +31,8 @@ class PomodoroController extends Controller
                 'duration' => $request->duration, // Menyimpan angka 25
                 'status' => 'completed' // Otomatis completed
             ]);
+
+            Auth::user()->updateStreak();
 
             return response()->json([
                 'success' => true,

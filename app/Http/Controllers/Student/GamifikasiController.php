@@ -10,6 +10,8 @@ class GamifikasiController extends Controller
 {
     public function index()
     {
+        auth()->user()->updateStreak();
+
         $learningSessions = LearningSession::where('user_id', auth()->user()->id)
             ->where('start_time', '>=', now()->subDays(6)->startOfDay())
             ->get()
@@ -63,6 +65,8 @@ class GamifikasiController extends Controller
             'duration' => $request->duration,
             'status' => 'completed',
         ]);
+
+        auth()->user()->updateStreak();
 
         return response()->json(['success' => true, 'message' => 'Sesi belajar berhasil disimpan!']);
     }
