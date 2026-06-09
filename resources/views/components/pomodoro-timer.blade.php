@@ -84,11 +84,19 @@
         if (popup) {
             popup.classList.add('translate-x-[150%]', 'opacity-0', 'pointer-events-none');
             popup.classList.remove('translate-x-0', 'opacity-100');
+            setTimeout(() => {
+                if (popup.classList.contains('opacity-0')) {
+                    popup.classList.add('hidden');
+                }
+            }, 500);
         }
 
         if (mini) {
-            mini.classList.remove('translate-x-full', 'opacity-0', 'pointer-events-none');
-            mini.classList.add('translate-x-0', 'opacity-100');
+            mini.classList.remove('hidden');
+            setTimeout(() => {
+                mini.classList.remove('translate-x-full', 'opacity-0', 'pointer-events-none');
+                mini.classList.add('translate-x-0', 'opacity-100');
+            }, 10);
         }
     }
 
@@ -99,11 +107,19 @@
         if (mini) {
             mini.classList.add('translate-x-full', 'opacity-0', 'pointer-events-none');
             mini.classList.remove('translate-x-0', 'opacity-100');
+            setTimeout(() => {
+                if (mini.classList.contains('opacity-0')) {
+                    mini.classList.add('hidden');
+                }
+            }, 500);
         }
 
         if (popup) {
-            popup.classList.remove('translate-x-[150%]', 'opacity-0', 'pointer-events-none');
-            popup.classList.add('translate-x-0', 'opacity-100');
+            popup.classList.remove('hidden');
+            setTimeout(() => {
+                popup.classList.remove('translate-x-[150%]', 'translate-x-[200%]', 'opacity-0', 'pointer-events-none');
+                popup.classList.add('translate-x-0', 'opacity-100');
+            }, 10);
         }
     }
 
@@ -112,6 +128,11 @@
         if (popup) {
             popup.classList.add('translate-x-[150%]', 'opacity-0', 'pointer-events-none');
             popup.classList.remove('translate-x-0', 'opacity-100');
+            setTimeout(() => {
+                if (popup.classList.contains('opacity-0')) {
+                    popup.classList.add('hidden');
+                }
+            }, 500);
         }
     }
 
@@ -255,6 +276,11 @@
         if (mini) {
             mini.classList.add('translate-x-full', 'opacity-0', 'pointer-events-none');
             mini.classList.remove('translate-x-0', 'opacity-100');
+            setTimeout(() => {
+                if (mini.classList.contains('opacity-0')) {
+                    mini.classList.add('hidden');
+                }
+            }, 500);
         }
 
         const startBtnPopup = document.getElementById('pomodoro-start-btn');
