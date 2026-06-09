@@ -38,8 +38,35 @@ class ChatController extends Controller
                 $aiData = \App\Services\AiService::generate($teksMateri, $instruction);
                 $aiSummary = $aiData['text'];
 
-                // 4. Kembalikan ke halaman Ruang Baca dengan membawa data rangkuman
-                return back()->with('ai_summary', $aiSummary);
+                // 4. Simpan ke database ai_summaries agar bisa diekspor ke Buku Catatan
+                $summaryModel = \App\Models\AiSummary::updateOrCreate(
+                    [
+                        'user_id' => auth()->id(),
+                        'materi_id' => $materi->materi_id,
+                    ],
+                    [
+                        'summary_text' => $aiSummary,
+                        'last_generated' => now(),
+                    ]
+                );
+
+                // Log AI Usage
+                try {
+                    \App\Models\AiUsageLog::create([
+                        'user_id' => auth()->user()->id,
+                        'materi_id' => $materi->materi_id,
+                        'activity_type' => 'summary',
+                        'prompt_tokens' => $aiData['prompt_tokens'],
+                        'completion_tokens' => $aiData['completion_tokens'],
+                        'total_tokens' => $aiData['total_tokens'],
+                    ]);
+                } catch (\Exception $ex) {}
+
+                // 5. Kembalikan ke halaman Ruang Baca dengan membawa data rangkuman dan ID
+                return back()->with([
+                    'ai_summary' => $aiSummary,
+                    'summaries_id' => $summaryModel->summaries_id
+                ]);
 
             } catch (\Exception $e) {
                 return back()->with('error', 'Gagal memproses AI: ' . $e->getMessage());

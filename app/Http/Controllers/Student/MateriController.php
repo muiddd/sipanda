@@ -28,7 +28,13 @@ class MateriController extends Controller
     {
         $materi = Materi::where('materi_id', $id)->firstOrFail();
         
-        return view('student.ruangbaca', compact('materi'));
+        $existingBooks = \App\Models\BukuCatatan::where('user_id', auth()->id())
+            ->select('nama_buku')
+            ->groupBy('nama_buku')
+            ->pluck('nama_buku')
+            ->toArray();
+
+        return view('student.ruangbaca', compact('materi', 'existingBooks'));
     }
 
     
