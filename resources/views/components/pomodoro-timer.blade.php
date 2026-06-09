@@ -54,7 +54,7 @@
         
         <div class="relative flex justify-center mb-4">
             <div class="absolute inset-0 bg-[#75cb50] blur-2xl opacity-20 rounded-full scale-150"></div>
-            <div class="relative w-40 h-40 flex items-center justify-center">
+            <div class="relative w-56 h-56 flex items-center justify-center">
                 <img id="notif-gif" src="" alt="Notif Animasi" class="w-full h-full object-contain">
             </div>
         </div>
