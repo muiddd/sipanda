@@ -13,6 +13,7 @@ use App\Http\Controllers\Student\PomodoroController;
 use App\Http\Controllers\Student\RiwayatSkorController;
 use App\Http\Controllers\Student\BukuCatatanController;
 use App\Http\Controllers\Student\ActivityLogController;
+use App\Http\Controllers\Student\TodoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,7 +85,11 @@ Route::middleware([
     })->name('student.settings');
     Route::put('/settings/profile', [SettingsController::class, 'updateProfile'])->name('student.settings.profile');
     Route::put('/settings/password', [SettingsController::class, 'updatePassword'])->name('student.settings.password');
-    Route::get('/todo', [ChatController::class, 'todo'])->name('todo');
+    Route::get('/todo', [TodoController::class, 'index'])->name('todo');
+    Route::get('/todo/get', [TodoController::class, 'getTodos'])->name('todo.get');
+    Route::post('/todo/add', [TodoController::class, 'addTodo'])->name('todo.add');
+    Route::post('/todo/{id}/toggle', [TodoController::class, 'toggleTodo'])->name('todo.toggle');
+    Route::delete('/todo/{id}/delete', [TodoController::class, 'deleteTodo'])->name('todo.delete');
 
     //7. Pomodoro Timer
     Route::post('/pomodoro/store', [PomodoroController::class, 'store'])->name('pomodoro.store');

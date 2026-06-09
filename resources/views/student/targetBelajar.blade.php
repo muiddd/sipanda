@@ -249,11 +249,43 @@
                     placeholder="Tambah tugas baru..."
                     class="flex-1 bg-transparent outline-none text-sm text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 font-medium"
                     onkeydown="if(event.key==='Enter') addTask()" />
-                <select id="tag-select" class="bg-transparent outline-none text-xs font-bold text-slate-400 dark:text-slate-500 cursor-pointer border border-slate-200 dark:border-white/10 rounded-lg px-2 py-1">
-                    <option value="Materi">📗 Materi</option>
-                    <option value="Latihan">💻 Latihan</option>
-                    <option value="Penting">⚠️ Penting</option>
-                </select>
+                
+                <!-- Custom Dropdown Tag Select -->
+                <div class="relative flex-shrink-0" id="custom-tag-dropdown">
+                    <button type="button" id="custom-tag-btn" class="flex items-center justify-between text-xs font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-2.5 pr-9 outline-none min-w-[110px] transition hover:bg-slate-200 dark:hover:bg-white/10">
+                        <span id="selected-tag-label">Materi</span>
+                    </button>
+                    <!-- Chevron Icon -->
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 dark:text-slate-500">
+                        <svg class="w-3.5 h-3.5 transition-transform duration-200" id="custom-tag-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                    <!-- Dropdown Options List -->
+                    <div id="custom-tag-options" class="absolute right-0 mt-2 w-36 origin-top-right rounded-2xl bg-white dark:bg-[#1f1f1f] border border-black/5 dark:border-white/10 shadow-xl dark:shadow-2xl opacity-0 scale-95 pointer-events-none transition-all duration-200 z-[100] p-1.5 flex flex-col gap-1">
+                        <button type="button" class="custom-option-item text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 transition flex items-center gap-1.5" data-value="Materi">
+                            <svg class="w-3.5 h-3.5 text-[#4ade80]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                            </svg>
+                            Materi
+                        </button>
+                        <button type="button" class="custom-option-item text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 transition flex items-center gap-1.5" data-value="Latihan">
+                            <svg class="w-3.5 h-3.5 text-[#60a5fa]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                            </svg>
+                            Latihan
+                        </button>
+                        <button type="button" class="custom-option-item text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 transition flex items-center gap-1.5" data-value="Penting">
+                            <svg class="w-3.5 h-3.5 text-[#fbbf24]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            </svg>
+                            Penting
+                        </button>
+                    </div>
+                    <!-- Hidden Input for actual value submission -->
+                    <input type="hidden" id="tag-select" value="Materi" />
+                </div>
+
                 <button
                     onclick="addTask()"
                     class="bg-[#75cb50] hover:bg-[#64b043] active:scale-95 text-white w-9 h-9 rounded-xl flex items-center justify-center transition-all shadow-lg shadow-green-500/20 flex-shrink-0">
@@ -265,10 +297,30 @@
 
             {{-- Filter Pills --}}
             <div class="flex items-center gap-2 mb-6" id="filter-pills">
-                <button class="filter-pill active" data-filter="Semua">Semua</button>
-                <button class="filter-pill" data-filter="Materi">📗 Materi</button>
-                <button class="filter-pill" data-filter="Latihan">💻 Latihan</button>
-                <button class="filter-pill" data-filter="Penting">⚠️ Penting</button>
+                <button class="filter-pill active flex items-center gap-1.5" data-filter="Semua">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    Semua
+                </button>
+                <button class="filter-pill flex items-center gap-1.5" data-filter="Materi">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                    Materi
+                </button>
+                <button class="filter-pill flex items-center gap-1.5" data-filter="Latihan">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                    Latihan
+                </button>
+                <button class="filter-pill flex items-center gap-1.5" data-filter="Penting">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    Penting
+                </button>
             </div>
 
             {{-- Progress Bar --}}
@@ -308,11 +360,57 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             loadTasks();
+
+            // ── Custom Dropdown Logic ───────────────────────────────
+            const dropdown = document.getElementById('custom-tag-dropdown');
+            const btn = document.getElementById('custom-tag-btn');
+            const options = document.getElementById('custom-tag-options');
+            const chevron = document.getElementById('custom-tag-chevron');
+            const label = document.getElementById('selected-tag-label');
+            const hiddenInput = document.getElementById('tag-select');
+
+            const toggleDropdown = () => {
+                const isOpen = options.classList.contains('opacity-100');
+                if (isOpen) {
+                    options.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+                    options.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+                    chevron.classList.remove('rotate-180');
+                } else {
+                    options.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+                    options.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
+                    chevron.classList.add('rotate-180');
+                }
+            };
+
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleDropdown();
+            });
+
+            document.querySelectorAll('.custom-option-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const val = item.dataset.value;
+                    hiddenInput.value = val;
+                    label.textContent = val;
+                    // Close dropdown
+                    options.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+                    options.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+                    chevron.classList.remove('rotate-180');
+                });
+            });
+
+            // Close when clicking outside
+            document.addEventListener('click', () => {
+                options.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+                options.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+                chevron.classList.remove('rotate-180');
+            });
         });
 
         // ── Helpers ──────────────────────────────────────────────
-        const STORAGE_KEY = 'sipanda_todos';
         let activeFilter = 'Semua';
+        let allTasks = [];
 
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('filter-pills').addEventListener('click', (e) => {
@@ -325,14 +423,6 @@
             });
         });
 
-        function getTasks() {
-            return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-        }
-
-        function saveTasks(tasks) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
-        }
-
         function tagStyle(tag) {
             if (tag === 'Materi') return 'background:rgba(117,203,80,0.15);color:#4ade80;';
             if (tag === 'Latihan') return 'background:rgba(59,130,246,0.15);color:#60a5fa;';
@@ -340,48 +430,27 @@
             return 'background:rgba(255,255,255,0.1);color:#94a3b8;';
         }
 
-        // ── Render ────────────────────────────────────────────────
-        function loadTasks() {
-            // Seed data awal kalau kosong
-            if (!localStorage.getItem(STORAGE_KEY)) {
-                saveTasks([{
-                        id: 1,
-                        text: 'Belajar Struktur Data — Stack & Queue',
-                        tag: 'Materi',
-                        done: false
-                    },
-                    {
-                        id: 2,
-                        text: 'Kerjakan latihan soal Algoritma Dasar',
-                        tag: 'Latihan',
-                        done: false
-                    },
-                    {
-                        id: 3,
-                        text: 'Review catatan sebelum ujian besok',
-                        tag: 'Penting',
-                        done: false
-                    },
-                    {
-                        id: 4,
-                        text: 'Membaca materi Array dan Linked List',
-                        tag: 'Materi',
-                        done: true
-                    },
-                    {
-                        id: 5,
-                        text: 'Mengerjakan kuis Gamifikasi minggu ini',
-                        tag: 'Latihan',
-                        done: true
-                    },
-                ]);
+        const getHeaders = () => ({
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Accept': 'application/json'
+        });
+
+        // ── Actions & API Calls ────────────────────────────────────
+        async function loadTasks() {
+            try {
+                const res = await fetch('/todo/get');
+                if (res.ok) {
+                    allTasks = await res.json();
+                    renderTasks();
+                }
+            } catch (err) {
+                console.error('Failed to load tasks:', err);
             }
-            renderTasks();
         }
 
         function renderTasks() {
-            const all = getTasks();
-            const filtered = activeFilter === 'Semua' ? all : all.filter(t => t.tag === activeFilter);
+            const filtered = activeFilter === 'Semua' ? allTasks : allTasks.filter(t => t.tag === activeFilter);
 
             const pending = filtered.filter(t => !t.done);
             const done = filtered.filter(t => t.done);
@@ -392,12 +461,12 @@
             document.getElementById('pending-empty').classList.toggle('hidden', pending.length > 0);
             document.getElementById('done-section').classList.toggle('hidden', done.length === 0);
 
-            // Stats selalu dari semua data (tidak ikut filter)
-            const total = all.length;
-            const doneLen = all.filter(t => t.done).length;
+            // Stats
+            const total = allTasks.length;
+            const doneLen = allTasks.filter(t => t.done).length;
             document.getElementById('stat-total').textContent = total;
             document.getElementById('stat-done').textContent = doneLen;
-            document.getElementById('stat-pending').textContent = all.filter(t => !t.done).length;
+            document.getElementById('stat-pending').textContent = allTasks.filter(t => !t.done).length;
 
             const pct = total > 0 ? Math.round((doneLen / total) * 100) : 0;
             document.getElementById('progress-bar').style.width = pct + '%';
@@ -416,7 +485,10 @@
                 <span class="task-label flex-1 text-sm font-medium text-slate-800 dark:text-slate-200 transition-all">
                     ${escapeHTML(t.text)}
                 </span>
-                <span class="tag" style="${tagStyle(t.tag)}">${t.tag}</span>
+                <span class="tag flex items-center gap-1" style="${tagStyle(t.tag)}">
+                    ${getTagIcon(t.tag)}
+                    <span>${t.tag}</span>
+                </span>
                 <button
                     onclick="deleteTask(${t.id})"
                     class="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-red-500 transition-all p-1 rounded-lg"
@@ -429,41 +501,78 @@
             </div>`;
         }
 
+        function getTagIcon(tag) {
+            if (tag === 'Materi') {
+                return `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>`;
+            }
+            if (tag === 'Latihan') {
+                return `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>`;
+            }
+            if (tag === 'Penting') {
+                return `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>`;
+            }
+            return '';
+        }
+
         function escapeHTML(str) {
             return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         }
 
-        // ── Actions ───────────────────────────────────────────────
-        function addTask() {
+        async function addTask() {
             const input = document.getElementById('task-input');
             const tag = document.getElementById('tag-select').value;
             const text = input.value.trim();
             if (!text) return;
 
-            const tasks = getTasks();
-            tasks.unshift({
-                id: Date.now(),
-                text,
-                tag,
-                done: false
-            });
-            saveTasks(tasks);
-            input.value = '';
-            renderTasks();
+            try {
+                const res = await fetch('/todo/add', {
+                    method: 'POST',
+                    headers: getHeaders(),
+                    body: JSON.stringify({ text, tag })
+                });
+                if (res.ok) {
+                    const newTodo = await res.json();
+                    allTasks.unshift(newTodo);
+                    input.value = '';
+                    // Reset custom dropdown values
+                    document.getElementById('tag-select').value = 'Materi';
+                    document.getElementById('selected-tag-label').textContent = 'Materi';
+                    renderTasks();
+                }
+            } catch (err) {
+                console.error('Failed to add task:', err);
+            }
         }
 
-        function toggleTask(id) {
-            const tasks = getTasks().map(t => t.id === id ? {
-                ...t,
-                done: !t.done
-            } : t);
-            saveTasks(tasks);
-            renderTasks();
+        async function toggleTask(id) {
+            try {
+                const res = await fetch(`/todo/${id}/toggle`, {
+                    method: 'POST',
+                    headers: getHeaders()
+                });
+                if (res.ok) {
+                    const updated = await res.json();
+                    allTasks = allTasks.map(t => t.id === id ? updated : t);
+                    renderTasks();
+                }
+            } catch (err) {
+                console.error('Failed to toggle task:', err);
+            }
         }
 
-        function deleteTask(id) {
-            saveTasks(getTasks().filter(t => t.id !== id));
-            renderTasks();
+        async function deleteTask(id) {
+            try {
+                const res = await fetch(`/todo/${id}/delete`, {
+                    method: 'DELETE',
+                    headers: getHeaders()
+                });
+                if (res.ok) {
+                    allTasks = allTasks.filter(t => t.id !== id);
+                    renderTasks();
+                }
+            } catch (err) {
+                console.error('Failed to delete task:', err);
+            }
         }
     </script>
 
