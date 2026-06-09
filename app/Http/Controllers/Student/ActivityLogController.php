@@ -30,16 +30,8 @@ class ActivityLogController extends Controller
             ->sum(fn($s) => $s->started_at->diffInMinutes($s->ended_at));
 
         // --- Streak hitung mundur ---
-        $streak = 0;
-        $check  = Carbon::today();
-        while (true) {
-            $hasSessions = StudySession::where('user_id', $user->id)
-                ->whereDate('started_at', $check)
-                ->exists();
-            if (!$hasSessions) break;
-            $streak++;
-            $check->subDay();
-        }
+        $user->updateStreak();
+        $streak = $user->streak->current_streak ?? 0;
 
         // --- Heatmap: 30 hari terakhir ---
         // Format: ['2026-05-08' => 94, '2026-05-09' => 0, ...]
@@ -120,6 +112,8 @@ class ActivityLogController extends Controller
             'ended_at'    => request('ended_at'),
             'focus_score' => request('focus_score', 0),
         ]);
+
+        Auth::user()->updateStreak();
 
         return back()->with('success', 'Sesi belajar berhasil dicatat!');
     }

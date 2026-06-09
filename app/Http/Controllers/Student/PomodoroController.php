@@ -32,47 +32,7 @@ class PomodoroController extends Controller
                 'status' => 'completed' // Otomatis completed
             ]);
 
-            $today = now()->startOfDay();
-            
-            // Cari data streak user, jika belum ada, buat instance baru
-            //streak = UserStreak::firstOrNew(['user_id' => $user->id]);
-            $streak = UserStreak::firstOrCreate(
-                ['user_id' => $user->id], 
-                [
-                    'current_streak' => 0, 
-                    'longest_streak' => 0, 
-                    'last_activity_date' => now()->subDay()->toDateString() // Set ke kemarin agar streak jadi 1 saat diproses hari ini
-                ]
-            );
-
-            if (!$streak->exists) {
-                // Jika ini pertama kali user pakai timer
-                $streak->current_streak = 1;
-                $streak->longest_streak = 1;
-                $streak->last_activity_date = $today->toDateString();
-            } else {
-                // Jika sudah punya riwayat, cek kapan terakhir belajar
-                $lastActivity = Carbon::parse($streak->last_activity_date)->startOfDay();
-
-                if ($lastActivity->diffInDays($today) == 1) {
-                    // Kemarin belajar, hari ini belajar -> Tambah streak
-                    $streak->current_streak += 1;
-                    $streak->last_activity_date = $today->toDateString();
-                    
-                    // Cek apakah memecahkan rekor
-                    if ($streak->current_streak > $streak->longest_streak) {
-                        $streak->longest_streak = $streak->current_streak;
-                    }
-                } elseif ($lastActivity->diffInDays($today) > 1) {
-                    // Bolos lebih dari 1 hari -> Reset ke 1
-                    $streak->current_streak = 1;
-                    $streak->last_activity_date = $today->toDateString();
-                }
-                // Jika diffInDays == 0 (Masih di hari yang sama belajar lagi), 
-                // tidak perlu nambah streak, biarkan saja datanya.
-            }
-            
-            $streak->save();
+            Auth::user()->updateStreak();
 
             return response()->json([
                 'success' => true,

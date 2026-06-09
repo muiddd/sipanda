@@ -9,6 +9,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        auth()->user()->updateStreak();
+
         $chats = ChatMessage::where('user_id', auth()->user()->id)
                     ->orderBy('created_at', 'asc')->get();
         $summary = AiSummary::where('user_id', auth()->user()->id)->latest()->first();
