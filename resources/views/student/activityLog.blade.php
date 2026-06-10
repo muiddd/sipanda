@@ -1,3 +1,56 @@
+@php
+    $currentStreak = auth()->user()->streak->current_streak ?? 0;
+    
+    if ($currentStreak < 10) {
+        $streakTier = 1;
+        $streakColorName = 'orange';
+        $streakTitle = 'Pembelajar Pemula';
+        $streakColorClass = 'text-[#ff8c00]';
+        $streakBgClass = 'bg-[rgba(255,140,0,0.1)]';
+        $streakBorderClass = 'border-[#ff8c00]/20';
+        $streakGlowClass = 'drop-shadow-[0_0_10px_rgba(255,140,0,0.4)]';
+        $streakBtnBg = 'bg-gradient-to-r from-[#ff8c00] to-[#ff6b00] hover:from-[#ff6b00] hover:to-[#e65c00]';
+        $streakBtnShadow = 'shadow-[0_0_15px_rgba(255,140,0,0.3)]';
+        $streakCardBg = 'from-[#ff8c00]/10 to-[#ff6b00]/5';
+        $streakIconAnim = '';
+    } elseif ($currentStreak < 30) {
+        $streakTier = 2;
+        $streakColorName = 'blue';
+        $streakTitle = 'Fokus Konsisten';
+        $streakColorClass = 'text-[#00c6ff]';
+        $streakBgClass = 'bg-[rgba(0,198,255,0.1)]';
+        $streakBorderClass = 'border-[#00c6ff]/20';
+        $streakGlowClass = 'drop-shadow-[0_0_10px_rgba(0,198,255,0.5)]';
+        $streakBtnBg = 'bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:from-[#0072ff] hover:to-[#0052d4]';
+        $streakBtnShadow = 'shadow-[0_0_15px_rgba(0,198,255,0.3)]';
+        $streakCardBg = 'from-[#00c6ff]/10 to-[#0072ff]/5';
+        $streakIconAnim = 'animate-blue-glow';
+    } elseif ($currentStreak < 50) {
+        $streakTier = 3;
+        $streakColorName = 'purple';
+        $streakTitle = 'Dedikasi Tinggi';
+        $streakColorClass = 'text-[#bd00ff]';
+        $streakBgClass = 'bg-[rgba(189,0,255,0.1)]';
+        $streakBorderClass = 'border-[#bd00ff]/20';
+        $streakGlowClass = 'drop-shadow-[0_0_10px_rgba(189,0,255,0.5)]';
+        $streakBtnBg = 'bg-gradient-to-r from-[#bd00ff] to-[#8e2de2] hover:from-[#8e2de2] hover:to-[#4a00e0]';
+        $streakBtnShadow = 'shadow-[0_0_15px_rgba(189,0,255,0.3)]';
+        $streakCardBg = 'from-[#bd00ff]/10 to-[#8e2de2]/5';
+        $streakIconAnim = 'animate-purple-glow';
+    } else {
+        $streakTier = 4;
+        $streakColorName = 'gold';
+        $streakTitle = 'Legenda siPanda';
+        $streakColorClass = 'text-[#ffd700]';
+        $streakBgClass = 'bg-[rgba(255,215,0,0.15)]';
+        $streakBorderClass = 'border-[#ffd700]/30';
+        $streakGlowClass = 'drop-shadow-[0_0_15px_rgba(255,215,0,0.7)]';
+        $streakBtnBg = 'bg-gradient-to-r from-[#ffe259] to-[#ffa751] hover:from-[#ffa751] hover:to-[#ff1b6b]';
+        $streakBtnShadow = 'shadow-[0_0_20px_rgba(255,215,0,0.4)]';
+        $streakCardBg = 'from-[#ffe259]/10 to-[#ffa751]/5';
+        $streakIconAnim = 'animate-gold-glow';
+    }
+@endphp
 <!DOCTYPE html>
 <html lang="id" id="main-html">
 
@@ -144,6 +197,49 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #75cb50;
         }
+
+        /* Milestone-based custom glowing animations */
+        @keyframes gold-pulse {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6)) brightness(1);
+            }
+            50% {
+                transform: scale(1.06);
+                filter: drop-shadow(0 0 22px rgba(255, 215, 0, 0.9)) brightness(1.2);
+            }
+        }
+        .animate-gold-glow {
+            animation: gold-pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes purple-pulse {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 8px rgba(189, 0, 255, 0.5));
+            }
+            50% {
+                transform: scale(1.04);
+                filter: drop-shadow(0 0 18px rgba(189, 0, 255, 0.8));
+            }
+        }
+        .animate-purple-glow {
+            animation: purple-pulse 2.5s infinite ease-in-out;
+        }
+
+        @keyframes blue-pulse {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 8px rgba(0, 198, 255, 0.5));
+            }
+            50% {
+                transform: scale(1.03);
+                filter: drop-shadow(0 0 18px rgba(0, 198, 255, 0.8));
+            }
+        }
+        .animate-blue-glow {
+            animation: blue-pulse 3s infinite ease-in-out;
+        }
     </style>
 </head>
 
@@ -183,13 +279,23 @@
                 </div>
 
                 <div class="glass p-6">
-                    <p class="text-slate-500 dark:text-slate-400 text-[11px] font-semibold uppercase tracking-wider mb-1">Runtunan/p>
-                    <h2 class="font-heading text-4xl font-black text-slate-900 dark:text-white">
+                    <p class="text-slate-500 dark:text-slate-400 text-[11px] font-semibold uppercase tracking-wider mb-1">Runtunan</p>
+                    <h2 class="font-heading text-4xl font-black {{ $streakColorClass }} {{ $streakGlowClass }}">
                         {{ $streak }} <span class="text-xl text-slate-500 font-medium">hari</span>
                     </h2>
-                    <p class="text-xs text-slate-500 mt-4 font-medium">
-                        {{ $streak > 0 ? 'Pertahankan terus!' : 'Belum ada runtunan' }}
-                    </p>
+                    @if($streak > 0)
+                        <p class="text-xs text-slate-500 mt-2 font-medium">
+                            Pertahankan terus!
+                        </p>
+                        <span class="inline-flex mt-2 items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold {{ $streakBgClass }} {{ $streakColorClass }} border {{ $streakBorderClass }} {{ $streakIconAnim }}">
+                            <span class="w-1 h-1 rounded-full {{ $streak >= 50 ? 'bg-yellow-400 animate-ping' : ($streak >= 30 ? 'bg-purple-500 animate-pulse' : ($streak >= 10 ? 'bg-blue-400 animate-pulse' : 'bg-orange-500')) }}"></span>
+                            {{ $streakTitle }}
+                        </span>
+                    @else
+                        <p class="text-xs text-slate-500 mt-4 font-medium">
+                            Belum ada runtunan
+                        </p>
+                    @endif
                 </div>
 
                 <div class="glass p-6">

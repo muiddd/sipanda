@@ -76,7 +76,7 @@
 </div>
 
 <script>
-    const WORK_MINUTES = 0.1;
+    const WORK_MINUTES = 1;
     const BREAK_MINUTES = 1;
 
     let timerInterval;

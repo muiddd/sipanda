@@ -1,3 +1,92 @@
+@php
+    $currentStreak = auth()->user()->streak->current_streak ?? 0;
+    
+    if ($currentStreak < 10) {
+        $streakTier = 1;
+        $streakColorName = 'orange';
+        $streakTitle = 'Pembelajar Pemula';
+        $streakColorClass = 'text-[#ff8c00]';
+        $streakBgClass = 'bg-[rgba(255,140,0,0.1)]';
+        $streakBorderClass = 'border-[#ff8c00]/20';
+        $streakGlowClass = 'drop-shadow-[0_0_10px_rgba(255,140,0,0.4)]';
+        $streakBtnBg = 'bg-gradient-to-r from-[#ff8c00] to-[#ff6b00] hover:from-[#ff6b00] hover:to-[#e65c00]';
+        $streakBtnShadow = 'shadow-[0_0_15px_rgba(255,140,0,0.3)]';
+        $streakCardBg = 'from-[#ff8c00]/10 to-[#ff6b00]/5';
+        $streakIconAnim = '';
+        
+        // TikTok Style Card Colors (siPanda Green theme matched)
+        $shareCardBg = 'bg-[#F4FBF0]';
+        $shareCardHeadingColor = 'text-[#4e8e2b]';
+        $shareCardNumberColor = 'text-[#75cb50]';
+        $shareCardHeaderTitle = "Runtunan Belajar Terbuka";
+        $shareFlameMainColor = '#ff8c00';
+        $shareFlameInnerColor = '#ffe066';
+        $shareAvatarRing = 'border-[#75cb50]';
+    } elseif ($currentStreak < 30) {
+        $streakTier = 2;
+        $streakColorName = 'blue';
+        $streakTitle = 'Fokus Konsisten';
+        $streakColorClass = 'text-[#00c6ff]';
+        $streakBgClass = 'bg-[rgba(0,198,255,0.1)]';
+        $streakBorderClass = 'border-[#00c6ff]/20';
+        $streakGlowClass = 'drop-shadow-[0_0_10px_rgba(0,198,255,0.5)]';
+        $streakBtnBg = 'bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:from-[#0072ff] hover:to-[#0052d4]';
+        $streakBtnShadow = 'shadow-[0_0_15px_rgba(0,198,255,0.3)]';
+        $streakCardBg = 'from-[#00c6ff]/10 to-[#0072ff]/5';
+        $streakIconAnim = 'animate-blue-glow';
+        
+        // TikTok Style Card Colors (siPanda Emerald matched)
+        $shareCardBg = 'bg-[#EBF9EE]';
+        $shareCardHeadingColor = 'text-[#108c5d]';
+        $shareCardNumberColor = 'text-[#10b981]';
+        $shareCardHeaderTitle = "Lencana Runtunan Ditingkatkan";
+        $shareFlameMainColor = '#10b981';
+        $shareFlameInnerColor = '#a7f3d0';
+        $shareAvatarRing = 'border-[#10b981]';
+    } elseif ($currentStreak < 50) {
+        $streakTier = 3;
+        $streakColorName = 'purple';
+        $streakTitle = 'Dedikasi Tinggi';
+        $streakColorClass = 'text-[#bd00ff]';
+        $streakBgClass = 'bg-[rgba(189,0,255,0.1)]';
+        $streakBorderClass = 'border-[#bd00ff]/20';
+        $streakGlowClass = 'drop-shadow-[0_0_10px_rgba(189,0,255,0.5)]';
+        $streakBtnBg = 'bg-gradient-to-r from-[#bd00ff] to-[#8e2de2] hover:from-[#8e2de2] hover:to-[#4a00e0]';
+        $streakBtnShadow = 'shadow-[0_0_15px_rgba(189,0,255,0.3)]';
+        $streakCardBg = 'from-[#bd00ff]/10 to-[#8e2de2]/5';
+        $streakIconAnim = 'animate-purple-glow';
+        
+        // TikTok Style Card Colors (siPanda Teal matched)
+        $shareCardBg = 'bg-[#E3F5F6]';
+        $shareCardHeadingColor = 'text-[#0f766e]';
+        $shareCardNumberColor = 'text-[#0d9488]';
+        $shareCardHeaderTitle = "Lencana Runtunan Ditingkatkan";
+        $shareFlameMainColor = '#0d9488';
+        $shareFlameInnerColor = '#99f6e4';
+        $shareAvatarRing = 'border-[#0d9488]';
+    } else {
+        $streakTier = 4;
+        $streakColorName = 'gold';
+        $streakTitle = 'Legenda siPanda';
+        $streakColorClass = 'text-[#ffd700]';
+        $streakBgClass = 'bg-[rgba(255,215,0,0.15)]';
+        $streakBorderClass = 'border-[#ffd700]/30';
+        $streakGlowClass = 'drop-shadow-[0_0_15px_rgba(255,215,0,0.7)]';
+        $streakBtnBg = 'bg-gradient-to-r from-[#ffe259] to-[#ffa751] hover:from-[#ffa751] hover:to-[#ff1b6b]';
+        $streakBtnShadow = 'shadow-[0_0_20px_rgba(255,215,0,0.4)]';
+        $streakCardBg = 'from-[#ffe259]/10 to-[#ffa751]/5';
+        $streakIconAnim = 'animate-gold-glow';
+        
+        // TikTok Style Card Colors (siPanda Golden matched)
+        $shareCardBg = 'bg-[#FEFBE8]';
+        $shareCardHeadingColor = 'text-[#b45309]';
+        $shareCardNumberColor = 'text-[#f59e0b]';
+        $shareCardHeaderTitle = "Legenda Runtunan Terbuka";
+        $shareFlameMainColor = '#eab308';
+        $shareFlameInnerColor = '#fef08a';
+        $shareAvatarRing = 'border-[#eab308]';
+    }
+@endphp
 <!DOCTYPE html>
 <html lang="en" id="main-html">
 
@@ -125,6 +214,49 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #75cb50;
         }
+
+        /* Milestone-based custom glowing animations */
+        @keyframes gold-pulse {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6)) brightness(1);
+            }
+            50% {
+                transform: scale(1.06);
+                filter: drop-shadow(0 0 22px rgba(255, 215, 0, 0.9)) brightness(1.2);
+            }
+        }
+        .animate-gold-glow {
+            animation: gold-pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes purple-pulse {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 8px rgba(189, 0, 255, 0.5));
+            }
+            50% {
+                transform: scale(1.04);
+                filter: drop-shadow(0 0 18px rgba(189, 0, 255, 0.8));
+            }
+        }
+        .animate-purple-glow {
+            animation: purple-pulse 2.5s infinite ease-in-out;
+        }
+
+        @keyframes blue-pulse {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 8px rgba(0, 198, 255, 0.5));
+            }
+            50% {
+                transform: scale(1.03);
+                filter: drop-shadow(0 0 18px rgba(0, 198, 255, 0.8));
+            }
+        }
+        .animate-blue-glow {
+            animation: blue-pulse 3s infinite ease-in-out;
+        }
     </style>
 </head>
 
@@ -167,24 +299,28 @@
                         <div class="flex justify-between items-start">
                             <div>
                                 <p class="text-slate-500 dark:text-slate-400 text-sm font-semibold mb-1 uppercase tracking-wider text-[11px]">Runtunan Belajar</p>
-                                <h2 class="font-heading text-4xl font-black text-[#ff8c00] drop-shadow-[0_0_10px_rgba(255,140,0,0.3)] transition-colors">
-                                    {{ auth()->user()->streak->current_streak ?? 0 }} <span class="text-xl text-slate-500 dark:text-slate-400 font-medium">hari</span>
+                                <h2 class="font-heading text-4xl font-black {{ $streakColorClass }} {{ $streakGlowClass }} transition-colors">
+                                    {{ $currentStreak }} <span class="text-xl text-slate-500 dark:text-slate-400 font-medium">hari</span>
                                 </h2>
                             </div>
-                            <div class="w-12 h-12 rounded-xl bg-[rgba(255,140,0,0.1)] flex items-center justify-center text-[#ff8c00] border border-[#ff8c00]/20 group-hover:bg-[#ff8c00]/20 transition duration-300">
+                            <div class="w-12 h-12 rounded-xl {{ $streakBgClass }} flex items-center justify-center {{ $streakColorClass }} border {{ $streakBorderClass }} group-hover:scale-105 transition duration-300 {{ $streakIconAnim }}">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path></svg>
                             </div>
                         </div>
                         
-                        @if((auth()->user()->streak->current_streak ?? 0) > 0)
+                        @if($currentStreak > 0)
                             <p class="text-xs text-slate-500 mt-3 font-medium">Rekor tertinggi: {{ auth()->user()->streak->longest_streak ?? 0 }} hari</p>
+                            <span class="inline-flex mt-2 items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold {{ $streakBgClass }} {{ $streakColorClass }} border {{ $streakBorderClass }}">
+                                <span class="w-1.5 h-1.5 rounded-full {{ $currentStreak >= 50 ? 'bg-yellow-400 animate-ping' : ($currentStreak >= 30 ? 'bg-purple-500 animate-pulse' : ($currentStreak >= 10 ? 'bg-blue-400 animate-pulse' : 'bg-orange-500')) }}"></span>
+                                {{ $streakTitle }}
+                            </span>
                         @else
                             <p class="text-xs text-slate-500 mt-3 font-medium">Belum ada runtunan. Ayo mulai!</p>
                         @endif
                     </div>
 
-                    @if((auth()->user()->streak->current_streak ?? 0) > 0)
-                    <button onclick="shareStreak({{ auth()->user()->streak->current_streak }})" class="mt-4 w-full bg-gradient-to-r from-[#ff8c00] to-[#ff6b00] hover:from-[#ff6b00] hover:to-[#e65c00] text-white font-bold py-2.5 rounded-xl text-xs transition-all shadow-[0_0_15px_rgba(255,140,0,0.3)] hover:scale-[1.02] flex items-center justify-center gap-1.5 z-10">
+                    @if($currentStreak > 0)
+                    <button onclick="openShareModal()" class="mt-4 w-full {{ $streakBtnBg }} text-white font-bold py-2.5 rounded-xl text-xs transition-all {{ $streakBtnShadow }} hover:scale-[1.02] flex items-center justify-center gap-1.5 z-10">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
                         Pamerkan Runtunan!
                     </button>
@@ -295,8 +431,188 @@
         </main>
     </div>
 
+    <!-- TikTok-Style Share Streak Modal -->
+    <div id="share-streak-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/65 backdrop-blur-xl transition-opacity duration-300 opacity-0">
+        <div class="glass max-w-3xl w-full p-6 sm:p-8 flex flex-col md:flex-row gap-6 md:gap-8 relative overflow-y-auto max-h-[90vh] bg-white/95 dark:bg-zinc-950/95 border border-white/20 dark:border-white/5 shadow-2xl animate-in fade-in zoom-in-95 duration-300">
+            <!-- Ambient glows matching website colors -->
+            <div class="absolute -top-24 -right-24 w-72 h-72 bg-[#75cb50]/15 dark:bg-[#75cb50]/10 rounded-full blur-[120px] pointer-events-none"></div>
+            <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-[#10b981]/15 dark:bg-[#10b981]/5 rounded-full blur-[120px] pointer-events-none"></div>
+            
+            <!-- Close Button -->
+            <button onclick="closeShareModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition z-30">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+@php
+    // Custom share card styles for html2canvas compatibility (radial gradient background instead of CSS blur filter)
+    if ($streakTier == 1) {
+        $cardBgStyle = "background: radial-gradient(circle at 20% 20%, rgba(255, 140, 0, 0.25), transparent 60%), radial-gradient(circle at 80% 80%, rgba(255, 107, 0, 0.15), transparent 60%), #0c0d12;";
+        $cardThemeColor = '#ff8c00';
+        $cardTextClass = 'text-[#ff8c00]';
+        $cardBorderClass = 'border-[#ff8c00]/30';
+    } elseif ($streakTier == 2) {
+        $cardBgStyle = "background: radial-gradient(circle at 20% 20%, rgba(0, 198, 255, 0.25), transparent 60%), radial-gradient(circle at 80% 80%, rgba(0, 114, 255, 0.15), transparent 60%), #0c0d12;";
+        $cardThemeColor = '#00c6ff';
+        $cardTextClass = 'text-[#00c6ff]';
+        $cardBorderClass = 'border-[#00c6ff]/30';
+    } elseif ($streakTier == 3) {
+        $cardBgStyle = "background: radial-gradient(circle at 20% 20%, rgba(189, 0, 255, 0.25), transparent 60%), radial-gradient(circle at 80% 80%, rgba(142, 45, 226, 0.15), transparent 60%), #0c0d12;";
+        $cardThemeColor = '#bd00ff';
+        $cardTextClass = 'text-[#bd00ff]';
+        $cardBorderClass = 'border-[#bd00ff]/30';
+    } else {
+        $cardBgStyle = "background: radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.35), transparent 60%), radial-gradient(circle at 80% 80%, rgba(255, 27, 107, 0.2), transparent 60%), #0c0d12;";
+        $cardThemeColor = '#ffd700';
+        $cardTextClass = 'text-[#ffd700]';
+        $cardBorderClass = 'border-[#ffd700]/30';
+    }
+@endphp
+
+            <!-- Left: Card Preview -->
+            <div class="flex-shrink-0 flex justify-center items-center mx-auto md:mx-0">
+                <!-- Share Card Element (Modern Pixel-Perfect Design) -->
+                <div id="streak-share-card-element" class="relative w-[300px] h-[500px] rounded-[2rem] text-white overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.5)] border border-white/10 select-none font-sans" style="{{ $cardBgStyle }}">
+                    
+                    <!-- Header -->
+                    <div class="absolute top-0 left-0 right-0 h-[72px] px-6 flex items-center justify-between border-b border-white/10">
+                        <div class="flex items-center gap-2">
+                            <div class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden shadow-md">
+                                <img src="{{ asset('images/panda.PNG') }}" class="w-full h-full object-cover" alt="siPanda Logo" />
+                            </div>
+                            <div class="text-left">
+                                <h4 class="font-heading text-xs font-black tracking-wider text-white leading-none">siPanda</h4>
+                                <p class="text-[8px] uppercase tracking-widest {{ $cardTextClass }} font-black mt-1 leading-none">Fokus Belajar</p>
+                            </div>
+                        </div>
+                        <div class="px-2.5 py-1 rounded-full bg-white/5 border {{ $cardBorderClass }} text-[9px] font-black {{ $cardTextClass }} tracking-wider shadow-inner">
+                            KARTU RUNTUNAN
+                        </div>
+                    </div>
+
+                    <!-- Center Body -->
+                    <div class="absolute top-[72px] bottom-[76px] left-0 right-0 flex flex-col items-center justify-center">
+                        <!-- Flame Container -->
+                        <div class="relative w-24 h-24 rounded-full bg-white/[0.03] border border-white/10 flex items-center justify-center shadow-2xl mb-4">
+                            <!-- Background Aura Glow -->
+                            <div class="absolute inset-2 rounded-full opacity-35" style="background: radial-gradient(circle, {{ $cardThemeColor }} 0%, transparent 70%);"></div>
+                            
+                            <!-- Glowing Flame SVG -->
+                            <svg class="w-14 h-14 relative z-10" viewBox="0 0 24 24">
+                                <defs>
+                                    <linearGradient id="cardFlameGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        @if($streakTier == 1)
+                                            <stop offset="0%" stop-color="#ff8c00"/>
+                                            <stop offset="100%" stop-color="#ff4500"/>
+                                        @elseif($streakTier == 2)
+                                            <stop offset="0%" stop-color="#00c6ff"/>
+                                            <stop offset="100%" stop-color="#0072ff"/>
+                                        @elseif($streakTier == 3)
+                                            <stop offset="0%" stop-color="#bd00ff"/>
+                                            <stop offset="100%" stop-color="#8e2de2"/>
+                                        @else
+                                            <stop offset="0%" stop-color="#ffe259"/>
+                                            <stop offset="50%" stop-color="#ffa751"/>
+                                            <stop offset="100%" stop-color="#ff1b6b"/>
+                                        @endif
+                                    </linearGradient>
+                                </defs>
+                                <path fill="url(#cardFlameGrad)" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path>
+                            </svg>
+                        </div>
+
+                        <!-- Days Display -->
+                        <div class="flex flex-col items-center mb-4 text-center">
+                            <span class="text-6xl font-heading font-black tracking-tight text-white leading-[1] block">
+                                {{ $currentStreak }}
+                            </span>
+                            <span class="text-[10px] font-black uppercase tracking-widest {{ $cardTextClass }} mt-2.5 block text-center">
+                                Hari Berturut-turut
+                            </span>
+                        </div>
+
+                        <!-- Badge title -->
+                        <div class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-slate-100 flex items-center justify-center gap-1.5 shadow-inner">
+                            <span class="w-1.5 h-1.5 rounded-full" style="background-color: {{ $cardThemeColor }};"></span>
+                            {{ $streakTitle }}
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="absolute bottom-0 left-0 right-0 h-[76px] px-6 pb-4 flex items-center justify-between border-t border-white/10">
+                        <div class="text-left">
+                            <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Pelajar</div>
+                            <div class="text-xs font-heading font-extrabold text-white truncate max-w-[120px]">
+                                {{ auth()->user()->name }}
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-end">
+                            <div class="text-[9px] font-black uppercase tracking-widest {{ $cardTextClass }}">#siPandaRuntunan</div>
+                            <div class="text-[8px] text-slate-400 mt-0.5">sipanda.xhizoracodes.my.id</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Right: Share Controls -->
+            <div class="flex-1 flex flex-col justify-between text-left md:h-[500px] w-full">
+                <!-- Top Section: Badge, Title & Description -->
+                <div class="space-y-3">
+                    <span class="inline-block text-[10px] font-extrabold uppercase tracking-widest text-[#75cb50] bg-[#75cb50]/10 border border-[#75cb50]/20 px-2.5 py-1 rounded-full">
+                        Pencapaian Keren!
+                    </span>
+                    <h3 class="font-heading text-2xl font-black text-slate-900 dark:text-white leading-tight">
+                        Bagikan Runtunan Belajarmu!
+                    </h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 font-medium">
+                        Unduh kartu runtunan prestasimu atau salin tautan promosi untuk dibagikan ke media sosial.
+                    </p>
+                </div>
+
+                <!-- Middle Section: Quote Widget -->
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-white/5 border border-black/5 dark:border-white/5 text-slate-600 dark:text-slate-400 text-xs italic font-medium leading-relaxed flex gap-2 my-4 md:my-0">
+                    <span class="text-xl text-[#75cb50] font-heading font-black leading-none flex-shrink-0">“</span>
+                    <span class="flex-1 min-w-0">Membangun konsistensi harian adalah kunci dari keberhasilan jangka panjang. Lanjutkan runtunan belajarmu hari ini!</span>
+                </div>
+
+                <!-- Bottom Section: Buttons and Brand Footer -->
+                <div class="space-y-4">
+                    <div class="flex flex-col gap-3">
+                        <!-- Download Button -->
+                        <button onclick="downloadShareCardImage()" class="w-full flex items-center justify-center gap-3 py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[#75cb50] to-[#10b981] hover:from-[#10b981] hover:to-[#059669] text-white font-extrabold text-sm transition-all duration-300 shadow-[0_8px_25px_rgba(117,203,80,0.3)] hover:scale-[1.01] active:scale-[0.99]">
+                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                             </svg>
+                             Unduh Gambar Kartu Runtunan (PNG)
+                        </button>
+
+                        <!-- Copy Button -->
+                        <button onclick="copyStreakLink()" class="w-full flex items-center justify-center gap-3 py-3 px-6 rounded-2xl bg-white dark:bg-white/5 border border-[#75cb50]/30 hover:border-[#75cb50] text-slate-800 dark:text-slate-200 hover:text-white hover:bg-[#75cb50] dark:hover:bg-[#75cb50] font-bold text-xs transition duration-300 shadow-sm">
+                             <div id="copy-icon-container" class="w-7 h-7 rounded-lg bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-white flex items-center justify-center transition-colors">
+                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                 </svg>
+                             </div>
+                             <span id="copy-btn-text">Salin Teks & Tautan Rekomendasi</span>
+                        </button>
+                    </div>
+
+                    <!-- Footer Brand Tag -->
+                    <div class="text-[10px] text-slate-400 flex items-center justify-between border-t border-black/5 dark:border-white/5 pt-3">
+                        <span>Sistem Gamifikasi siPanda</span>
+                        <span>Versi 2.0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <x-pomodoro-timer />
 
+    <!-- html2canvas library for capturing the card -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
     <script>
         // Global Error Visualizer
@@ -315,30 +631,82 @@
     <script src="{{ asset('js/gamifikasi-chart.js') }}"></script>
 
     <script>
-        function shareStreak(streakDays) {
-            const shareTitle = "Runtunan Belajar siPanda";
-            const shareText = `Yey! Aku sudah belajar konsisten selama ${streakDays} hari berturut-turut bareng siPanda! \n\nAyo atur fokusmu dan bangun kebiasaan belajarmu sekarang!`;
-            const shareUrl = window.location.origin; 
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: shareTitle,
-                    text: shareText,
-                    url: shareUrl
-                }).then(() => {
-                    console.log('Berhasil membagikan runtunan!');
-                }).catch((error) => {
-                    console.error('Gagal membagikan:', error);
-                });
-            } else {
-                const fullText = `${shareTitle}\n\n${shareText}\n\nJoin di: ${shareUrl}`;
-                navigator.clipboard.writeText(fullText).then(() => {
-                    alert("Teks berhasil disalin! Silakan paste di status WhatsApp, Instagram, atau Twitter kamu! 🚀");
-                }).catch(err => {
-                    console.error('Gagal menyalin teks: ', err);
-                    alert("Yah, gagal menyalin teks. Coba browser lain ya!");
-                });
+        // Share modal operations
+        function openShareModal() {
+            const modal = document.getElementById('share-streak-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.classList.add('opacity-100');
+            }, 10);
+        }
+
+        function closeShareModal() {
+            const modal = document.getElementById('share-streak-modal');
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Close on clicking outside content
+        document.getElementById('share-streak-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeShareModal();
             }
+        });
+
+        // Copy Text & Link to Clipboard
+        function copyStreakLink() {
+            const streak = "{{ $currentStreak }}";
+            const fullText = `Runtunan Belajar siPanda 🐼🔥\n\nYey! Aku sudah belajar konsisten selama ${streak} hari berturut-turut bareng siPanda!\n\nAyo atur fokusmu dan bangun kebiasaan belajarmu sekarang!\n\nGabung sekarang di: https://sipanda.xhizoracodes.my.id`;
+            
+            navigator.clipboard.writeText(fullText).then(() => {
+                const btnText = document.getElementById('copy-btn-text');
+                const btnIcon = document.getElementById('copy-icon-container');
+                
+                btnText.innerText = "Teks Berhasil Disalin!";
+                btnIcon.innerHTML = `
+                    <svg class="w-4 h-4 text-[#10b981]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                    </svg>
+                `;
+                
+                setTimeout(() => {
+                    btnText.innerText = "Salin Teks & Tautan";
+                    btnIcon.innerHTML = `
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2M8 5a2 2 0 012-2h2a2 2 0 012 2" />
+                        </svg>
+                    `;
+                }, 2000);
+            }).catch(err => {
+                console.error('Gagal menyalin:', err);
+            });
+        }
+
+        // Captures streak-share-card-element as image and triggers download
+        function downloadShareCardImage() {
+            const cardElement = document.getElementById('streak-share-card-element');
+            
+            // Add a small scale transformation during capturing for higher quality export
+            const options = {
+                scale: 3, // Higher scale = higher resolution export
+                useCORS: true,
+                backgroundColor: null,
+                logging: false
+            };
+
+            html2canvas(cardElement, options).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const link = document.createElement('a');
+                link.download = `sipanda-streak-{{ auth()->user()->name }}-${new Date().toISOString().slice(0,10)}.png`;
+                link.href = imgData;
+                link.click();
+            });
         }
     </script>
 </body>
