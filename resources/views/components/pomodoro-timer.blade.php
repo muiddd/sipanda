@@ -30,10 +30,13 @@
             </div>
 
             <div class="flex flex-col items-start">
-                <span class="inline-flex items-center gap-1 bg-[#75cb50]/10 text-[#75cb50] px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wider">
-                    <span class="w-1.5 h-1.5 rounded-full bg-[#75cb50] animate-pulse"></span>
-                    Fokus Belajar
-                </span>
+                <div id="pomodoro-mode">
+                    <span class="inline-flex items-center gap-1 bg-[#75cb50]/10 text-[#75cb50] px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wider">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#75cb50] animate-pulse"></span>
+                        Fokus Belajar
+                    </span>
+                </div>
+                
                 <div id="pomodoro-display" class="font-heading text-4xl font-black text-slate-900 dark:text-white tracking-widest my-1">
                     25:00
                 </div>
@@ -73,8 +76,8 @@
 </div>
 
 <script>
-    const WORK_MINUTES = 25;
-    const BREAK_MINUTES = 5;
+    const WORK_MINUTES = 0.1;
+    const BREAK_MINUTES = 1;
 
     let timerInterval;
     let notifCallback = null;
@@ -274,6 +277,7 @@
                 "bg-gradient-to-r from-[#75cb50] to-[#10b981] shadow-[0_4px_12px_rgba(34,197,94,0.2)]",
                 () => {
                     setTimerPhase('break', BREAK_MINUTES);
+                    updateDisplay();
                     startTimerLogic();
                 }
             );
