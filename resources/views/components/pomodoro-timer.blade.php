@@ -18,7 +18,7 @@
 
         <div class="flex flex-col text-left">
             <div class="flex justify-between items-center mb-3 border-b border-black/5 dark:border-white/5 pb-2">
-                <h4 class="font-bold text-sm text-slate-900 dark:text-white">siPanda Timer</h4>
+                <h4 class="font-bold text-sm text-slate-900 dark:text-white">Pewaktu siPanda</h4>
                 <div class="flex items-center gap-1">
                     <button onclick="minimizePomodoro()" class="text-slate-400 hover:text-white p-1 rounded hover:bg-black/5 dark:hover:bg-white/5">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

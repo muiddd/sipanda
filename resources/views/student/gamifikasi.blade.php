@@ -195,7 +195,7 @@
                     <div class="flex flex-col md:flex-row justify-between items-center gap-8">
                         <div class="flex-1 text-left">
                             <h2 class="font-heading text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-2">
-                                Pomodoro Timer
+                                Pewaktu Pomodoro
                             </h2>
                             <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">Fokus belajar 25 menit, lalu istirahat 5 menit. Waktu akan otomatis tercatat ke dalam statistik.</p>
 
@@ -205,7 +205,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     </svg>
-                                    <span id="btn-start-text">Start</span>
+                                    <span id="btn-start-text">Mulai</span>
                                 </button>
                                 <button onclick="resetPomodoro()" class="px-4 py-3 bg-black/5 dark:bg-white/5 text-slate-600 dark:text-slate-300 font-bold rounded-xl hover:bg-black/10 dark:hover:bg-white/10 transition flex items-center justify-center">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

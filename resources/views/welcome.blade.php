@@ -457,7 +457,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
-                    <h3 class="font-heading font-extrabold text-sm sm:text-xl text-panda-black dark:text-cream mb-1.5 sm:mb-3">Timer Fokus 25/5</h3>
+                    <h3 class="font-heading font-extrabold text-sm sm:text-xl text-panda-black dark:text-cream mb-1.5 sm:mb-3">Pewaktu Fokus 25/5</h3>
                 </div>
                 <p class="text-slate-500 dark:text-slate-400 text-[10px] sm:text-sm leading-relaxed mt-2">Gunakan interval produktif untuk menyelesaikan tugas analis.</p>
             </div>
@@ -677,7 +677,7 @@
                     </button>
                     <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white/60 dark:bg-[#151515]">
                         <p class="px-3 py-3.5 sm:px-6 sm:py-5 text-slate-600 dark:text-slate-400 leading-relaxed text-xs sm:text-sm border-t border-bamboo-fresh/10 dark:border-white/5">
-                            Pelajar dapat menggunakan <strong>Ruang Baca Materi</strong> yang responsif, <strong>Timer Pomodoro</strong> (25 menit fokus, 5 menit istirahat), <strong>Ringkasan AI & Buku Catatan Digital</strong> yang dapat disunting, <strong>Latihan Soal</strong>, <strong>Daftar Tugas</strong>, pemantauan <strong>Log Aktivitas</strong>, hingga fitur <strong>Gamifikasi (Runtunan Belajar)</strong> untuk menjaga konsistensi.
+                            Pelajar dapat menggunakan <strong>Ruang Baca Materi</strong> yang responsif, <strong>Pewaktu Pomodoro</strong> (25 menit fokus, 5 menit istirahat), <strong>Ringkasan AI & Buku Catatan Digital</strong> yang dapat disunting, <strong>Latihan Soal</strong>, <strong>Daftar Tugas</strong>, pemantauan <strong>Log Aktivitas</strong>, hingga fitur <strong>Gamifikasi (Runtunan Belajar)</strong> untuk menjaga konsistensi.
                         </p>
                     </div>
                 </div>
