@@ -11,12 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('catatans', function (Blueprint $table) {
+        Schema::create('buku_catatan', function (Blueprint $table) {
             $table->id('catatan_id');
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('materi_id')->nullable()->constrained('materis')->cascadeOnDelete();
-            $table->string('title');
-            $table->text('content');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('summaries_id')->nullable()->constrained('ai_summaries', 'summaries_id')->onDelete('set null');
+            $table->foreignId('materi_id')->nullable()->constrained('materis', 'materi_id')->onDelete('set null');
+            $table->string('judul');
+            $table->text('isi');
+            $table->string('tipe')->default('AI'); 
+            $table->string('nama_buku')->nullable(); 
+            $table->json('tags')->nullable();
+            $table->string('sumber')->nullable();
+            $table->boolean('is_penting')->default(false);
             $table->timestamps();
         });
     }
@@ -27,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('catatans');
+        Schema::dropIfExists('buku_catatan');
     }
 };
