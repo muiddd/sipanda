@@ -120,6 +120,19 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #75cb50;
         }
+
+        .dark #detail-modal .glass {
+            background: rgba(30, 30, 30, 0.95); 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dark #modal-title, 
+        .dark #modal-sub {
+            color: #f2f1e8;
+        }
+
+        .dark #modal-sub {
+            color: #94a3b8; 
     </style>
 </head>
 
@@ -272,19 +285,30 @@
                         items.forEach((it, idx) => {
                             const correct = it.is_correct;
                             const wrapper = document.createElement('div');
-                            wrapper.className = 'p-4 border rounded-lg ' + (correct ? 'border-green-200 bg-green-50/40' : 'border-red-200 bg-red-50/30');
+                            wrapper.className = 'p-4 border rounded-lg transition-colors ' + 
+                            (correct 
+                                ? 'border-green-500/30 bg-green-900/20 dark:bg-green-900/30' 
+                                : 'border-red-500/30 bg-red-900/20 dark:bg-red-900/30');
 
                             let optionsHtml = '';
                             it.options.forEach(opt => {
                                 const letter = opt.trim().slice(0, 1);
                                 const isUser = letter === it.user_answer_letter;
                                 const isCorrect = letter === it.correct_letter;
-                                let cls = 'text-slate-700';
-                                if (isCorrect) cls = 'font-bold text-green-700';
-                                if (isUser && !isCorrect) cls = 'font-semibold text-red-700';
-                                optionsHtml += `<div class="px-3 py-1 rounded-md ${isCorrect ? 'bg-green-100/60' : ''}">
-                                    <span class="${cls}">${opt}</span>
-                                </div>`;
+                                let containerCls = `px-3 py-1 rounded-md ${isCorrect ? 'bg-green-100/60 dark:bg-green-900/50' : ''}`;
+                                let textCls = `transition-colors `;
+                                
+                                if (isCorrect) {
+                                    textCls += 'font-bold text-green-700 dark:text-green-400';
+                                } else if (isUser && !isCorrect) {
+                                    textCls += 'font-semibold text-red-600 dark:text-red-400';
+                                } else {
+                                    textCls += 'text-slate-700 dark:text-slate-300';
+                                }
+
+                                optionsHtml += `<div class="${containerCls}">
+                                                    <span class="${textCls}">${opt}</span>
+                                                </div>`;
                             });
 
                             wrapper.innerHTML = `
