@@ -143,13 +143,23 @@
                         Pilih materi pembelajaran untuk menguji pemahamanmu dengan AI siPanda.
                     </p>
                 </div>
+                
+                {{-- Search Bar --}}
+                <div class="relative w-full md:w-80">
+                    <input type="text" id="search-kuis" placeholder="Cari materi latihan..."
+                        class="w-full pl-11 pr-4 py-3 rounded-2xl text-sm bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-[#75cb50] focus:ring-2 focus:ring-[#75cb50]/20 transition-all duration-300 shadow-sm">
+                    <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
             </header>
 
             {{-- Grid Kartu Materi (Dinamis dari Database) --}}
             @if($materis->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($materis as $materi)
-                <div class="glass p-6 group cursor-pointer hover:border-[#75cb50]/50 transition-all relative overflow-hidden flex flex-col justify-between min-h-[250px]">
+                <div class="materi-card glass p-6 group cursor-pointer hover:border-[#75cb50]/50 transition-all relative overflow-hidden flex flex-col justify-between min-h-[250px]"
+                     data-title="{{ strtolower($materi->judul_materi ?? $materi->title ?? 'tanpa judul') }}">
                     <div class="absolute -right-6 -top-6 text-slate-400/10 dark:text-slate-500/5 group-hover:scale-110 group-hover:-rotate-12 transition-all duration-500 pointer-events-none">
                         <svg class="w-24 h-24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
@@ -181,6 +191,17 @@
                 </div>
                 @endforeach
             </div>
+
+            {{-- Tampilan Kosong Jika Hasil Pencarian Tidak Ditemukan --}}
+            <div id="no-search-results" class="hidden text-center py-20 glass flex-col items-center justify-center mt-6">
+                <div class="flex justify-center mb-6 text-slate-400/80">
+                    <svg class="w-20 h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Hasil Tidak Ditemukan</h3>
+                <p class="text-slate-500 dark:text-slate-400 mt-2">Tidak ada materi latihan yang cocok dengan kata kunci pencarian Anda.</p>
+            </div>
             @else
             {{-- Tampilan Kosong Jika Belum Ada Materi --}}
             <div class="text-center py-20 glass flex flex-col items-center justify-center">
@@ -200,7 +221,37 @@
     <x-pomodoro-timer />
 
     <script>
-        // No custom page theme-toggle is needed here as it is globally managed by the sidebar.
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-kuis');
+            if (searchInput) {
+                searchInput.addEventListener('input', function(e) {
+                    const query = e.target.value.toLowerCase().trim();
+                    const cards = document.querySelectorAll('.materi-card');
+                    let hasVisible = false;
+
+                    cards.forEach(card => {
+                        const title = card.getAttribute('data-title');
+                        if (title.includes(query)) {
+                            card.style.display = 'flex';
+                            hasVisible = true;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+
+                    const noResults = document.getElementById('no-search-results');
+                    if (noResults) {
+                        if (hasVisible) {
+                            noResults.classList.add('hidden');
+                            noResults.classList.remove('flex');
+                        } else {
+                            noResults.classList.remove('hidden');
+                            noResults.classList.add('flex');
+                        }
+                    }
+                });
+            }
+        });
     </script>
 </body>
 
