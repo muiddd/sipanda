@@ -6,25 +6,59 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\AiSummary;
+use App\Models\ChatMessage;
+use App\Models\Todo;
+use App\Models\BukuCatatan;
+use App\Models\LearningSession;
+use App\Models\StudySession;
 use Smalot\PdfParser\Parser;
 
 class ChatController extends Controller
 {
     public function index()
     {
-        $chats = ChatMessage::where('user_id', auth()->id())
+        auth()->user()->updateStreak();
+
+        $userId = auth()->user()->id;
+
+        $chats = ChatMessage::where('user_id', $userId)
             ->orderBy('created_at', 'asc')
             ->get();
 
-        $summary = AiSummary::where('user_id', auth()->id())->latest()->first();
+        $summary = AiSummary::where('user_id', $userId)->latest()->first();
 
-        return view('student.dashboard', compact('chats', 'summary'));
+        // 1. Target Belajar (Todo)
+        $todoTotal = Todo::where('user_id', $userId)->count();
+        $todoDone = Todo::where('user_id', $userId)->where('done', true)->count();
+        $todoPercentage = $todoTotal > 0 ? round(($todoDone / $todoTotal) * 100) : 0;
+
+        // 2. Waktu Belajar (Study Time)
+        $learningDuration = LearningSession::where('user_id', $userId)
+            ->where('status', 'completed')
+            ->sum('duration') ?? 0;
+
+        $studySessions = StudySession::where('user_id', $userId)->get();
+        $studyDuration = $studySessions->sum(fn($session) => $session->duration);
+
+        $totalStudyTime = $learningDuration + $studyDuration;
+        $totalSessionsCount = LearningSession::where('user_id', $userId)->where('status', 'completed')->count() + $studySessions->count();
+
+        // 3. Buku Catatan (Notes)
+        $totalNotes = BukuCatatan::where('user_id', $userId)->count();
+
+        return view('student.dashboard', compact(
+            'chats', 
+            'summary',
+            'todoTotal',
+            'todoDone',
+            'todoPercentage',
+            'totalStudyTime',
+            'totalSessionsCount',
+            'totalNotes'
+        ));
     }
 
-    public function todo()
-    {
-        return view('student.targetBelajar');
-    }
+
 
     public function processAi(Request $request)
     {
@@ -37,24 +71,39 @@ class ChatController extends Controller
                 // 2. Siapkan perintah untuk AI
                 $instruction = "Kamu adalah asisten guru yang ahli merangkum. Buatlah rangkuman eksekutif dari teks materi berikut. Gunakan bahasa Indonesia yang mudah dipahami, poin-poin yang jelas, dan fokus pada inti materi saja.";
 
-                // 3. Tembak ke OpenRouter AI
-                $response = Http::timeout(120)->withHeaders([
-                    'Authorization' => 'Bearer ' . config('services.openrouter.api_key'),
-                    'HTTP-Referer' => config('app.url'),
-                    'X-Title' => 'siPanda Learning App',
-                ])->post('https://openrouter.ai/api/v1/chat/completions', [
-                    'model' => 'openai/gpt-oss-120b:free', 
-                    'messages' => [
-                        ['role' => 'system', 'content' => $instruction],
-                        ['role' => 'user', 'content' => $teksMateri],
+                // 3. Tembak ke AI Service
+                $aiData = \App\Services\AiService::generate($teksMateri, $instruction);
+                $aiSummary = $aiData['text'];
+
+                // 4. Simpan ke database ai_summaries agar bisa diekspor ke Buku Catatan
+                $summaryModel = \App\Models\AiSummary::updateOrCreate(
+                    [
+                        'user_id' => auth()->id(),
+                        'materi_id' => $materi->materi_id,
                     ],
+                    [
+                        'summary_text' => $aiSummary,
+                        'last_generated' => now(),
+                    ]
+                );
+
+                // Log AI Usage
+                try {
+                    \App\Models\AiUsageLog::create([
+                        'user_id' => auth()->user()->id,
+                        'materi_id' => $materi->materi_id,
+                        'activity_type' => 'summary',
+                        'prompt_tokens' => $aiData['prompt_tokens'],
+                        'completion_tokens' => $aiData['completion_tokens'],
+                        'total_tokens' => $aiData['total_tokens'],
+                    ]);
+                } catch (\Exception $ex) {}
+
+                // 5. Kembalikan ke halaman Ruang Baca dengan membawa data rangkuman dan ID
+                return back()->with([
+                    'ai_summary' => $aiSummary,
+                    'summaries_id' => $summaryModel->summaries_id
                 ]);
-
-                $result = $response->json();
-                $aiSummary = $result['choices'][0]['message']['content'] ?? 'Gagal membuat rangkuman.';
-
-                // 4. Kembalikan ke halaman Ruang Baca dengan membawa data rangkuman
-                return back()->with('ai_summary', $aiSummary);
 
             } catch (\Exception $e) {
                 return back()->with('error', 'Gagal memproses AI: ' . $e->getMessage());
@@ -87,38 +136,22 @@ class ChatController extends Controller
                 ? "Rangkum teks berikut dengan poin-poin yang mudah dipahami mahasiswa:"
                 : "Buatkan 5 soal pilihan ganda berdasarkan teks berikut. WAJIB format JSON murni [{\"soal\":\"...\",\"opsi\":[\"A...\",\"B...\"],\"jawaban_benar\":\"A...\"}]:";
 
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . config('services.openrouter.api_key'),
-                'HTTP-Referer' => config('app.url'),
-                'X-Title' => 'siPanda Learning App',
-            ])->post('https://openrouter.ai/api/v1/chat/completions', [
-                'model' => 'openai/gpt-oss-120b:free',
-                'messages' => [
-                    ['role' => 'system', 'content' => $instruction],
-                    ['role' => 'user', 'content' => $text],
-                ],
-            ]);
-
-            $result = $response->json();
-            $aiResult = $result['choices'][0]['message']['content'] ?? 'Gagal memproses.';
+            // 3. Tembak ke AI Service
+            $aiData = \App\Services\AiService::generate($text, $instruction);
+            $aiResult = $aiData['text'];
 
             // Log AI Usage
             try {
                 $materi = \App\Models\Materi::first();
                 $materiId = $materi ? $materi->materi_id : 1;
                 
-                $usage = $result['usage'] ?? [];
-                $promptTokens = $usage['prompt_tokens'] ?? str_word_count($text);
-                $completionTokens = $usage['completion_tokens'] ?? str_word_count($aiResult);
-                $totalTokens = $usage['total_tokens'] ?? ($promptTokens + $completionTokens);
-                
                 \App\Models\AiUsageLog::create([
                     'user_id' => auth()->user()->id,
                     'materi_id' => $materiId,
                     'activity_type' => $request->action,
-                    'prompt_tokens' => $promptTokens,
-                    'completion_tokens' => $completionTokens,
-                    'total_tokens' => $totalTokens,
+                    'prompt_tokens' => $aiData['prompt_tokens'],
+                    'completion_tokens' => $aiData['completion_tokens'],
+                    'total_tokens' => $aiData['total_tokens'],
                 ]);
             } catch (\Exception $ex) {
                 // Silently ignore
@@ -141,4 +174,5 @@ class ChatController extends Controller
             return back()->with('error', 'Gagal memproses file: ' . $e->getMessage());
         }
     }
+
 }

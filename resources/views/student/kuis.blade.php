@@ -288,3 +288,40 @@
 </body>
 
 </html>
+
+<script>
+    let waktuMulaiBelajar = new Date();
+    let dataSudahTerkirim = false;
+
+    function kirimDataSesi() {
+        if (dataSudahTerkirim) return;
+
+        let waktuSelesaiBelajar = new Date();
+        let durasiMenit = Math.round((waktuSelesaiBelajar - waktuMulaiBelajar) / 60000);
+
+        if (durasiMenit >= 1) { // Minimal 1 menit mengerjakan soal
+            let tzOffset = (new Date()).getTimezoneOffset() * 60000;
+            let mulaiLocal = (new Date(waktuMulaiBelajar - tzOffset)).toISOString().slice(0, 19).replace('T', ' ');
+            let selesaiLocal = (new Date(waktuSelesaiBelajar - tzOffset)).toISOString().slice(0, 19).replace('T', ' ');
+
+            window.autoLogActivity(
+                "Mengerjakan Latihan", // Subjeknya diubah
+                "Latihan Soal siPanda", // Topiknya disesuaikan
+                mulaiLocal, 
+                selesaiLocal, 
+                90 // Saat latihan soal biasanya fokusnya lebih tinggi, misal kita set 90
+            );
+            dataSudahTerkirim = true;
+        }
+    }
+
+    document.addEventListener('visibilitychange', function() {
+        if (document.visibilityState === 'hidden') {
+            kirimDataSesi();
+        }
+    });
+
+    window.addEventListener('beforeunload', function () {
+        kirimDataSesi();
+    });
+</script>

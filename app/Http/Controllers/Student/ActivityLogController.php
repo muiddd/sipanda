@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class ActivityLogController extends Controller
 {
     public function index()
-    {
+    {   
         $user = Auth::user();
 
         // --- Stat cards ---
@@ -116,5 +116,30 @@ class ActivityLogController extends Controller
         Auth::user()->updateStreak();
 
         return back()->with('success', 'Sesi belajar berhasil dicatat!');
+    }
+
+    // Fungsi baru untuk menerima data otomatis via AJAX dari browser
+    public function storeAuto()
+    {
+        request()->validate([
+            'subject'     => 'required|string|max:100',
+            'topic'       => 'nullable|string|max:200',
+            'started_at'  => 'required|date',
+            'ended_at'    => 'required|date', // 'after:started_at' kita lepas dulu agar lebih fleksibel saat testing auto-log
+            'focus_score' => 'nullable|integer|min:0|max:100',
+        ]);
+
+        StudySession::create([
+            'user_id'     => Auth::id(),
+            'subject'     => request('subject'),
+            'topic'       => request('topic'),
+            'started_at'  => request('started_at'),
+            'ended_at'    => request('ended_at'),
+            'focus_score' => request('focus_score', 0),
+        ]);
+
+        Auth::user()->updateStreak(); // Update streak otomatis setiap selesai baca
+
+        return response()->json(['status' => 'success', 'message' => 'Sesi belajar otomatis dicatat!']);
     }
 }

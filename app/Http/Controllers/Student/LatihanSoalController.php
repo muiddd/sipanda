@@ -21,8 +21,13 @@ class LatihanSoalController extends Controller
     {
         $materi = Materi::where('materi_id', $id)->firstOrFail();
 
-        // Ambil soal dari database jika sudah pernah digenerate AI
-        $savedSoal = Latihan::where('materi_id', $id)->get();
+        // Ambil soal dari database jika sudah pernah digenerate AI oleh user ini (atau legacy global)
+        $savedSoal = Latihan::where('materi_id', $id)
+            ->where(function($query) {
+                $query->where('user_id', auth()->id())
+                      ->orWhereNull('user_id');
+            })
+            ->get();
 
         return view('student.kuis', compact('materi', 'savedSoal'));
     }
@@ -38,28 +43,8 @@ class LatihanSoalController extends Controller
         $instruction = "Kamu adalah guru pembuat soal. Buatkan 5 soal pilihan ganda berdasarkan teks berikut. WAJIB HANYA OUTPUT ARRAY JSON MURNI TANPA TEKS PENGANTAR. Format persis seperti ini: [{\"soal\":\"...\",\"opsi\":[\"A. ...\",\"B. ...\",\"C. ...\",\"D. ...\"],\"jawaban_benar\":\"A. ...\"}]";
 
         try {
-            $response = Http::withoutVerifying()->withHeaders([
-                'Authorization' => 'Bearer ' . config('services.openrouter.api_key'),
-                'HTTP-Referer' => config('app.url'),
-                'X-Title' => 'siPanda Learning App',
-            ])->post('https://openrouter.ai/api/v1/chat/completions', [
-                'model' => 'openai/gpt-oss-120b:free',
-                'messages' => [
-                    ['role' => 'system', 'content' => $instruction],
-                    ['role' => 'user', 'content' => $text],
-                ],
-            ]);
-
-            if ($response->failed()) {
-                throw new \Exception('API OpenRouter gagal merespon (' . $response->status() . '): ' . ($response->json('error.message') ?? $response->body()));
-            }
-
-            $result = $response->json();
-            $aiResult = $result['choices'][0]['message']['content'] ?? null;
-
-            if (!$aiResult) {
-                throw new \Exception('AI mengembalikan respon kosong atau terpotong. Silakan coba lagi.');
-            }
+            $aiData = \App\Services\AiService::generate($text, $instruction);
+            $aiResult = $aiData['text'];
 
             // Clean markdown json markers if present
             $aiResult = str_replace(['```json', '```'], '', trim($aiResult));
@@ -75,12 +60,13 @@ class LatihanSoalController extends Controller
                 throw new \Exception('Format soal dari AI tidak valid atau kosong: ' . substr($aiResult, 0, 100));
             }
 
-            // Hapus soal lama untuk materi ini agar tidak dobel
-            Latihan::where('materi_id', $id)->delete();
+            // Hapus soal lama untuk materi dan user ini agar tidak dobel
+            Latihan::where('materi_id', $id)->where('user_id', auth()->id())->delete();
 
             foreach ($soalJson as $item) {
                 Latihan::create([
                     'materi_id' => $id,
+                    'user_id' => auth()->id(),
                     'question' => $item['soal'],
                     'options' => [
                         'pilihan' => $item['opsi'],
@@ -91,18 +77,13 @@ class LatihanSoalController extends Controller
 
             // Log AI Usage to show up in Gamifikasi stats
             try {
-                $usage = $result['usage'] ?? [];
-                $promptTokens = $usage['prompt_tokens'] ?? str_word_count($text);
-                $completionTokens = $usage['completion_tokens'] ?? str_word_count($aiResult);
-                $totalTokens = $usage['total_tokens'] ?? ($promptTokens + $completionTokens);
-
                 \App\Models\AiUsageLog::create([
                     'user_id' => auth()->user()->id,
                     'materi_id' => $id,
                     'activity_type' => 'quiz',
-                    'prompt_tokens' => $promptTokens,
-                    'completion_tokens' => $completionTokens,
-                    'total_tokens' => $totalTokens,
+                    'prompt_tokens' => $aiData['prompt_tokens'],
+                    'completion_tokens' => $aiData['completion_tokens'],
+                    'total_tokens' => $aiData['total_tokens'],
                 ]);
             } catch (\Exception $ex) {
                 // Silently ignore

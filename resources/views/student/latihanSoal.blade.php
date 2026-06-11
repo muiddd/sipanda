@@ -172,7 +172,7 @@
                     </div>
                     <div class="mt-6 flex justify-between items-center">
                         <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
-                            Generate AI
+                            Dibuat oleh AI
                         </span>
                         <a href="{{ route('student.latihansoal.show', $materi->materi_id) }}" class="bg-[#75cb50] hover:bg-[#64b043] text-white px-4 py-2 rounded-xl font-bold text-sm transition-all active:scale-95 shadow-lg shadow-green-500/20 inline-block">
                             Mulai Kuis

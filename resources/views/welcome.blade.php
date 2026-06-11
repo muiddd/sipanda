@@ -171,12 +171,12 @@
             <div class="hidden lg:flex items-center gap-4">
                 @auth
                 <a href="{{ url('/dashboard') }}" class="px-6 py-2.5 rounded-full font-bold text-white bg-panda-black hover:bg-panda-gray transition-all shadow-md text-sm">
-                    Dashboard
+                    Beranda
                 </a>
                 <a href="{{ route('logout') }}"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                     class="text-red-500 hover:text-red-700 text-sm font-bold cursor-pointer transition">
-                    Logout
+                    Keluar
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                     @csrf
@@ -226,7 +226,7 @@
         <div class="flex flex-col gap-3">
             @auth
             <a href="{{ url('/dashboard') }}" class="w-full text-center bg-panda-black dark:bg-white text-white dark:text-panda-black px-6 py-3 rounded-xl font-bold transition-all shadow-md text-sm">
-                Dashboard
+                Beranda
             </a>
             <a href="{{ route('logout') }}"
                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
@@ -266,7 +266,7 @@
             <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center w-full">
                 @auth
                 <a href="{{ url('/dashboard') }}" class="w-full sm:w-auto justify-center bg-bamboo-fresh text-white px-8 py-4 sm:px-10 sm:py-5 rounded-[2rem] font-bold text-base sm:text-lg hover:bg-bamboo-emerald hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_30px_-5px_rgba(34,197,94,0.5)] flex items-center gap-3">
-                    Enter Dashboard
+                    Masuk ke Beranda
                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                     </svg>
@@ -457,7 +457,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
-                    <h3 class="font-heading font-extrabold text-sm sm:text-xl text-panda-black dark:text-cream mb-1.5 sm:mb-3">Timer Fokus 25/5</h3>
+                    <h3 class="font-heading font-extrabold text-sm sm:text-xl text-panda-black dark:text-cream mb-1.5 sm:mb-3">Pewaktu Fokus 25/5</h3>
                 </div>
                 <p class="text-slate-500 dark:text-slate-400 text-[10px] sm:text-sm leading-relaxed mt-2">Gunakan interval produktif untuk menyelesaikan tugas analis.</p>
             </div>
@@ -471,7 +471,7 @@
                     </div>
                     <h3 class="font-heading font-extrabold text-sm sm:text-xl text-panda-black dark:text-cream mb-1.5 sm:mb-3">Kuis Interaktif</h3>
                 </div>
-                <p class="text-slate-500 dark:text-slate-400 text-[10px] sm:text-sm leading-relaxed mt-2">Kuis skenario kasus nyata untuk menguji skill pemahaman.</p>
+                <p class="text-slate-500 dark:text-slate-400 text-[10px] sm:text-sm leading-relaxed mt-2">Kuis skenario kasus nyata untuk menguji pemahaman.</p>
             </div>
             <!-- Card 4 -->
             <div class="glass-panel dark:dark-glass p-3.5 sm:p-8 rounded-2xl sm:rounded-3xl hover:-translate-y-2 transition-all duration-300 border border-white/50 dark:border-white/10 flex flex-col justify-between">
@@ -622,7 +622,7 @@
                     </svg>
                 </div>
                 <h4 class="font-extrabold text-lg text-panda-black dark:text-cream text-center">Simpan Catatan</h4>
-                <p class="text-xs text-slate-500 dark:text-slate-400 text-center max-w-[150px] mt-2">Tinjau ulang di dashboard Anda.</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 text-center max-w-[150px] mt-2">Tinjau ulang di Beranda Anda.</p>
             </div>
             <!-- Dashed Line Connector (Mobile) -->
             <div class="md:hidden h-12 border-l-[3px] border-dashed border-bamboo-fresh/50 my-[-15px] z-[-1]"></div>
@@ -670,14 +670,14 @@
 
                 <div class="faq-item group bg-white/40 dark:bg-[#1a1a1a]/80 border border-white/50 dark:border-white/5 rounded-2xl overflow-hidden transition-all duration-300 hover:border-bamboo-fresh/50 dark:hover:border-bamboo-fresh/50 hover:shadow-[0_0_20px_rgba(117,203,80,0.1)]">
                     <button class="faq-button w-full px-3 py-3.5 sm:px-6 sm:py-5 flex justify-between items-center text-left transition-colors focus:outline-none">
-                        <span class="font-bold text-panda-black dark:text-cream text-xs sm:text-lg transition-colors group-hover:text-bamboo-emerald dark:group-hover:text-bamboo-fresh">Fitur utama apa saja yang tersedia untuk Pelajar?</span>
+                        <span class="font-bold text-panda-black dark:text-cream text-xs sm:text-lg transition-colors group-hover:text-bamboo-emerald dark:group-hover:text-bamboo-fresh">Fitur utama apa saja yang tersedia untuk pelajar?</span>
                         <svg class="faq-icon w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform duration-300 group-hover:text-bamboo-fresh" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>
                     <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white/60 dark:bg-[#151515]">
                         <p class="px-3 py-3.5 sm:px-6 sm:py-5 text-slate-600 dark:text-slate-400 leading-relaxed text-xs sm:text-sm border-t border-bamboo-fresh/10 dark:border-white/5">
-                            Pelajar dapat menggunakan <strong>Ruang Baca Materi</strong> yang responsif, <strong>Timer Pomodoro</strong> (25 menit fokus, 5 menit istirahat), <strong>Ringkasan AI & Buku Catatan Digital</strong> yang dapat disunting, <strong>Latihan Soal</strong>, <strong>Daftar Tugas</strong>, pemantauan <strong>Log Aktivitas</strong>, hingga fitur <strong>Gamifikasi (Runtunan Belajar)</strong> untuk menjaga konsistensi.
+                            Pelajar dapat menggunakan <strong>Ruang Baca Materi</strong> yang responsif, <strong>Pewaktu Pomodoro</strong> (25 menit fokus, 5 menit istirahat), <strong>Ringkasan AI & Buku Catatan Digital</strong> yang dapat disunting, <strong>Latihan Soal</strong>, <strong>Daftar Tugas</strong>, pemantauan <strong>Log Aktivitas</strong>, hingga fitur <strong>Gamifikasi (Runtunan Belajar)</strong> untuk menjaga konsistensi.
                         </p>
                     </div>
                 </div>
@@ -705,14 +705,14 @@
                     </button>
                     <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white/60 dark:bg-[#151515]">
                         <p class="px-3 py-3.5 sm:px-6 sm:py-5 text-slate-600 dark:text-slate-400 leading-relaxed text-xs sm:text-sm border-t border-bamboo-fresh/10 dark:border-white/5">
-                            Akses pengguna sistem ini dibatasi hanya untuk dua tipe akun, yaitu <strong>Admin</strong> dan <strong>Pelajar</strong>. Admin memiliki hak untuk melakukan tambah, ubah, dan hapus (CRUD) materi pembelajaran serta latihan soal. Sementara Pelajar hanya memiliki akses untuk menggunakan fasilitas belajar yang tersedia.
+                            Akses pengguna sistem ini dibatasi hanya untuk dua tipe akun, yaitu <strong>admin</strong> dan <strong>pelajar</strong>. Admin memiliki hak untuk melakukan tambah, ubah, dan hapus (CRUD) materi pembelajaran serta latihan soal. Sementara pelajar hanya memiliki akses untuk menggunakan fasilitas belajar yang tersedia.
                         </p>
                     </div>
                 </div>
 
                 <div class="faq-item group bg-white/40 dark:bg-[#1a1a1a]/80 border border-white/50 dark:border-white/5 rounded-2xl overflow-hidden transition-all duration-300 hover:border-bamboo-fresh/50 dark:hover:border-bamboo-fresh/50 hover:shadow-[0_0_20px_rgba(117,203,80,0.1)]">
                     <button class="faq-button w-full px-3 py-3.5 sm:px-6 sm:py-5 flex justify-between items-center text-left transition-colors focus:outline-none">
-                        <span class="font-bold text-panda-black dark:text-cream text-xs sm:text-lg transition-colors group-hover:text-bamboo-emerald dark:group-hover:text-bamboo-fresh">Apakah siPanda bisa diakses menggunakan Handphone?</span>
+                        <span class="font-bold text-panda-black dark:text-cream text-xs sm:text-lg transition-colors group-hover:text-bamboo-emerald dark:group-hover:text-bamboo-fresh">Apakah siPanda bisa diakses menggunakan ponsel?</span>
                         <svg class="faq-icon w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform duration-300 group-hover:text-bamboo-fresh" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
