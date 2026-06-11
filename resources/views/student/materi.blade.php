@@ -387,18 +387,19 @@
                 const isFavorite = favoriteMateriIds.includes(m.materi_id);
 
                 return `
-                    <div class="relative subject-card animate-up" style="animation-delay: ${i * 0.05}s">
-                        <a href="${url}" class="block h-full">
+                    <div class="relative subject-card animate-up group" style="animation-delay: ${i * 0.05}s">
+                        <a href="${url}" class="block h-full after:absolute after:inset-0">
                             <div class="card-icon-wrap text-[#75cb50]">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                                 </svg>
                             </div>
                             <p class="font-heading font-bold text-[1rem] text-slate-900 dark:text-slate-100 mb-1">${title}</p>
-                            <p class="text-xs text-slate-500 font-medium mt-auto pt-4">Klik untuk mulai membaca</p>
+                            <p class="text-xs text-slate-500 font-medium mt-auto pt-4 group-hover:text-[#75cb50] transition-colors">Klik untuk mulai membaca</p>
                             <span class="card-arrow">→</span>
                         </a>
-                        <button type="button" onclick="event.stopPropagation(); toggleFavorite(${m.materi_id}, this)" class="absolute top-4 right-4 w-10 h-10 rounded-full border border-slate-200 bg-white/95 text-slate-500 hover:text-[#75cb50] shadow-sm transition-colors flex items-center justify-center">
+                        
+                        <button type="button" onclick="event.stopPropagation(); toggleFavorite(${m.materi_id}, this)" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full border border-slate-200 bg-white/95 text-slate-500 hover:text-[#75cb50] shadow-sm transition-colors flex items-center justify-center">
                             ${isFavorite ? '<svg class="w-5 h-5 text-[#ec4899]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>' : '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 20.364l-7.682-7.682a4.5 4.5 0 010-6.364z"/></svg>'}
                         </button>
                     </div>
