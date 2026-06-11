@@ -1,7 +1,7 @@
 <!-- Ambient Glow Blob in Sidebar Background -->
 <aside class="hidden lg:flex fixed top-0 left-0 h-screen w-72 p-6 flex-col z-50">
     <div
-        class="relative glass glass-sidebar h-full flex flex-col p-6 border-l-0 overflow-hidden bg-white/70 dark:bg-[#121212]/70 backdrop-blur-3xl shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] border-r border-white/20 dark:border-white/10">
+        class="relative glass glass-sidebar h-full flex flex-col px-4 py-6 border-l-0 overflow-hidden bg-white/70 dark:bg-[#121212]/70 backdrop-blur-3xl shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] border-r border-white/20 dark:border-white/10">
 
         <!-- Subtle Top Glow Decoration -->
         <div
@@ -157,7 +157,7 @@
 
             {{-- User Card Profile --}}
             <div
-                class="p-3 rounded-2xl bg-slate-50 dark:bg-white/5 border border-black/5 dark:border-white/5 flex items-center gap-3 transition hover:shadow-lg hover:border-[#75cb50]/20 duration-300">
+                class="p-2.5 rounded-2xl bg-slate-50 dark:bg-white/5 border border-black/5 dark:border-white/5 flex items-center gap-2.5 transition hover:shadow-lg hover:border-[#75cb50]/20 duration-300">
                 <div class="relative group flex-shrink-0">
                     <div
                         class="absolute -inset-0.5 bg-gradient-to-tr from-[#75cb50] to-[#10b981] rounded-full opacity-60 group-hover:opacity-100 transition duration-300 blur-sm">
@@ -174,7 +174,7 @@
                         {{ auth()->user()->email }}</div>
                 </div>
                 <a href="{{ route('student.settings') }}"
-                    class="flex-shrink-0 text-slate-400 hover:text-[#75cb50] dark:hover:text-[#75cb50] p-1.5 rounded-lg hover:bg-black/5 dark:hover:bg-white/10 transition duration-300 group">
+                    class="flex-shrink-0 text-slate-400 hover:text-[#75cb50] dark:hover:text-[#75cb50] p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/10 transition duration-300 group">
                     <svg class="w-5 h-5 transition-transform duration-700 group-hover:rotate-180" fill="none"
                         stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

@@ -36,7 +36,7 @@
                         Fokus Belajar
                     </span>
                 </div>
-                
+
                 <div id="pomodoro-display" class="font-heading text-4xl font-black text-slate-900 dark:text-white tracking-widest my-1">
                     25:00
                 </div>
@@ -82,7 +82,7 @@
             <span class="w-2 h-2 rounded-full bg-blue-500 dark:bg-blue-400 animate-ping"></span>
             Mode Istirahat Terkunci
         </span>
-        
+
         <h2 class="font-heading font-black text-2xl text-slate-900 dark:text-white mb-2 tracking-wide">Waktunya Istirahat!</h2>
         <p class="text-xs text-slate-600 dark:text-slate-400 mb-6 leading-relaxed max-w-sm">
             Web ini terkunci sementara agar Anda benar-benar beristirahat. Regangkan tubuh Anda atau mainkan game Lompat Panda ini.
@@ -99,7 +99,7 @@
                 <span>Lompat Panda (Lompati Bambu)</span>
                 <span>Skor: <span id="game-score" class="text-blue-600 dark:text-blue-400">0</span></span>
             </div>
-            
+
             <!-- Canvas for Game -->
             <div class="relative bg-slate-200/50 dark:bg-slate-950/50 rounded-2xl overflow-hidden border border-slate-300 dark:border-white/10 w-full h-[250px] flex items-center justify-center">
                 <canvas id="panda-jump-canvas" width="500" height="250" class="block w-full h-full"></canvas>
@@ -119,13 +119,13 @@
 
     let timerInterval;
     let notifCallback = null;
-    
+
     // Variabel Game Lompat Panda
     let canvas, ctx;
     let animationFrameId;
     let gameRunning = false;
     let score = 0;
-    
+
     // Fisika & Objek Game
     const gravity = 0.6;
     const panda = {
@@ -137,7 +137,7 @@
         jumpForce: -12,
         isGrounded: true
     };
-    
+
     let obstacles = [];
     let obstacleTimer = 0;
     let obstacleSpeed = 4;
@@ -198,7 +198,7 @@
                 setTimeout(() => mini.classList.remove('translate-x-full'), 10);
             }
             startTimerLogic();
-            
+
             // Check if break mode
             if (localStorage.getItem('pomodoro_mode') === 'break') {
                 showLockScreen();
@@ -551,7 +551,7 @@
             setTimeout(() => {
                 lockScreen.classList.add('hidden');
             }, 500);
-            
+
             // Hentikan permainan jika lock screen tertutup
             gameRunning = false;
             if (animationFrameId) cancelAnimationFrame(animationFrameId);
@@ -563,10 +563,10 @@
         canvas = document.getElementById('panda-jump-canvas');
         if (!canvas) return;
         ctx = canvas.getContext('2d');
-        
+
         score = 0;
         document.getElementById('game-score').innerText = '0';
-        
+
         const overlay = document.getElementById('game-overlay');
         if (overlay) {
             overlay.innerHTML = `
@@ -575,24 +575,24 @@
             `;
             overlay.classList.remove('hidden');
         }
-        
+
         obstacles = [];
         panda.y = 166;
         panda.vy = 0;
         panda.isGrounded = true;
         gameRunning = false;
-        
+
         // Setup control listeners
         canvas.removeEventListener('click', handleGameInteraction);
         canvas.addEventListener('click', handleGameInteraction);
-        
+
         // Sembunyikan instruksi saat overlay di-klik
         overlay.removeEventListener('click', handleGameInteraction);
         overlay.addEventListener('click', handleGameInteraction);
-        
+
         document.removeEventListener('keydown', handleKeyDown);
         document.addEventListener('keydown', handleKeyDown);
-        
+
         drawGame();
     }
 
@@ -622,7 +622,7 @@
     function startGame() {
         const overlay = document.getElementById('game-overlay');
         if (overlay) overlay.classList.add('hidden');
-        
+
         gameRunning = true;
         score = 0;
         obstacles = [];
@@ -631,7 +631,7 @@
         panda.y = 166;
         panda.vy = 0;
         panda.isGrounded = true;
-        
+
         if (animationFrameId) cancelAnimationFrame(animationFrameId);
         gameLoop();
     }
@@ -671,29 +671,29 @@
 
     function gameLoop() {
         if (!gameRunning) return;
-        
+
         updateGame();
         drawGame();
-        
+
         animationFrameId = requestAnimationFrame(gameLoop);
     }
 
     function updateGame() {
         score += 1;
         document.getElementById('game-score').innerText = Math.floor(score / 5);
-        
+
         // Progressive difficulty: Obstacle speed increases continuously based on score
         obstacleSpeed = 4.5 + (score / 300);
-        
+
         panda.vy += gravity;
         panda.y += panda.vy;
-        
+
         if (panda.y >= 166) {
             panda.y = 166;
             panda.vy = 0;
             panda.isGrounded = true;
         }
-        
+
         // Progressive difficulty: Spawn delay threshold decreases continuously as score goes up
         const spawnThreshold = Math.max(30, 85 - (score / 180));
         obstacleTimer++;
@@ -701,10 +701,10 @@
             spawnObstacle();
             obstacleTimer = 0;
         }
-        
+
         for (let i = obstacles.length - 1; i >= 0; i--) {
             obstacles[i].x -= obstacleSpeed;
-            
+
             // Hitbox checks (making them slightly smaller than visual bounds for better gameplay feel)
             const pandaHitbox = {
                 x: panda.x + 5,
@@ -712,14 +712,14 @@
                 width: panda.width - 10,
                 height: panda.height - 8
             };
-            
+
             const obsHitbox = {
                 x: obstacles[i].x + 5,
                 y: obstacles[i].y + 4,
                 width: obstacles[i].width - 10,
                 height: obstacles[i].height - 4
             };
-            
+
             if (
                 pandaHitbox.x < obsHitbox.x + obsHitbox.width &&
                 pandaHitbox.x + pandaHitbox.width > obsHitbox.x &&
@@ -729,7 +729,7 @@
                 gameOver();
                 return;
             }
-            
+
             if (obstacles[i].x < -60) {
                 obstacles.splice(i, 1);
             }
@@ -738,7 +738,7 @@
 
     function drawGame() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
+
         // Garis Tanah (Ground Line) - Menyesuaikan tema Light/Dark Mode
         const isDark = document.documentElement.classList.contains('dark');
         ctx.strokeStyle = isDark ? 'rgba(255,255,255,0.15)' : 'rgba(15,23,42,0.15)';
@@ -747,7 +747,7 @@
         ctx.moveTo(0, 210);
         ctx.lineTo(500, 210);
         ctx.stroke();
-        
+
         // Gambar Panda SVG
         try {
             ctx.drawImage(pandaImg, panda.x, panda.y, panda.width, panda.height);
@@ -756,7 +756,7 @@
             ctx.font = '32px serif';
             ctx.fillText('🐼', panda.x, panda.y);
         }
-        
+
         // Gambar Rintangan Bambu SVG
         obstacles.forEach(obs => {
             try {
@@ -772,7 +772,7 @@
     function gameOver() {
         gameRunning = false;
         cancelAnimationFrame(animationFrameId);
-        
+
         const overlay = document.getElementById('game-overlay');
         if (overlay) {
             overlay.innerHTML = `
