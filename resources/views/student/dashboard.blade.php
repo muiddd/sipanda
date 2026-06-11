@@ -524,24 +524,32 @@
                 @if(session('ai_summary'))
                 <div id="ai-summary-result"
                     class="mt-16 w-full max-w-4xl mx-auto bg-[#75cb50]/5 dark:bg-[#75cb50]/10 border-2 border-[#75cb50]/30 rounded-3xl p-8 md:p-10 relative overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500 text-left">
-                    <div class="flex items-center gap-4 mb-8 border-b border-[#75cb50]/20 pb-6">
-                        <div
-                            class="w-14 h-14 rounded-2xl bg-[#75cb50] flex items-center justify-center text-white shadow-lg shadow-green-500/30">
-                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"
-                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                </path>
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 border-b border-[#75cb50]/20 pb-6">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="w-14 h-14 rounded-2xl bg-[#75cb50] flex items-center justify-center text-white shadow-lg shadow-green-500/30">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"
+                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-heading text-2xl font-bold text-slate-900 dark:text-white">Rangkuman AI</h3>
+                                <p class="text-sm text-[#75cb50] font-bold uppercase tracking-wider mt-1">Dari File Upload
+                                    Anda</p>
+                            </div>
+                        </div>
+                        <button id="btn-download-pdf-upload" class="w-full sm:w-auto bg-[#75cb50] hover:bg-[#64b043] text-white px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-md shadow-green-500/20 active:scale-95 flex items-center justify-center gap-1.5">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                             </svg>
-                        </div>
-                        <div>
-                            <h3 class="font-heading text-2xl font-bold text-slate-900 dark:text-white">Rangkuman AI</h3>
-                            <p class="text-sm text-[#75cb50] font-bold uppercase tracking-wider mt-1">Dari File Upload
-                                Anda</p>
-                        </div>
+                            Download PDF
+                        </button>
                     </div>
 
                     {{-- Render Markdown persis seperti di Ruang Baca --}}
-                    <div
+                    <div id="ai-summary-content-upload"
                         class="prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 leading-relaxed text-lg">
                         {!! Str::markdown(session('ai_summary')) !!}
                     </div>
@@ -592,13 +600,13 @@
                         </div>
                     </div>
 
-                    <div
+                    <div id="ai-summary-content-db"
                         class="relative z-10 prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 leading-relaxed italic">
                         {!! Str::markdown($summary->summary_text ?? '') !!}
                     </div>
 
                     <div class="relative z-10 mt-6 pt-6 border-t border-black/5 dark:border-white/5 flex justify-end">
-                        <button class="text-sm font-bold text-[#75cb50] hover:underline flex items-center gap-2">
+                        <button id="btn-download-pdf-db" class="text-sm font-bold text-[#75cb50] hover:underline flex items-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4">
@@ -709,6 +717,194 @@
                 }
             });
         }
+
+        // Download PDF functionality for AI Summary
+        function downloadSummaryAsPDF(htmlContent, title = 'Rangkuman AI') {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlContent, 'text/html');
+            
+            // Strip all classes to prevent Tailwind or dark mode styles from interfering
+            doc.querySelectorAll('*').forEach(el => {
+                el.removeAttribute('class');
+            });
+
+            // Inline styles for elements in the document
+            doc.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(h => {
+                h.style.setProperty('color', '#0f172a', 'important');
+                h.style.setProperty('font-family', "'Outfit', sans-serif", 'important');
+                h.style.setProperty('margin-top', '22px', 'important');
+                h.style.setProperty('margin-bottom', '10px', 'important');
+                h.style.setProperty('font-weight', 'bold', 'important');
+            });
+            doc.querySelectorAll('h1').forEach(h => h.style.setProperty('font-size', '20px', 'important'));
+            doc.querySelectorAll('h2').forEach(h => h.style.setProperty('font-size', '18px', 'important'));
+            doc.querySelectorAll('h3').forEach(h => h.style.setProperty('font-size', '16px', 'important'));
+            
+            doc.querySelectorAll('p').forEach(p => {
+                p.style.setProperty('color', '#334155', 'important');
+                p.style.setProperty('margin-bottom', '12px', 'important');
+                p.style.setProperty('line-height', '1.65', 'important');
+            });
+
+            doc.querySelectorAll('ul, ol').forEach(list => {
+                list.style.setProperty('padding-left', '20px', 'important');
+                list.style.setProperty('margin-bottom', '12px', 'important');
+            });
+
+            doc.querySelectorAll('li').forEach(li => {
+                li.style.setProperty('color', '#334155', 'important');
+                li.style.setProperty('margin-bottom', '6px', 'important');
+            });
+
+            doc.querySelectorAll('blockquote').forEach(bq => {
+                bq.style.setProperty('border-left', '4px solid #75cb50', 'important');
+                bq.style.setProperty('padding-left', '15px', 'important');
+                bq.style.setProperty('color', '#64748b', 'important');
+                bq.style.setProperty('font-style', 'italic', 'important');
+                bq.style.setProperty('margin', '15px 0', 'important');
+            });
+
+            // Prevent headings and blockquotes from being split across page breaks
+            doc.querySelectorAll('blockquote, h1, h2, h3, h4, h5, h6').forEach(el => {
+                el.style.setProperty('page-break-inside', 'avoid', 'important');
+                el.style.setProperty('break-inside', 'avoid', 'important');
+            });
+
+            const today = new Date().toLocaleDateString('id-ID', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+
+            // Create container element for measurement
+            const container = document.createElement('div');
+            container.style.position = 'absolute';
+            container.style.top = '0';
+            container.style.left = '0';
+            container.style.width = '800px';
+            container.style.background = '#ffffff';
+            container.style.color = '#1e293b';
+            container.style.zIndex = '-99999';
+            container.style.pointerEvents = 'none';
+
+            const styledHtml = `
+                <div style="font-family: 'Inter', sans-serif; color: #1e293b; padding: 40px; background: #ffffff;">
+                    <div style="border-bottom: 2px solid #75cb50; padding-bottom: 15px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h1 style="color: #0f172a; margin: 0; font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: bold;">siPanda</h1>
+                            <p style="color: #75cb50; margin: 2px 0 0 0; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Hasil Rangkuman AI</p>
+                        </div>
+                        <div style="text-align: right; color: #64748b; font-size: 11px;">
+                            <p style="margin: 0; font-weight: 500;">Tanggal: ${today}</p>
+                            <p style="margin: 2px 0 0 0; font-weight: 500;">Metode: AI Summarization</p>
+                        </div>
+                    </div>
+                    <h2 style="font-family: 'Outfit', sans-serif; color: #0f172a; font-size: 20px; font-weight: 700; margin-bottom: 25px; border-left: 4px solid #75cb50; padding-left: 10px; line-height: 1.3;">${title}</h2>
+                    <div style="font-size: 14.5px; line-height: 1.65; color: #334155;">
+                        ${doc.body.innerHTML}
+                    </div>
+                    <div style="margin-top: 50px; border-top: 1px solid #e2e8f0; padding-top: 15px; text-align: center; color: #94a3b8; font-size: 10px;">
+                        <p style="margin: 0;">Dokumen ini dihasilkan secara otomatis oleh siPanda AI Smart Learning Assistant.</p>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = styledHtml;
+            document.body.appendChild(container);
+
+            // Measure true height of content
+            const totalHeight = container.scrollHeight;
+
+            // Remove measurement container
+            document.body.removeChild(container);
+
+            // Create normal flow container for html2pdf to process
+            const renderContainer = document.createElement('div');
+            renderContainer.style.position = 'relative';
+            renderContainer.style.width = '800px';
+            renderContainer.style.background = '#ffffff';
+            renderContainer.style.color = '#1e293b';
+            renderContainer.style.zIndex = '-99999';
+            renderContainer.style.margin = '0';
+            renderContainer.style.padding = '0';
+            renderContainer.innerHTML = styledHtml;
+            document.body.appendChild(renderContainer);
+
+            const generatePdf = () => {
+                const opt = {
+                    margin:       [0.6, 0.6, 0.6, 0.6],
+                    filename:     title.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '_rangkuman_ai.pdf',
+                    image:        { type: 'jpeg', quality: 0.98 },
+                    html2canvas:  { 
+                        scale: 2, 
+                        useCORS: true, 
+                        letterRendering: true, 
+                        backgroundColor: '#ffffff',
+                        height: totalHeight,
+                        windowHeight: totalHeight,
+                        scrollX: 0,
+                        scrollY: 0
+                    },
+                    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
+                    pagebreak:    { mode: ['css', 'legacy'] }
+                };
+                
+                // Store original HTML and Body element overflow/height settings
+                const originalHtmlOverflow = document.documentElement.style.overflow;
+                const originalHtmlHeight = document.documentElement.style.height;
+                const originalBodyOverflow = document.body.style.overflow;
+                const originalBodyHeight = document.body.style.height;
+                
+                // Temporarily force fully scrollable and auto-height properties
+                document.documentElement.style.setProperty('overflow', 'visible', 'important');
+                document.documentElement.style.setProperty('height', 'auto', 'important');
+                document.body.style.setProperty('overflow', 'visible', 'important');
+                document.body.style.setProperty('height', 'auto', 'important');
+                
+                html2pdf().set(opt).from(renderContainer).toPdf().get('pdf').then(function (pdf) {
+                    // Restore original HTML/Body elements style
+                    document.documentElement.style.overflow = originalHtmlOverflow;
+                    document.documentElement.style.height = originalHtmlHeight;
+                    document.body.style.overflow = originalBodyOverflow;
+                    document.body.style.height = originalBodyHeight;
+                    
+                    // Cleanup render container
+                    document.body.removeChild(renderContainer);
+                }).save();
+            };
+
+            if (typeof html2pdf === 'undefined') {
+                const script = document.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+                script.onload = generatePdf;
+                document.head.appendChild(script);
+            } else {
+                generatePdf();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const btnUpload = document.getElementById('btn-download-pdf-upload');
+            if (btnUpload) {
+                btnUpload.addEventListener('click', function() {
+                    const contentDiv = document.getElementById('ai-summary-content-upload');
+                    if (contentDiv) {
+                        downloadSummaryAsPDF(contentDiv.innerHTML, 'Rangkuman AI (Materi Upload)');
+                    }
+                });
+            }
+
+            const btnDb = document.getElementById('btn-download-pdf-db');
+            if (btnDb) {
+                btnDb.addEventListener('click', function() {
+                    const contentDiv = document.getElementById('ai-summary-content-db');
+                    if (contentDiv) {
+                        downloadSummaryAsPDF(contentDiv.innerHTML, 'Rangkuman AI (Database)');
+                    }
+                });
+            }
+        });
     </script>
 
     @include('student.partials.loading')
