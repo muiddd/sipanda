@@ -475,7 +475,7 @@
                                 </div>
                                 <p id="file-name" class="text-sm font-semibold text-slate-700 dark:text-slate-300">Pilih
                                     file materi</p>
-                                <p id="upload-subtext" class="text-xs text-slate-500 mt-1 font-medium">atau drag & drop
+                                <p id="upload-subtext" class="text-xs text-slate-500 mt-1 font-medium">atau seret & Lepas
                                     ke sini</p>
                             </div>
                             <input type="file" id="file-upload" name="file" class="hidden"
