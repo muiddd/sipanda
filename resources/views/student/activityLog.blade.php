@@ -324,13 +324,6 @@
                 <div class="lg:col-span-2 glass p-0 overflow-hidden">
                     <div class="flex items-center justify-between p-6 border-b border-black/5 dark:border-white/5">
                         <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Riwayat Sesi</h3>
-                        <button onclick="document.getElementById('modal-tambah').classList.remove('hidden')"
-                            class="flex items-center gap-2 text-sm font-bold text-[#75cb50] border border-[#75cb50]/30 rounded-xl px-4 py-2 hover:bg-[#75cb50]/10 transition">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
-                            </svg>
-                            Tambah Sesi
-                        </button>
                     </div>
 
                     @forelse($sessions as $date => $daySessions)
@@ -466,59 +459,6 @@
     </div>
 
     </main>
-    </div>
-
-    {{-- Modal Tambah Sesi --}}
-    <div id="modal-tambah" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-        <div class="glass w-full max-w-md mx-4 p-8">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Tambah Sesi Belajar</h3>
-                <button onclick="document.getElementById('modal-tambah').classList.add('hidden')"
-                    class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-
-            <form action="{{ route('student.activity-log.store') }}" method="POST" class="space-y-4">
-                @csrf
-                <div>
-                    <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Mata Pelajaran</label>
-                    <input type="text" name="subject" required placeholder="Matematika"
-                        class="w-full px-4 py-2.5 rounded-xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/5 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#75cb50]/40 text-sm">
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Topik <span class="font-normal text-slate-400">(opsional)</span></label>
-                    <input type="text" name="topic" placeholder="Kalkulus Integral"
-                        class="w-full px-4 py-2.5 rounded-xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/5 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#75cb50]/40 text-sm">
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Mulai</label>
-                        <input type="datetime-local" name="started_at" required
-                            class="w-full px-4 py-2.5 rounded-xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/5 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#75cb50]/40 text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Selesai</label>
-                        <input type="datetime-local" name="ended_at" required
-                            class="w-full px-4 py-2.5 rounded-xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/5 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#75cb50]/40 text-sm">
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Skor Fokus <span class="font-normal text-slate-400">(0–100)</span></label>
-                    <input type="number" name="focus_score" min="0" max="100" placeholder="85"
-                        class="w-full px-4 py-2.5 rounded-xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/5 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#75cb50]/40 text-sm">
-                </div>
-                <button type="submit"
-                    class="w-full bg-gradient-to-r from-[#75cb50] to-[#10b981] hover:from-[#10b981] hover:to-[#059669] text-white font-bold py-3 rounded-xl transition-all hover:scale-[1.02] flex items-center justify-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-                    </svg>
-                    Simpan Sesi
-                </button>
-            </form>
-        </div>
     </div>
 
     @include('student.partials.loading')

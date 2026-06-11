@@ -412,3 +412,44 @@
 </body>
 
 </html>
+
+<script>
+    let waktuMulaiBelajar = new Date();
+    let dataSudahTerkirim = false;
+
+    // Fungsi untuk menghitung dan mengirim
+    function kirimDataSesi() {
+        if (dataSudahTerkirim) return;
+
+        let waktuSelesaiBelajar = new Date();
+        let durasiMenit = Math.round((waktuSelesaiBelajar - waktuMulaiBelajar) / 60000);
+
+        // SYARAT UJI COBA: Ganti >= 1 jadi >= 0 sementara biar gampang ngetesnya
+        if (durasiMenit >= 1){
+            let tzOffset = (new Date()).getTimezoneOffset() * 60000;
+            let mulaiLocal = (new Date(waktuMulaiBelajar - tzOffset)).toISOString().slice(0, 19).replace('T', ' ');
+            let selesaiLocal = (new Date(waktuSelesaiBelajar - tzOffset)).toISOString().slice(0, 19).replace('T', ' ');
+
+            window.autoLogActivity(
+                "Membaca Materi", 
+                "{{ $materi->judul ?? 'Materi Pembelajaran' }}", 
+                mulaiLocal, 
+                selesaiLocal, 
+                80
+            );
+            dataSudahTerkirim = true;
+        }
+    }
+
+    // Pemicu 1: Saat pindah tab / minimize browser (Sangat disarankan oleh Google)
+    document.addEventListener('visibilitychange', function() {
+        if (document.visibilityState === 'hidden') {
+            kirimDataSesi();
+        }
+    });
+
+    // Pemicu 2: Saat refresh atau close browser (Cadangan)
+    window.addEventListener('beforeunload', function () {
+        kirimDataSesi();
+    });
+</script>

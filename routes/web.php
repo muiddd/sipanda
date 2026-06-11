@@ -106,7 +106,9 @@ Route::middleware([
 
     // 10. Activity Log
     Route::middleware(['auth'])->prefix('student')->name('student.')->group(function () {
-    Route::get('activity-log', [ActivityLogController::class, 'index'])->name('activity-log.index');
-    Route::post('activity-log', [ActivityLogController::class, 'store'])->name('activity-log.store');
+        Route::get('activity-log', [ActivityLogController::class, 'index'])->name('activity-log.index');
+        Route::post('activity-log', [ActivityLogController::class, 'store'])->name('activity-log.store');
+
+        Route::post('log-session-auto', [ActivityLogController::class, 'storeAuto'])->name('log-session.auto');
     });
-  });
+});

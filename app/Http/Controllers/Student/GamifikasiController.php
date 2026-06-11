@@ -70,4 +70,28 @@ class GamifikasiController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Sesi belajar berhasil disimpan!']);
     }
+
+    // Fungsi untuk menerima catatan sesi secara diam-diam (otomatis)
+    public function logSessionAuto(Request $request)
+    {
+        $request->validate([
+            'subject' => 'required|string',
+            'topic' => 'nullable|string',
+            'started_at' => 'required|date',
+            'ended_at' => 'required|date',
+            'focus_score' => 'nullable|integer'
+        ]);
+
+        // Simpan ke database (Asumsi menggunakan model LearningSession)
+        \App\Models\LearningSession::create([
+            'user_id' => auth()->id(),
+            'subject' => $request->subject,
+            'topic' => $request->topic,
+            'started_at' => $request->started_at,
+            'ended_at' => $request->ended_at,
+            'focus_score' => $request->focus_score ?? 0,
+        ]);
+
+        return response()->json(['status' => 'success', 'message' => 'Sesi otomatis dicatat']);
+    }
 }
