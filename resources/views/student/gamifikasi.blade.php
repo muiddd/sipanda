@@ -353,8 +353,8 @@
 
                         <div class="flex flex-col items-center bg-white/50 dark:bg-[#121212]/50 p-6 rounded-3xl border border-[#75cb50]/20 shadow-[0_10px_30px_rgba(34,197,94,0.1)] min-w-[250px]">
                             <div class="flex gap-2 mb-4 w-full bg-black/5 dark:bg-white/5 p-1 rounded-full">
-                                <button class="flex-1 py-1.5 rounded-full text-xs font-bold transition-all bg-[#75cb50] text-white shadow-[0_0_10px_rgba(34,197,94,0.4)] cursor-default">Work</button>
-                                <button class="flex-1 py-1.5 rounded-full text-xs font-bold transition-all bg-transparent text-slate-500 cursor-default">Break</button>
+                                <button class="flex-1 py-1.5 rounded-full text-xs font-bold transition-all bg-[#75cb50] text-white shadow-[0_0_10px_rgba(34,197,94,0.4)] cursor-default">Belajar</button>
+                                <button class="flex-1 py-1.5 rounded-full text-xs font-bold transition-all bg-transparent text-slate-500 cursor-default">Istirahat</button>
                             </div>
 
                             <div class="font-heading text-6xl font-black text-slate-900 dark:text-white tracking-widest my-2" id="card-pomodoro-display">
@@ -400,7 +400,7 @@
                                     <span class="text-xs font-bold text-[#75cb50]">{{ number_format($totalTokens ?? 0) }} / 50.000</span>
                                 </div>
                                 <div class="text-2xl font-black text-slate-900 dark:text-white">
-                                    {{ number_format($totalTokens ?? 0) }} <span class="text-xs font-semibold text-slate-500">tokens</span>
+                                    {{ number_format($totalTokens ?? 0) }} <span class="text-xs font-semibold text-slate-500">token</span>
                                 </div>
                                 <div class="mt-2 w-full bg-slate-200 dark:bg-[#2a2a2a] rounded-full h-1.5 overflow-hidden border border-black/5 dark:border-white/5">
                                     <div class="bg-gradient-to-r from-[#10b981] to-[#75cb50] h-1.5 rounded-full" style="width: {{ min(100, (($totalTokens ?? 0) / 50000) * 100) }}%"></div>
@@ -592,7 +592,7 @@
                         <button onclick="copyStreakLink()" class="w-full flex items-center justify-center gap-3 py-3 px-6 rounded-2xl bg-white dark:bg-white/5 border border-[#75cb50]/30 hover:border-[#75cb50] text-slate-800 dark:text-slate-200 hover:text-white hover:bg-[#75cb50] dark:hover:bg-[#75cb50] font-bold text-xs transition duration-300 shadow-sm">
                              <div id="copy-icon-container" class="w-7 h-7 rounded-lg bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-white flex items-center justify-center transition-colors">
                                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2M8 5a2 2 0 012-2h2a2 2 0 012 2" />
                                  </svg>
                              </div>
                              <span id="copy-btn-text">Salin Teks & Tautan Rekomendasi</span>
@@ -642,6 +642,7 @@
             }, 10);
         }
 
+        // Close share modal
         function closeShareModal() {
             const modal = document.getElementById('share-streak-modal');
             modal.classList.remove('opacity-100');
@@ -692,20 +693,159 @@
         function downloadShareCardImage() {
             const cardElement = document.getElementById('streak-share-card-element');
             
-            // Add a small scale transformation during capturing for higher quality export
-            const options = {
-                scale: 3, // Higher scale = higher resolution export
-                useCORS: true,
-                backgroundColor: null,
-                logging: false
-            };
+            // 1. Clone the element to apply specific rendering optimizations
+            const clone = cardElement.cloneNode(true);
+            
+            // 2. Style the clone to be visible but off-screen
+            clone.style.position = 'absolute';
+            clone.style.top = '-9999px';
+            clone.style.left = '-9999px';
+            clone.style.display = 'flex';
+            clone.style.flexDirection = 'column';
+            clone.style.justifyContent = 'space-between';
+            clone.style.padding = '20px';
+            clone.style.height = '500px';
+            clone.style.width = '300px';
+            clone.style.boxSizing = 'border-box';
+            document.body.appendChild(clone);
+            
+            // 3. Apply the dynamic layout styles on the clone to prevent cutting via inline styles
+            const header = clone.querySelector('.border-b');
+            if (header) {
+                header.style.position = 'static';
+                header.style.height = '60px';
+                header.style.padding = '0 8px';
+                header.style.display = 'flex';
+                header.style.alignItems = 'center';
+                header.style.justifyContent = 'space-between';
+                header.style.boxSizing = 'border-box';
+                
+                const h4 = header.querySelector('h4');
+                if (h4) {
+                    h4.style.fontSize = '12px';
+                    h4.style.lineHeight = '1';
+                }
+                
+                const p = header.querySelector('p');
+                if (p) {
+                    p.style.fontSize = '7px';
+                    p.style.lineHeight = '1';
+                    p.style.marginTop = '2px';
+                }
+                
+                const tag = header.querySelector('.rounded-full');
+                if (tag) {
+                    tag.style.fontSize = '8px';
+                    tag.style.padding = '2px 8px';
+                }
+            }
+            
+            const body = clone.querySelector('.absolute.top-\\[72px\\].bottom-\\[76px\\]');
+            if (body) {
+                body.style.position = 'static';
+                body.style.display = 'flex';
+                body.style.flexDirection = 'column';
+                body.style.alignItems = 'center';
+                body.style.justifyContent = 'center';
+                body.style.flexGrow = '1';
+                body.style.padding = '12px 0';
+                
+                const flameContainer = body.querySelector('.relative.w-24');
+                if (flameContainer) {
+                    flameContainer.style.width = '80px';
+                    flameContainer.style.height = '80px';
+                    flameContainer.style.marginBottom = '12px';
+                    const svg = flameContainer.querySelector('svg');
+                    if (svg) {
+                        svg.style.width = '44px';
+                        svg.style.height = '44px';
+                    }
+                }
+                
+                const daysDisplay = body.querySelector('.mb-4');
+                if (daysDisplay) {
+                    daysDisplay.style.marginBottom = '12px';
+                    const span1 = daysDisplay.querySelector('span:first-child');
+                    if (span1) {
+                        span1.style.fontSize = '48px';
+                        span1.style.lineHeight = '1';
+                    }
+                    const span2 = daysDisplay.querySelector('span:last-child');
+                    if (span2) {
+                        span2.style.fontSize = '8px';
+                        span2.style.marginTop = '6px';
+                    }
+                }
+                
+                const badge = body.querySelector('.text-xs');
+                if (badge) {
+                    badge.style.fontSize = '10px';
+                    badge.style.padding = '4px 10px';
+                }
+            }
+            
+            const footer = clone.querySelector('.border-t');
+            if (footer) {
+                footer.style.position = 'static';
+                footer.style.height = '64px';
+                footer.style.padding = '8px 8px 0 8px';
+                footer.style.display = 'flex';
+                footer.style.alignItems = 'center';
+                footer.style.justifyContent = 'space-between';
+                footer.style.boxSizing = 'border-box';
+                
+                const leftDiv = footer.querySelector('.text-left');
+                if (leftDiv) {
+                    const label = leftDiv.querySelector('div:first-child');
+                    if (label) {
+                        label.style.fontSize = '8px';
+                        label.style.marginBottom = '2px';
+                    }
+                    const name = leftDiv.querySelector('.text-xs');
+                    if (name) {
+                        name.style.fontSize = '11px';
+                        name.style.lineHeight = '1.2';
+                        name.style.fontFamily = 'Inter, sans-serif';
+                        name.style.fontWeight = 'bold';
+                        name.style.maxWidth = '110px';
+                    }
+                }
+                
+                const rightDiv = footer.querySelector('.items-end');
+                if (rightDiv) {
+                    const hashtag = rightDiv.querySelector('div:first-child');
+                    if (hashtag) {
+                        hashtag.style.fontSize = '8px';
+                        hashtag.style.lineHeight = '1';
+                    }
+                    const domain = rightDiv.querySelector('div:last-child');
+                    if (domain) {
+                        domain.style.fontSize = '7px';
+                        domain.style.lineHeight = '1';
+                        domain.style.marginTop = '3px';
+                    }
+                }
+            }
 
-            html2canvas(cardElement, options).then(canvas => {
-                const imgData = canvas.toDataURL('image/png');
-                const link = document.createElement('a');
-                link.download = `sipanda-streak-{{ auth()->user()->name }}-${new Date().toISOString().slice(0,10)}.png`;
-                link.href = imgData;
-                link.click();
+            // Wait for fonts to load
+            document.fonts.ready.then(() => {
+                const options = {
+                    scale: 3, // Higher scale = higher resolution export
+                    useCORS: true,
+                    backgroundColor: null,
+                    logging: false
+                };
+
+                html2canvas(clone, options).then(canvas => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const link = document.createElement('a');
+                    link.download = `sipanda-streak-{{ auth()->user()->name }}-${new Date().toISOString().slice(0,10)}.png`;
+                    link.href = imgData;
+                    link.click();
+                    
+                    // Clean up clone
+                    document.body.removeChild(clone);
+                });
             });
         }
     </script>
