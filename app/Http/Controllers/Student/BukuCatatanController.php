@@ -136,6 +136,43 @@ class BukuCatatanController extends Controller
     }
 
     // ==========================================
+    // UPDATE — Perbarui catatan yang sudah ada
+    // ==========================================
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'judul'     => 'required|string|max:255',
+            'isi'       => 'required|string',
+            'nama_buku' => 'required|string|max:100',
+            'tags'      => 'nullable|string',
+            'tipe'      => 'in:Manual,Highlight,AI',
+        ]);
+
+        $catatan = BukuCatatan::where('catatan_id', $id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        $tags = [];
+        if ($request->filled('tags')) {
+            $tags = array_values(array_filter(array_map('trim', explode(',', $request->tags))));
+        }
+
+        $catatan->update([
+            'judul'      => $request->judul,
+            'isi'        => $request->isi,
+            'tipe'       => $request->tipe ?? $catatan->tipe,
+            'nama_buku'  => $request->nama_buku,
+            'tags'       => $tags,
+            'is_penting' => $request->boolean('is_penting'),
+        ]);
+
+        return redirect()->route('student.bukucatatan', [
+            'buku' => $request->nama_buku,
+            'catatan_id' => $catatan->catatan_id,
+        ])->with('success', 'Catatan berhasil diperbarui!');
+    }
+
+    // ==========================================
     // DESTROY — Hapus catatan
     // ==========================================
     public function destroy($id)
