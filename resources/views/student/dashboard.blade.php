@@ -4,7 +4,7 @@
     if ($currentStreak < 10) {
         $streakTier = 1;
         $streakColorName = 'orange';
-        $streakTitle = 'Pembelajar Pemula';
+        $streakTitle = 'Pelajar Pemula';
         $streakColorClass = 'text-[#ff8c00]';
         $streakBgClass = 'bg-[rgba(255,140,0,0.1)]';
         $streakBorderClass = 'border-[#ff8c00]/20';
@@ -16,7 +16,7 @@
     } elseif ($currentStreak < 30) {
         $streakTier = 2;
         $streakColorName = 'blue';
-        $streakTitle = 'Fokus Konsisten';
+        $streakTitle = 'Pelajar Keren';
         $streakColorClass = 'text-[#00c6ff]';
         $streakBgClass = 'bg-[rgba(0,198,255,0.1)]';
         $streakBorderClass = 'border-[#00c6ff]/20';
@@ -28,7 +28,7 @@
     } elseif ($currentStreak < 50) {
         $streakTier = 3;
         $streakColorName = 'purple';
-        $streakTitle = 'Dedikasi Tinggi';
+        $streakTitle = 'Pelajar Hebat';
         $streakColorClass = 'text-[#bd00ff]';
         $streakBgClass = 'bg-[rgba(189,0,255,0.1)]';
         $streakBorderClass = 'border-[#bd00ff]/20';

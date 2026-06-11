@@ -4,7 +4,7 @@
     if ($currentStreak < 10) {
         $streakTier = 1;
         $streakColorName = 'orange';
-        $streakTitle = 'Pembelajar Pemula';
+        $streakTitle = 'Pelajar Pemula';
         $streakColorClass = 'text-[#ff8c00]';
         $streakBgClass = 'bg-[rgba(255,140,0,0.1)]';
         $streakBorderClass = 'border-[#ff8c00]/20';
