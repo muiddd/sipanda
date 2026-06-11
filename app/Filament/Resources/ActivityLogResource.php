@@ -18,11 +18,11 @@ class ActivityLogResource extends Resource
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-list-bullet';
 
-    protected static ?string $navigationLabel = 'Log Aktivitas';
+    protected static ?string $navigationLabel = 'Riwayat Aktivitas';
 
-    protected static ?string $modelLabel = 'Log Aktivitas';
+    protected static ?string $modelLabel = 'Riwayat Aktivitas';
 
-    protected static ?string $pluralModelLabel = 'Log Aktivitas';
+    protected static ?string $pluralModelLabel = 'Riwayat Aktivitas';
 
     public static function table(Table $table): Table
     {
@@ -60,8 +60,8 @@ class ActivityLogResource extends Resource
             ->actions([
                 DeleteAction::make()
                     ->label('Hapus')
-                    ->modalHeading('Hapus Log Aktivitas')
-                    ->modalDescription('Apakah Anda yakin ingin menghapus log aktivitas ini?'),
+                    ->modalHeading('Hapus Riwayat Aktivitas')
+                    ->modalDescription('Apakah Anda yakin ingin menghapus riwayat aktivitas ini?'),
             ])
             ->bulkActions([
                 BulkActionGroup::make([

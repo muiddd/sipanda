@@ -34,7 +34,6 @@ class ActivityLogController extends Controller
         $streak = $user->streak->current_streak ?? 0;
 
         // --- Heatmap: 30 hari terakhir ---
-        // Format: ['2026-05-08' => 94, '2026-05-09' => 0, ...]
         $period = CarbonPeriod::create(Carbon::today()->subDays(29), Carbon::today());
 
         $rawSessions = StudySession::where('user_id', $user->id)
@@ -44,21 +43,25 @@ class ActivityLogController extends Controller
         $minutesByDate = $rawSessions->groupBy(fn($s) => $s->started_at->toDateString())
             ->map(fn($group) => $group->sum(fn($s) => $s->started_at->diffInMinutes($s->ended_at)));
 
-        $heatmap = [];
+        $maxMinutes = max($minutesByDate->max() ?? 1, 1);
+        $heatmapData = [];
         foreach ($period as $date) {
             $key = $date->toDateString();
-            $heatmap[$key] = $minutesByDate[$key] ?? 0;
+            $m = $minutesByDate[$key] ?? 0;
+            $level = match (true) {
+                $m === 0       => 0,
+                $m < $maxMinutes * 0.25 => 1,
+                $m < $maxMinutes * 0.5  => 2,
+                $m < $maxMinutes * 0.75 => 3,
+                default        => 4,
+            };
+            $heatmapData[] = [
+                'date' => $key,
+                'formatted_date' => $date->translatedFormat('d M Y'),
+                'minutes' => $m,
+                'level' => $level,
+            ];
         }
-
-        // Normalisasi ke level 0-4 untuk warna
-        $maxMinutes = max($minutesByDate->max() ?? 1, 1);
-        $heatmapLevels = collect($heatmap)->map(fn($m) => match (true) {
-            $m === 0       => 0,
-            $m < $maxMinutes * 0.25 => 1,
-            $m < $maxMinutes * 0.5  => 2,
-            $m < $maxMinutes * 0.75 => 3,
-            default        => 4,
-        })->toArray();
 
         // --- Distribusi mapel (minggu ini) ---
         $weekSessions = StudySession::where('user_id', $user->id)
@@ -88,7 +91,7 @@ class ActivityLogController extends Controller
             'avgFocus',
             'weekMinutes',
             'streak',
-            'heatmapLevels',
+            'heatmapData',
             'subjectBreakdown',
             'sessions',
         ));
