@@ -269,11 +269,8 @@
                     <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-1">
                         PERPUSTAKAAN BELAJAR
                     </p>
-                    <h1 class="font-heading text-4xl font-black text-slate-900 dark:text-white flex items-center gap-3">
+                    <h1 class="font-heading text-4xl font-black text-slate-900 dark:text-white">
                         Buku Catatan
-                        <span class="text-base font-bold bg-[#75cb50]/10 text-[#75cb50] px-3 py-1 rounded-full border border-[#75cb50]/20">
-                            {{ $totalCatatan }}
-                        </span>
                     </h1>
                 </div>
                 <div class="flex items-center gap-3 flex-wrap">
@@ -285,20 +282,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </div>
-                    {{-- Filter --}}
-                    <button class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-400 bg-white dark:bg-white/5 hover:border-[#75cb50]/40 transition">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-                        </svg>
-                        Filter
-                    </button>
-                    {{-- PDF --}}
-                    <button class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-400 bg-white dark:bg-white/5 hover:border-[#75cb50]/40 transition">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                        </svg>
-                        PDF
-                    </button>
+
                     {{-- Buku Baru --}}
                     <button onclick="openModalBaru()"
                         class="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold bg-gradient-to-r from-[#75cb50] to-[#10b981] text-white shadow-[0_4px_15px_rgba(34,197,94,0.25)] hover:shadow-[0_4px_20px_rgba(34,197,94,0.4)] hover:scale-[1.02] transition-all">
@@ -358,16 +342,10 @@
 
                 {{-- === KOLOM 1: DAFTAR BUKU === --}}
                 <div class="w-full lg:w-64 flex-shrink-0 glass flex flex-col overflow-hidden h-[250px] lg:h-auto">
-                    <div class="p-4 border-b border-black/5 dark:border-white/5 flex items-center justify-between">
+                    <div class="p-4 border-b border-black/5 dark:border-white/5">
                         <h3 class="font-heading text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                             Buku Saya
                         </h3>
-                        <button onclick="openModalBaru()" title="Buku Baru"
-                            class="w-7 h-7 rounded-lg bg-[#75cb50]/10 text-[#75cb50] flex items-center justify-center hover:bg-[#75cb50]/20 transition">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
-                            </svg>
-                        </button>
                     </div>
                     <div class="flex-1 overflow-y-auto p-3 space-y-1">
                         @forelse($daftarBuku as $buku)
@@ -532,7 +510,8 @@
                         </a>
                         @endif
                         <div class="flex gap-2">
-                            <button class="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold border border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-black/5 dark:hover:bg-white/5 transition">
+                            <button type="button" onclick="openModalEdit({{ $selectedCatatan->catatan_id }})"
+                                class="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold border border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-black/5 dark:hover:bg-white/5 transition">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                 </svg>
@@ -587,23 +566,25 @@
         <div class="modal-overlay absolute inset-0" onclick="closeModalBaru()"></div>
         <div class="relative z-10 w-full max-w-lg mx-4 glass p-8 fade-in-up">
             <div class="flex items-center justify-between mb-6">
-                <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Catatan Baru</h3>
+                <h3 id="modal-title" class="font-heading text-xl font-bold text-slate-900 dark:text-white">Catatan Baru</h3>
                 <button onclick="closeModalBaru()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
-            <form action="{{ route('student.bukucatatan.store') }}" method="POST" class="space-y-4">
+            <form id="catatan-form" action="{{ route('student.bukucatatan.store') }}" method="POST" class="space-y-4">
                 @csrf
+                <input type="hidden" name="_method" id="form-method" value="">
+                <input type="hidden" name="catatan_id" id="form-catatan-id" value="{{ optional($selectedCatatan)->catatan_id }}">
                 <div>
                     <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Judul Catatan</label>
-                    <input type="text" name="judul" required placeholder="Judul catatan..."
+                    <input id="form-judul" type="text" name="judul" required placeholder="Judul catatan..." value="{{ old('judul', optional($selectedCatatan)->judul) }}"
                         class="w-full px-4 py-3 rounded-xl text-sm bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 text-slate-700 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:border-[#75cb50]/50 focus:ring-2 focus:ring-[#75cb50]/10 transition">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Nama Buku</label>
-                    <input type="text" name="nama_buku" required placeholder="Contoh: Biologi Sel"
+                    <input id="form-nama_buku" type="text" name="nama_buku" required placeholder="Contoh: Biologi Sel" value="{{ old('nama_buku', optional($selectedCatatan)->nama_buku) }}"
                         list="daftar-buku-datalist"
                         class="w-full px-4 py-3 rounded-xl text-sm bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 text-slate-700 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:border-[#75cb50]/50 focus:ring-2 focus:ring-[#75cb50]/10 transition">
                     <datalist id="daftar-buku-datalist">
@@ -614,25 +595,26 @@
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Isi Catatan</label>
-                    <textarea name="isi" required rows="5" placeholder="Tulis catatan di sini..."
-                        class="w-full px-4 py-3 rounded-xl text-sm bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 text-slate-700 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:border-[#75cb50]/50 focus:ring-2 focus:ring-[#75cb50]/10 transition resize-none"></textarea>
+                    <textarea id="form-isi" name="isi" required rows="5" placeholder="Tulis catatan di sini..."
+                        class="w-full px-4 py-3 rounded-xl text-sm bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 text-slate-700 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:border-[#75cb50]/50 focus:ring-2 focus:ring-[#75cb50]/10 transition resize-none">{{ old('isi', optional($selectedCatatan)->isi) }}</textarea>
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Tipe</label>
-                        <select name="tipe" class="w-full px-4 py-3 rounded-xl text-sm bg-white dark:bg-[#1a1a1a] border border-black/10 dark:border-white/10 text-slate-700 dark:text-slate-200 focus:outline-none focus:border-[#75cb50]/50 transition">
-                            <option value="Manual">Manual</option>
-                            <option value="Highlight">Sorotan</option>
+                        <select id="form-tipe" name="tipe" class="w-full px-4 py-3 rounded-xl text-sm bg-white dark:bg-[#1a1a1a] border border-black/10 dark:border-white/10 text-slate-700 dark:text-slate-200 focus:outline-none focus:border-[#75cb50]/50 transition">
+                            <option value="Manual" {{ old('tipe', optional($selectedCatatan)->tipe) === 'Manual' ? 'selected' : '' }}>Manual</option>
+                            <option value="Highlight" {{ old('tipe', optional($selectedCatatan)->tipe) === 'Highlight' ? 'selected' : '' }}>Sorotan</option>
+                            <option value="AI" {{ old('tipe', optional($selectedCatatan)->tipe) === 'AI' ? 'selected' : '' }}>AI</option>
                         </select>
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Tags</label>
-                        <input type="text" name="tags" placeholder="Bab 1, Materi, ..."
+                        <input id="form-tags" type="text" name="tags" placeholder="Bab 1, Materi, ..." value="{{ old('tags', optional($selectedCatatan)->tags ? implode(', ', $selectedCatatan->tags) : '') }}"
                             class="w-full px-4 py-3 rounded-xl text-sm bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 text-slate-700 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:border-[#75cb50]/50 focus:ring-2 focus:ring-[#75cb50]/10 transition">
                     </div>
                 </div>
                 <label class="flex items-center gap-2 cursor-pointer">
-                    <input type="checkbox" name="is_penting" value="1"
+                    <input id="form-is-penting" type="checkbox" name="is_penting" value="1" {{ old('is_penting', optional($selectedCatatan)->is_penting) ? 'checked' : '' }}
                         class="w-4 h-4 rounded accent-[#75cb50]">
                     <span class="text-sm font-medium text-slate-600 dark:text-slate-300">Tandai sebagai Penting</span>
                 </label>
@@ -641,7 +623,7 @@
                         class="flex-1 py-3 rounded-xl text-sm font-bold border border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-black/5 dark:hover:bg-white/5 transition">
                         Batal
                     </button>
-                    <button type="submit"
+                    <button id="modal-submit" type="submit"
                         class="flex-1 py-3 rounded-xl text-sm font-bold bg-gradient-to-r from-[#75cb50] to-[#10b981] text-white shadow-[0_4px_15px_rgba(34,197,94,0.25)] hover:shadow-[0_4px_20px_rgba(34,197,94,0.4)] transition-all">
                         Simpan Catatan
                     </button>
@@ -657,8 +639,52 @@
         // ==========================================
         // Modal Buku/Catatan Baru
         // ==========================================
+        const selectedCatatan = @json($selectedCatatan ? $selectedCatatan->toArray() : null);
+
         function openModalBaru() {
             const modal = document.getElementById('modal-baru');
+            const form = document.getElementById('catatan-form');
+            const title = document.getElementById('modal-title');
+            const submit = document.getElementById('modal-submit');
+
+            form.action = "{{ route('student.bukucatatan.store') }}";
+            document.getElementById('form-method').value = '';
+            document.getElementById('form-catatan-id').value = '';
+            document.getElementById('form-judul').value = '';
+            document.getElementById('form-nama_buku').value = '';
+            document.getElementById('form-isi').value = '';
+            document.getElementById('form-tipe').value = 'Manual';
+            document.getElementById('form-tags').value = '';
+            document.getElementById('form-is-penting').checked = false;
+            title.textContent = 'Catatan Baru';
+            submit.textContent = 'Simpan Catatan';
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function openModalEdit(id) {
+            if (!selectedCatatan || String(selectedCatatan.catatan_id) !== String(id)) {
+                return;
+            }
+
+            const modal = document.getElementById('modal-baru');
+            const form = document.getElementById('catatan-form');
+            const title = document.getElementById('modal-title');
+            const submit = document.getElementById('modal-submit');
+
+            form.action = "{{ route('student.bukucatatan.update', ['id' => '__ID__']) }}".replace('__ID__', id);
+            document.getElementById('form-method').value = 'PUT';
+            document.getElementById('form-catatan-id').value = selectedCatatan.catatan_id;
+            document.getElementById('form-judul').value = selectedCatatan.judul || '';
+            document.getElementById('form-nama_buku').value = selectedCatatan.nama_buku || '';
+            document.getElementById('form-isi').value = selectedCatatan.isi || '';
+            document.getElementById('form-tipe').value = selectedCatatan.tipe || 'Manual';
+            document.getElementById('form-tags').value = Array.isArray(selectedCatatan.tags) ? selectedCatatan.tags.join(', ') : '';
+            document.getElementById('form-is-penting').checked = Boolean(selectedCatatan.is_penting);
+            title.textContent = 'Edit Catatan';
+            submit.textContent = 'Simpan Perubahan';
+
             modal.classList.remove('hidden');
             modal.classList.add('flex');
         }

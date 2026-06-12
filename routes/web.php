@@ -102,6 +102,7 @@ Route::middleware([
     Route::get('/bukucatatan', [BukuCatatanController::class, 'index'])->name('student.bukucatatan');
     Route::post('/bukucatatan/export-ai', [BukuCatatanController::class, 'exportFromAi'])->name('student.bukucatatan.export-ai');
     Route::post('/bukucatatan', [BukuCatatanController::class, 'store'])->name('student.bukucatatan.store');
+    Route::put('/bukucatatan/{id}', [BukuCatatanController::class, 'update'])->name('student.bukucatatan.update');
     Route::delete('/bukucatatan/{id}', [BukuCatatanController::class, 'destroy'])->name('student.bukucatatan.destroy');
 
     // 10. Activity Log

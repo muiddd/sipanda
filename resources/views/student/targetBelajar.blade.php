@@ -214,8 +214,11 @@
 
             {{-- Header --}}
             <header class="mb-10 pt-4">
-                <h1 class="font-heading text-4xl font-black text-slate-900 dark:text-white">
+                <h1 class="font-heading text-4xl font-black text-slate-900 dark:text-white flex items-center gap-2">
                     Target <span class="text-[#75cb50]">Belajar</span>
+                    <svg class="w-8 h-8 text-[#75cb50]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
                 </h1>
                 <p class="text-slate-500 dark:text-slate-400 text-sm mt-2 font-medium">
                     Catat dan selesaikan tugasmu hari ini.
@@ -223,18 +226,50 @@
             </header>
 
             {{-- Stat Cards --}}
-            <div class="grid grid-cols-3 gap-5 mb-8" id="stat-cards">
-                <div class="glass px-6 py-4">
-                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Total Tugas</p>
-                    <p class="font-heading text-3xl font-black text-slate-900 dark:text-white mt-1" id="stat-total">0</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8" id="stat-cards">
+                {{-- Card 1: Total Tugas --}}
+                <div class="glass p-6 group cursor-default hover:border-[#75cb50]/40 transition duration-300">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-slate-500 dark:text-slate-400 text-[11px] font-semibold uppercase tracking-wider mb-1">Total Tugas</p>
+                            <h2 class="font-heading text-4xl font-black text-slate-900 dark:text-white mt-1" id="stat-total">0</h2>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-[rgba(34,197,94,0.1)] flex items-center justify-center text-[#10b981] border border-[#75cb50]/20 group-hover:bg-[#75cb50]/20 transition duration-300">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                            </svg>
+                        </div>
+                    </div>
                 </div>
-                <div class="glass px-6 py-4">
-                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Selesai</p>
-                    <p class="font-heading text-3xl font-black text-[#75cb50] mt-1" id="stat-done">0</p>
+
+                {{-- Card 2: Selesai --}}
+                <div class="glass p-6 group cursor-default hover:border-[#75cb50]/40 transition duration-300">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-slate-500 dark:text-slate-400 text-[11px] font-semibold uppercase tracking-wider mb-1">Selesai</p>
+                            <h2 class="font-heading text-4xl font-black text-[#75cb50] drop-shadow-[0_0_10px_rgba(34,197,94,0.3)] mt-1" id="stat-done">0</h2>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-[#75cb50]/10 flex items-center justify-center text-[#75cb50] border border-[#75cb50]/20 group-hover:bg-[#75cb50]/20 transition duration-300">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                    </div>
                 </div>
-                <div class="glass px-6 py-4">
-                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Belum</p>
-                    <p class="font-heading text-3xl font-black text-red-500 mt-1" id="stat-pending">0</p>
+
+                {{-- Card 3: Belum --}}
+                <div class="glass p-6 group cursor-default hover:border-red-500/40 transition duration-300">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-slate-500 dark:text-slate-400 text-[11px] font-semibold uppercase tracking-wider mb-1">Belum Selesai</p>
+                            <h2 class="font-heading text-4xl font-black text-red-500 mt-1" id="stat-pending">0</h2>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500 border border-red-500/20 group-hover:bg-red-500/20 transition duration-300">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            </svg>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -341,7 +376,9 @@
                     {{-- Diisi oleh JS --}}
                 </div>
                 <div id="pending-empty" class="hidden glass px-6 py-8 text-center">
-                    <p class="text-2xl mb-2">🎉</p>
+                    <svg class="w-12 h-12 text-[#75cb50] mx-auto mb-3 animate-pulse" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                    </svg>
                     <p class="text-sm font-bold text-slate-400">Semua tugas selesai!</p>
                 </div>
             </div>
